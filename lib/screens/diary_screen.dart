@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:momsori/screens/diary_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DiaryScreen extends StatefulWidget {
   @override
@@ -26,10 +27,7 @@ class DiaryScreenState extends State<DiaryScreen> {
   late Map<DateTime, List> diarytext;
   late Map<DateTime, List> feeling;
 
-
   late List<dynamic> _selectedEvents;
-
- 
 
   List<dynamic> getEventsForDays(DateTime day) {
     return events[day] ?? [];
@@ -41,28 +39,23 @@ class DiaryScreenState extends State<DiaryScreen> {
     super.initState();
     calendarBuilders = CalendarBuilders();
     events = {
-      DateTime.utc(2021, 10, 3): [0xFFD3E7E4],
-      DateTime.utc(2021, 10, 1): [0xFFD6E2F3],
+      DateTime.utc(2021, 11, 8): [0xFFD3E7E4],
     };
     health = {
-      DateTime.utc(2021, 10, 3): ['assets/icons/Frame 40.svg','?????'],
-      DateTime.utc(2021, 10, 1): ['assets/icons/Frame 40.svg','?????']
+      DateTime.utc(2021, 11, 8): ['assets/icons/1.svg', '?????'],
     };
     feeling = {
-      DateTime.utc(2021, 10, 3): ['우울'],
-      DateTime.utc(2021, 10, 1): ['무기력'],
+      DateTime.utc(2021, 11, 8): ['우울'],
     };
     diarytext = {
-      DateTime.utc(2021, 10, 3): ['하루종일 비가온다 '],
-      DateTime.utc(2021, 10, 1): ['하루종일 비가온다 비가온다아ㅏㅇ'],
+      DateTime.utc(2021, 11, 8): ['하루종일 비가온다 '],
     };
-    _selectedEvents = [];
+    _selectedEvents = [DateTime(2021, 11, 8)];
     // edit();
   }
 
   @override
   void dispose() {
-
     //  _eventController.dispose();
     super.dispose();
   }
@@ -72,7 +65,8 @@ class DiaryScreenState extends State<DiaryScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
+      padding: EdgeInsets.fromLTRB(
+          width * 0.03, height * 0.014, width * 0.03, height * 0.014),
       child: ListView(
         children: <Widget>[
           Container(
@@ -80,14 +74,15 @@ class DiaryScreenState extends State<DiaryScreen> {
               children: [
                 Text(
                   '다이어리',
-                  style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: width * 0.061, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: height * 0.014),
           Container(
-            padding: EdgeInsets.all(1),
+            padding: EdgeInsets.all(height * 0.00146),
             child: Row(
               children: [
                 Text(
@@ -99,27 +94,30 @@ class DiaryScreenState extends State<DiaryScreen> {
                       ' 출산예정 / ' +
                       'd_120 / ' +
                       '32주차',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: width * 0.039),
                 ),
               ],
             ),
           ),
           Container(
             child: TableCalendar(
-              daysOfWeekHeight: 25.0,
-              rowHeight: 60,
+              daysOfWeekHeight: height * 0.036,
+              rowHeight: height * 0.0877,
               //locale: 'ko-KR',
               focusedDay: DateTime.now(),
               firstDay: DateTime(2000),
               lastDay: DateTime(2050),
               headerStyle: HeaderStyle(
-                headerMargin:
-                    EdgeInsets.only(left: 40, top: 2, right: 40, bottom: 10),
+                headerMargin: EdgeInsets.only(
+                    left: width * 0.097,
+                    top: height * 0.007,
+                    right: width * 0.097,
+                    bottom: height * 0.007),
                 titleCentered: true,
                 formatButtonVisible: false,
                 leftChevronIcon: Icon(Icons.arrow_left),
                 rightChevronIcon: Icon(Icons.arrow_right),
-                titleTextStyle: const TextStyle(fontSize: 17.0),
+                titleTextStyle: TextStyle(fontSize: width * 0.041),
               ),
               calendarStyle: CalendarStyle(
                 todayTextStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -146,12 +144,9 @@ class DiaryScreenState extends State<DiaryScreen> {
                 return isSameDay(selectedDay, date);
               },
 
-
               calendarBuilders: makemarkerbuilder(events),
 
-           
               eventLoader: getEventsForDays,
-
 
               onDaySelected: (DateTime selectDay, DateTime focusDay) {
                 setState(() {
@@ -173,14 +168,12 @@ class DiaryScreenState extends State<DiaryScreen> {
                   String healthText;
                   String healthIcon;
                   if (health[selectDay] == null) {
-                    healthIcon = ' ';
-                    healthText= ' ';
+                    healthIcon = 'assets/icons/No_image.svg';
+                    healthText = ' ';
                   } else {
                     healthIcon = health[selectedDay]![0];
                     healthText = health[selectedDay]![1];
                   }
-               
-                  
 
                   String diaryText;
                   if (diarytext[selectDay] == null) {
@@ -194,8 +187,6 @@ class DiaryScreenState extends State<DiaryScreen> {
                   } else {
                     Feeling = feeling[selectedDay]![0];
                   }
-                  
-
 
                   showModalBottomSheet(
                     context: context,
@@ -205,9 +196,9 @@ class DiaryScreenState extends State<DiaryScreen> {
                     backgroundColor: Colors.white,
                     builder: (context) {
                       return Container(
-                        height: 350,
+                        height: height * 0.512,
                         child: Container(
-                          padding: EdgeInsets.only(top: 10),
+                          padding: EdgeInsets.only(top: height * 0.0146),
                           child: ListView(
                             children: [
                               Row(
@@ -215,7 +206,8 @@ class DiaryScreenState extends State<DiaryScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    padding: const EdgeInsets.only(left: 20),
+                                    padding:
+                                        EdgeInsets.only(left: width * 0.0486),
                                     // child: Text(
                                     //   today[1] + '/' + today[2],
                                     //   style: TextStyle(
@@ -225,16 +217,16 @@ class DiaryScreenState extends State<DiaryScreen> {
                                     child: Text(
                                       '$year.$month.$day (32주차)',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: width * 0.0486,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   Container(
                                     child: IconButton(
-                                      // padding: EdgeInsets.only(right: 0),
+                                       padding: EdgeInsets.only(right:width*0.024 ),
                                       icon: Icon(
                                         Icons.close,
-                                        size: 30,
+                                        size: width*0.073,
                                       ),
                                       onPressed: () {},
                                     ),
@@ -242,7 +234,8 @@ class DiaryScreenState extends State<DiaryScreen> {
                                 ],
                               ),
                               Container(
-                                padding: EdgeInsets.only(left: 20, top: 5,right: 20, bottom: 20),
+                                padding: EdgeInsets.only(
+                                    left: width*0.05, top: 0.007, right: width*0.05, bottom: height*0.315),
                                 child: Column(
                                   children: [
                                     Row(
@@ -250,58 +243,54 @@ class DiaryScreenState extends State<DiaryScreen> {
                                         Text(
                                           '감정상태/건강상태',
                                           style: TextStyle(
-                                              fontSize: 15,
+                                              fontSize: width*0.036,
                                               fontWeight: FontWeight.bold),
                                         )
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 10,
+                                      height: height*0.015,
                                     ),
                                     Row(
                                       children: [
-
                                         Column(
                                           children: [
                                             Icon(
                                               Icons.circle,
                                               color: Color(colors),
-                                              size: 36,
+                                              size: width*0.09,
                                             ),
                                             Text(
                                               Feeling,
                                               style: TextStyle(
-                                                  fontSize: 11,
+                                                  fontSize: width*0.028,
                                                   fontWeight: FontWeight.w600),
                                             )
                                           ],
-
                                         ),
                                         SizedBox(
-                                          width: 10,
+                                          width:  height*0.015,
                                         ),
-
                                         Column(
                                           children: [
                                             SvgPicture.asset(
                                               healthIcon,
-                                              width: 36,
-                                              height: 36,
+                                              width: width*0.09,
+                                              height: width*0.09,
                                             ),
                                             Text(
                                               healthText,
                                               style: TextStyle(
-                                                  fontSize: 11,
+                                                  fontSize: width*0.028,
                                                   fontWeight: FontWeight.w600),
                                             )
                                           ],
-
                                         ),
                                       ],
                                     ),
                                     Container(
                                       padding: EdgeInsets.only(
-                                          left: 0, top: 10, right: 20),
+                                          left: 0, top: height*0.0146, right: width*0.045),
                                       child: Column(
                                         children: [
                                           Row(
@@ -309,14 +298,14 @@ class DiaryScreenState extends State<DiaryScreen> {
                                               Text(
                                                 '녹음파일',
                                                 style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: width*0.036,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )
                                             ],
                                           ),
                                           SizedBox(
-                                            height: 10,
+                                            height: height*0.015,
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -328,16 +317,16 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                   children: [
                                                     SvgPicture.asset(
                                                       'assets/icons/play_arrow-24px_3.svg',
-                                                      width: 36,
+                                                      width: width*0.087,
                                                     ),
                                                     Container(
-                                                      width: 100,
+                                                      width: width*0.243,
                                                       child: Text(
                                                         '열자를 넘게하면 이렇게 됨!',
                                                         style: TextStyle(
-                                                            fontSize: 10),
-                                                        overflow:
-                                                            TextOverflow.ellipsis,
+                                                            fontSize: width*0.024),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                       ),
                                                     )
                                                   ],
@@ -347,14 +336,14 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                 children: [
                                                   SvgPicture.asset(
                                                     'assets/icons/play_arrow-24px_3.svg',
-                                                    width: 36,
+                                                    width: width*0.087,
                                                   ),
                                                   Container(
-                                                    width: 100,
+                                                    width: width*0.243,
                                                     child: Text(
                                                       '열자를 넘게하면 이렇게 됨!',
                                                       style: TextStyle(
-                                                          fontSize: 10),
+                                                          fontSize: width*0.024),
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
@@ -365,14 +354,14 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                 children: [
                                                   SvgPicture.asset(
                                                     'assets/icons/play_arrow-24px_3.svg',
-                                                    width: 36,
+                                                    width: width*0.087,
                                                   ),
                                                   Container(
-                                                    width: 100,
+                                                    width: width*0.243,
                                                     child: Text(
                                                       '열자를 넘게하면 이렇게 됨!',
                                                       style: TextStyle(
-                                                          fontSize: 10),
+                                                          fontSize: width*0.024),
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
@@ -385,7 +374,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                                       ),
                                     ),
                                     Container(
-                                      padding: EdgeInsets.only(top: 10),
+                                      padding: EdgeInsets.only(top: width*0.024),
                                       child: Column(
                                         children: [
                                           Row(
@@ -393,31 +382,29 @@ class DiaryScreenState extends State<DiaryScreen> {
                                               Text(
                                                 '메모',
                                                 style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: width*0.036,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )
                                             ],
                                           ),
                                           SizedBox(
-                                            height: 7,
+                                            height: height*0.012,
                                           ),
-                                         
                                           Container(
-                                            //color: Color(0xFFE5E5E5),
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFE5E5E5),
-                                              borderRadius: BorderRadius.circular(5)
-                                              
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Text(diaryText,),
-                                            )
-                                            ),
-                                          
-                                          
+                                              //color: Color(0xFFE5E5E5),
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xFFE5E5E5),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              child: Padding(
+                                                padding:
+                                                     EdgeInsets.all(8.0.h),
+                                                child: Text(
+                                                  diaryText,
+                                                ),
+                                              )),
                                         ],
                                       ),
                                     )
@@ -437,19 +424,15 @@ class DiaryScreenState extends State<DiaryScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+            padding:  EdgeInsets.fromLTRB(0, 0, width*0.036, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
                   onTap: () async {
-                    // Navigator.of(context).push(
-                    //   //Default page transition of IOS
-                    //   CupertinoPageRoute(
-                    //     builder: (context) => DiaryEdit(),
-                    //   ),
-                    // );
-
+                    print(height);
+                    print(width);
+                    print(MediaQuery.of(context).size);
                     final eventsdata = await Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -465,15 +448,13 @@ class DiaryScreenState extends State<DiaryScreen> {
                       health = eventsdata[1];
                       diarytext = eventsdata[2];
                       feeling = eventsdata[3];
-                      print(events);
-                      print(health);
-                      print(selectedDay);
+                      selectedDay = eventsdata[4];
                     });
                   },
                   child: SvgPicture.asset(
                     'assets/icons/edit button.svg',
-                    height: 70,
-                    width: 70,
+                    height: 70.h,
+                    width: 70.w,
                   ),
                 ),
               ],
@@ -505,8 +486,8 @@ class DiaryScreenState extends State<DiaryScreen> {
       // }
       if (health[date] == null) {
         return Container(
-          width: 45,
-          height: 45,
+          width: 45.w,
+          height: 45.h,
           decoration: BoxDecoration(
               //backgroundBlendMode: BlendMode. ,
               color: Color(events[date]![0]),
@@ -520,8 +501,8 @@ class DiaryScreenState extends State<DiaryScreen> {
       return Stack(
         children: [
           Container(
-            width: 45,
-            height: 45,
+            width: 45.w,
+            height: 45.h,
             decoration: BoxDecoration(
                 //backgroundBlendMode: BlendMode. ,
                 color: Color(events[date]![0]),
@@ -531,8 +512,8 @@ class DiaryScreenState extends State<DiaryScreen> {
             child: Center(child: Text(date.day.toString())),
           ),
           Container(
-            width: 20,
-            height: 20,
+            width: 20.w,
+            height: 20.h,
             child: SvgPicture.asset(health[date]![0]),
           ),
         ],
@@ -541,17 +522,6 @@ class DiaryScreenState extends State<DiaryScreen> {
   }
 }
 
-
-Widget _buildEventsMarker(DateTime date) {
-  return AnimatedContainer(
-    duration: const Duration(milliseconds: 300),
-    margin: const EdgeInsets.all(4.0),
-    alignment: Alignment.center,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(36.0),
-        border: Border.all(width: 2, color: Colors.blue[300]!)),
-  );
-}
 
 Widget buildBottomSheet(BuildContext context) {
   return Container();

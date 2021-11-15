@@ -7,7 +7,7 @@ class HealthButton extends StatelessWidget {
   String image;
   String healthtext;
 
-  HealthButton(this.health, this.selectDay, this.image,this.healthtext);
+  HealthButton(this.health, this.selectDay, this.image, this.healthtext);
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -17,9 +17,14 @@ class HealthButton extends StatelessWidget {
         health[selectDay] = [image];
         health[selectDay]!.add(healthtext);
 
+
         print(health[selectDay]);
+        print(selectDay);
       },
       icon: SvgPicture.asset(image),
+      highlightColor: Colors.black,
+      focusNode: FocusNode(),
+      
     );
   }
 }
