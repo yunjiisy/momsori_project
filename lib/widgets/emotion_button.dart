@@ -15,22 +15,34 @@ class EmotionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      constraints: BoxConstraints(),
-      padding: EdgeInsets.only(top: 0),
-      onPressed: () {
-        //change Icon color when pressed
-        events[selectDay] = [color];
-        feeling[selectDay] = [feelingText];
-        print('하하하하');
+    DateTime date = DateTime.now();
+    bool valDate = date.isBefore(selectDay);
 
-        print(events[selectDay]);
-        print(feeling[selectDay]);
-      },
-      icon: Icon(
-        Icons.circle,
-        color: Color(color),
-      ),
+    return Column(
+      children: [
+        IconButton(
+          constraints: BoxConstraints(),
+          padding: EdgeInsets.only(top: 0),
+          onPressed: () {
+            //change Icon color when pressed
+            if (valDate) {
+
+            } else {
+              events[selectDay] = [color];
+              feeling[selectDay] = [feelingText];
+              print('하하하하');
+
+              print(events[selectDay]);
+              print(feeling[selectDay]);
+            }
+          },
+          icon: Icon(
+            Icons.circle,
+            color: Color(color),
+          ),
+        ),
+        Text(feelingText)
+      ],
     );
   }
 }

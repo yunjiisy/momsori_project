@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class DiaryEdit extends StatefulWidget {
   // DiaryEdit(Map<DateTime, List> events, [DateTime selectedday]);
   Map<DateTime, List> events;
@@ -46,38 +45,24 @@ class DiaryEditState extends State<DiaryEdit> {
     _day = selectDay.day.toString();
     _month = selectDay.month.toString();
 
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            '다이어리 등록',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Colors.white,
-          elevation: 5.0,
-          leading: IconButton(
-              onPressed: () {
-                widget.events.remove(widget.selectedDay);
-                widget.health.remove(widget.selectedDay);
-                //widget.health.remove(widget.selectedDay);
-
-                Navigator.pop(context, [
-                  widget.events,
-                  widget.health,
-                  widget.diarytext,
-                  widget.feeling,
-                  widget.selectedDay
-                ]);
-                print("ㅠㅠㅠ이벤트");
-              },
-              icon: Icon(Icons.arrow_back)),
-          actions: [
-            TextButton(
+    DateTime date = DateTime.now();
+    bool valDate = date.isAfter(widget.selectedDay);
+    if (valDate) {
+      return GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              '다이어리 등록',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 5.0,
+            leading: IconButton(
                 onPressed: () {
-                  if (widget.events[widget.selectedDay] == null) {
-                    widget.events[widget.selectedDay] = [0xffffff];
-                  }
+                  widget.events.remove(widget.selectedDay);
+                  widget.health.remove(widget.selectedDay);
+                  //widget.health.remove(widget.selectedDay);
 
                   Navigator.pop(context, [
                     widget.events,
@@ -86,352 +71,518 @@ class DiaryEditState extends State<DiaryEdit> {
                     widget.feeling,
                     widget.selectedDay
                   ]);
-
-                  print(widget.events);
+                  print("ㅠㅠㅠ이벤트");
                 },
-                child: Text(
-                  '확인',
-                  style: TextStyle(
-                      fontSize: width*0.044,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ))
-          ],
-        ),
-        body: Padding(
-          padding: EdgeInsets.fromLTRB(width*0.024, height*0.007, width*0.024, height*0.007),
-          child: ListView(children: [
-            Row(
-              children: [
-                Container(
-                  //width: double.maxFinite,
-                  width: width*0.95,
-                  height: height*0.073,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _myDatePicker();
-                    },
-                    child: Text(
-                      '$_year 년 $_month 월 $_day 일',
-                      // '$widget.selectedDay',
-                      style: TextStyle(
-                          fontSize: width*0.048,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        elevation: 0.0,
-                        side: BorderSide(color: Colors.black)),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              padding:  EdgeInsets.only(top: 10.h, bottom: 10.h, left: 10.w),
-              child: Row(
-                children: [
-                  Text(
-                    '감정상태',
-                    style: TextStyle(fontSize: width*0.044),
-                  )
-                ],
-              ),
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFE2EAD2,
-                        widget.feeling = widget.feeling,
-                        '무기력'),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFD3E7E4,
-                        widget.feeling = widget.feeling,
-                        "분노"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFD3EBF4,
-                        widget.feeling = widget.feeling,
-                        "예민"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFD6E2F3,
-                        widget.feeling = widget.feeling,
-                        "감정기복"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFD7D5E4,
-                        widget.feeling = widget.feeling,
-                        "피곤함"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFD7D5EA,
-                        widget.feeling = widget.feeling,
-                        "불안"),
-                  ],
-                ),
-                SizedBox(
-                  height: height*0.026,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFECA8C4,
-                        widget.feeling = widget.feeling,
-                        "우울"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFEFC2D9,
-                        widget.feeling = widget.feeling,
-                        "평온"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFF2CDCA,
-                        widget.feeling = widget.feeling,
-                        "설레임"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0xFFF6E1CD,
-                        widget.feeling = widget.feeling,
-                        "기쁨"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        selectDay = selectDay,
-                        0xFFFBF4D8,
-                        widget.feeling = widget.feeling,
-                        "활기찬"),
-                    EmotionButton(
-                        widget.events = widget.events,
-                        widget.selectedDay = widget.selectedDay,
-                        0XFFFFFFFF,
-                        widget.feeling = widget.feeling,
-                        "기본"),
-                  ],
-                ),
-              ],
-            ),
-            Container(
-              padding:  EdgeInsets.only(top: 10.h, bottom: 10.h, left: 10.w),
-              child: Row(
-                children: [
-                  Text(
-                    '건강상태',
-                    style: TextStyle(fontSize: width*0.044),
-                  )
-                ],
-              ),
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/1.svg',
-                        healthtext = '괜찮음'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 40.svg',
-                        healthtext = '태동'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 41.svg',
-                        healthtext = '배뭉침'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 42.svg',
-                        healthtext = '배당김'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 43.svg',
-                        healthtext = '복통'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 44.svg',
-                        healthtext = '입덧'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 51.svg',
-                        healthtext = '두통'),
-                  ],
-                ),
-                SizedBox(
-                  height: height*0.026,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 45.svg',
-                        healthtext = '다리부종'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 46.svg',
-                        healthtext = '소화불량'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 47.svg',
-                        healthtext = '변비'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 48.svg',
-                        healthtext = '갈비뼈/치골'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 48.svg',
-                        healthtext = '요통'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 52.svg',
-                        healthtext = '불면증'),
-                    HealthButton(
-                        widget.health = widget.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 50.svg',
-                        healthtext = '어지러움'),
-                  ],
-                ),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.all(width*0.024),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        '메모',
-                        style: TextStyle(
-                          fontSize: width*0.044,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: width*0.024,
-                  ),
+                icon: Icon(Icons.arrow_back)),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    if (widget.events[widget.selectedDay] == null) {
+                      widget.events[widget.selectedDay] = [0xffffff];
+                    }
 
+                    Navigator.pop(context, [
+                      widget.events,
+                      widget.health,
+                      widget.diarytext,
+                      widget.feeling,
+                      widget.selectedDay
+                    ]);
+
+                    print(widget.events);
+                  },
+                  child: Text(
+                    '확인',
+                    style: TextStyle(
+                        fontSize: width * 0.044,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ))
+            ],
+          ),
+          body: Padding(
+            padding: EdgeInsets.fromLTRB(
+                width * 0.024, height * 0.007, width * 0.024, height * 0.007),
+            child: ListView(children: [
+              Row(
+                children: [
                   Container(
-                    child: TextFormField(
-                      onChanged: (text) {
-                        setState(() {
-                          widget.diarytext[widget.selectedDay] = [text];
-                        });
+                    //width: double.maxFinite,
+                    width: width * 0.95,
+                    height: height * 0.073,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _myDatePicker();
                       },
-                      textInputAction: TextInputAction.done,
-                      maxLength: 500,
-                      keyboardType: TextInputType.multiline,
-                      minLines: 3,
-                      maxLines: null,
-                      cursorColor: Color(0xFFFFA9A9),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(width*0.012),
-                        hintText: "메모를 입력하세요.",
-                        hintStyle: TextStyle(color: Colors.grey[500]),
-                        filled: true,
-                        fillColor: Color(0xFFE5E5E5),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
+                      child: Text(
+                        '$_year 년 $_month 월 $_day 일',
+                        // '$widget.selectedDay',
+                        style: TextStyle(
+                            fontSize: width * 0.048,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black),
                       ),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          elevation: 0.0,
+                          side: BorderSide(color: Colors.black)),
                     ),
                   ),
                 ],
               ),
-            ),
-            Container(
-              padding: EdgeInsets.all(width*0.024),
-              child: Column(
+              Container(
+                padding: EdgeInsets.only(top: 10.h, bottom: 10.h, left: 10.w),
+                child: Row(
+                  children: [
+                    Text(
+                      '감정상태',
+                      style: TextStyle(fontSize: width * 0.044),
+                    )
+                  ],
+                ),
+              ),
+              Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        '녹음',
-                        style: TextStyle(
-                          fontSize: width*0.044,
-                        ),
-                      )
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFE2EAD2,
+                          widget.feeling = widget.feeling,
+                          '무기력'),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFD3E7E4,
+                          widget.feeling = widget.feeling,
+                          "분노"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFD3EBF4,
+                          widget.feeling = widget.feeling,
+                          "예민"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFD6E2F3,
+                          widget.feeling = widget.feeling,
+                          "감정기복"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFD7D5E4,
+                          widget.feeling = widget.feeling,
+                          "피곤함"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFD7D5EA,
+                          widget.feeling = widget.feeling,
+                          "불안"),
                     ],
                   ),
                   SizedBox(
-                    height: height*0.022,
+                    height: height * 0.026,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      InkWell(
-                        onTap: () {
-                          Get.to(RecoderScreen(),
-                              transition: Transition.downToUp);
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icons/record_ic.svg',
-                          width: width*0.146,
-                          height: width*0.146,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.to(RecoderScreen(),
-                              transition: Transition.downToUp);
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icons/record_ic.svg',
-                          width: width*0.146,
-                          height: width*0.146,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.to(RecoderScreen(),
-                              transition: Transition.downToUp);
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icons/record_ic.svg',
-                          width: width*0.146,
-                          height: width*0.146,
-                        ),
-                      )
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFECA8C4,
+                          widget.feeling = widget.feeling,
+                          "우울"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFEFC2D9,
+                          widget.feeling = widget.feeling,
+                          "평온"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFF2CDCA,
+                          widget.feeling = widget.feeling,
+                          "설레임"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0xFFF6E1CD,
+                          widget.feeling = widget.feeling,
+                          "기쁨"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          selectDay = selectDay,
+                          0xFFFBF4D8,
+                          widget.feeling = widget.feeling,
+                          "활기찬"),
+                      EmotionButton(
+                          widget.events = widget.events,
+                          widget.selectedDay = widget.selectedDay,
+                          0XFFFFFFFF,
+                          widget.feeling = widget.feeling,
+                          "기본"),
                     ],
-                  )
+                  ),
                 ],
               ),
-            ),
-          ]),
+              Container(
+                padding: EdgeInsets.only(top: 10.h, bottom: 10.h, left: 10.w),
+                child: Row(
+                  children: [
+                    Text(
+                      '건강상태',
+                      style: TextStyle(fontSize: width * 0.044),
+                    )
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/1.svg',
+                          healthtext = '괜찮음'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 40.svg',
+                          healthtext = '태동'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 41.svg',
+                          healthtext = '배뭉침'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 42.svg',
+                          healthtext = '배당김'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 43.svg',
+                          healthtext = '복통'),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.026,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 44.svg',
+                          healthtext = '입덧'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 51.svg',
+                          healthtext = '두통'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 45.svg',
+                          healthtext = '다리부종'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 46.svg',
+                          healthtext = '소화불량'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 47.svg',
+                          healthtext = '변비'),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.026,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 48.svg',
+                          healthtext = '갈비뼈'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 48.svg',
+                          healthtext = '치골'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 48.svg',
+                          healthtext = '요통'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 52.svg',
+                          healthtext = '불면증'),
+                      HealthButton(
+                          widget.health = widget.health,
+                          widget.selectedDay = widget.selectedDay,
+                          'assets/icons/Frame 50.svg',
+                          healthtext = '어지러움'),
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.all(width * 0.024),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '메모',
+                          style: TextStyle(
+                            fontSize: width * 0.044,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: width * 0.024,
+                    ),
+                    Container(
+                      child: TextFormField(
+                        onChanged: (text) {
+                          setState(() {
+                            widget.diarytext[widget.selectedDay] = [text];
+                          });
+                        },
+                        textInputAction: TextInputAction.done,
+                        maxLength: 500,
+                        keyboardType: TextInputType.multiline,
+                        minLines: 3,
+                        maxLines: null,
+                        cursorColor: Color(0xFFFFA9A9),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(width * 0.012),
+                          hintText: "메모를 입력하세요.",
+                          hintStyle: TextStyle(color: Colors.grey[500]),
+                          filled: true,
+                          fillColor: Color(0xFFE5E5E5),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(width * 0.024),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '녹음',
+                          style: TextStyle(
+                            fontSize: width * 0.044,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * 0.022,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.to(RecoderScreen(),
+                                transition: Transition.downToUp);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/icons/record_ic.svg',
+                            width: width * 0.146,
+                            height: width * 0.146,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.to(RecoderScreen(),
+                                transition: Transition.downToUp);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/icons/record_ic.svg',
+                            width: width * 0.146,
+                            height: width * 0.146,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.to(RecoderScreen(),
+                                transition: Transition.downToUp);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/icons/record_ic.svg',
+                            width: width * 0.146,
+                            height: width * 0.146,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ]),
+          ),
         ),
-      ),
-    );
+      );
+    }
+    else{
+      return GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              '다이어리 등록',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 5.0,
+            leading: IconButton(
+                onPressed: () {
+                  widget.events.remove(widget.selectedDay);
+                  widget.health.remove(widget.selectedDay);
+                  //widget.health.remove(widget.selectedDay);
+
+                  Navigator.pop(context, [
+                    widget.events,
+                    widget.health,
+                    widget.diarytext,
+                    widget.feeling,
+                    widget.selectedDay
+                  ]);
+                  print("ㅠㅠㅠ이벤트");
+                },
+                icon: Icon(Icons.arrow_back)),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    if (widget.events[widget.selectedDay] == null) {
+                      widget.events[widget.selectedDay] = [0xffffff];
+                    }
+
+                    Navigator.pop(context, [
+                      widget.events,
+                      widget.health,
+                      widget.diarytext,
+                      widget.feeling,
+                      widget.selectedDay
+                    ]);
+
+                    print(widget.events);
+                  },
+                  child: Text(
+                    '확인',
+                    style: TextStyle(
+                        fontSize: width * 0.044,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ))
+            ],
+          ),
+          body: Padding(
+            padding: EdgeInsets.fromLTRB(
+                width * 0.024, height * 0.007, width * 0.024, height * 0.007),
+            child: ListView(children: [
+              Row(
+                children: [
+                  Container(
+                    //width: double.maxFinite,
+                    width: width * 0.95,
+                    height: height * 0.073,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _myDatePicker();
+                      },
+                      child: Text(
+                        '$_year 년 $_month 월 $_day 일',
+                        // '$widget.selectedDay',
+                        style: TextStyle(
+                            fontSize: width * 0.048,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          elevation: 0.0,
+                          side: BorderSide(color: Colors.black)),
+                    ),
+                  ),
+                ],
+              ),
+             
+              Container(
+                padding: EdgeInsets.all(width * 0.024),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '메모',
+                          style: TextStyle(
+                            fontSize: width * 0.044,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: width * 0.024,
+                    ),
+                    Container(
+                      child: TextFormField(
+                        onChanged: (text) {
+                          setState(() {
+                            widget.diarytext[widget.selectedDay] = [text];
+                          });
+                        },
+                        textInputAction: TextInputAction.done,
+                        maxLength: 500,
+                        keyboardType: TextInputType.multiline,
+                        minLines: 3,
+                        maxLines: null,
+                        cursorColor: Color(0xFFFFA9A9),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(width * 0.012),
+                          hintText: "메모를 입력하세요.",
+                          hintStyle: TextStyle(color: Colors.grey[500]),
+                          filled: true,
+                          fillColor: Color(0xFFE5E5E5),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          ),
+        ),
+      );
+
+    }
+    
   }
 
   _myDatePicker() {
@@ -449,7 +600,6 @@ class DiaryEditState extends State<DiaryEdit> {
               var date1 = DateFormat("yyyy-MM-dd HH:mm:ss.sss'Z'").format(date);
               print("date1은???" + date1);
               date = DateTime.parse(date1);
-
 
               //date = DateTime.parse('2020-01-02 03:04:000');
 
