@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:momsori/screens/diary_edit.dart';
 
-class EmotionButton extends StatelessWidget {
+class EmotionButton extends StatefulWidget {
   //EmotionButton(Map<DateTime, List> map, [DateTime dateTime]);
 
   Map<DateTime, List> events;
@@ -14,34 +14,35 @@ class EmotionButton extends StatelessWidget {
       this.events, this.selectDay, this.color, this.feeling, this.feelingText);
 
   @override
-  Widget build(BuildContext context) {
-    DateTime date = DateTime.now();
-    bool valDate = date.isBefore(selectDay);
+  State<EmotionButton> createState() => _EmotionButtonState();
+}
 
+class _EmotionButtonState extends State<EmotionButton> {
+  bool _hasBeenPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
-        IconButton(
+        new IconButton(
           constraints: BoxConstraints(),
           padding: EdgeInsets.only(top: 0),
           onPressed: () {
             //change Icon color when pressed
-            if (valDate) {
-
-            } else {
-              events[selectDay] = [color];
-              feeling[selectDay] = [feelingText];
-              print('하하하하');
-
-              print(events[selectDay]);
-              print(feeling[selectDay]);
-            }
+            widget.events[widget.selectDay] = [widget.color];
+            widget.feeling[widget.selectDay] = [widget.feelingText];
+            // print(events[selectDay]);
+            // print(feeling[selectDay]);
+            setState(() {
+              _hasBeenPressed = !_hasBeenPressed;
+            });
           },
           icon: Icon(
             Icons.circle,
-            color: Color(color),
+            color: _hasBeenPressed ? Colors.black12 : Color(widget.color),
           ),
         ),
-        Text(feelingText)
+        Text(widget.feelingText)
       ],
     );
   }

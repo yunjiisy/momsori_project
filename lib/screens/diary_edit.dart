@@ -13,6 +13,7 @@ class DiaryEdit extends StatefulWidget {
   // DiaryEdit(Map<DateTime, List> events, [DateTime selectedday]);
   Map<DateTime, List> events;
   DateTime selectedDay;
+
   Map<DateTime, List> health;
   Map<DateTime, List> diarytext;
   Map<DateTime, List> feeling;
@@ -45,9 +46,14 @@ class DiaryEditState extends State<DiaryEdit> {
     _day = selectDay.day.toString();
     _month = selectDay.month.toString();
 
-    DateTime date = DateTime.now();
-    bool valDate = date.isAfter(widget.selectedDay);
-    if (valDate) {
+    final DateTime date = DateTime.now();
+    DateTime date_now = DateTime(date.year, date.month, date.day);
+    DateTime date_selected =
+        DateTime(selectDay.year, selectDay.month, selectDay.day);
+
+    bool valDate = widget.selectedDay.isBefore(date);
+
+    if (valDate || date_now == date_selected) {
       return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
@@ -59,21 +65,25 @@ class DiaryEditState extends State<DiaryEdit> {
             backgroundColor: Colors.white,
             elevation: 5.0,
             leading: IconButton(
-                onPressed: () {
-                  widget.events.remove(widget.selectedDay);
-                  widget.health.remove(widget.selectedDay);
-                  //widget.health.remove(widget.selectedDay);
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                widget.events.remove(widget.selectedDay);
+                widget.health.remove(widget.selectedDay);
+                //widget.health.remove(widget.selectedDay);
 
-                  Navigator.pop(context, [
-                    widget.events,
-                    widget.health,
-                    widget.diarytext,
-                    widget.feeling,
-                    widget.selectedDay
-                  ]);
-                  print("ㅠㅠㅠ이벤트");
-                },
-                icon: Icon(Icons.arrow_back)),
+                Navigator.pop(context, [
+                  widget.events,
+                  widget.health,
+                  widget.diarytext,
+                  widget.feeling,
+                  widget.selectedDay
+                ]);
+                print("ㅠㅠㅠ이벤트");
+              },
+            ),
             actions: [
               TextButton(
                   onPressed: () {
@@ -146,37 +156,37 @@ class DiaryEditState extends State<DiaryEdit> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFE2EAD2,
                           widget.feeling = widget.feeling,
                           '무기력'),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD3E7E4,
                           widget.feeling = widget.feeling,
                           "분노"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD3EBF4,
                           widget.feeling = widget.feeling,
                           "예민"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD6E2F3,
                           widget.feeling = widget.feeling,
                           "감정기복"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD7D5E4,
                           widget.feeling = widget.feeling,
                           "피곤함"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD7D5EA,
@@ -190,37 +200,37 @@ class DiaryEditState extends State<DiaryEdit> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFECA8C4,
                           widget.feeling = widget.feeling,
                           "우울"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFEFC2D9,
                           widget.feeling = widget.feeling,
                           "평온"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFF2CDCA,
                           widget.feeling = widget.feeling,
                           "설레임"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFF6E1CD,
                           widget.feeling = widget.feeling,
                           "기쁨"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           selectDay = selectDay,
                           0xFFFBF4D8,
                           widget.feeling = widget.feeling,
                           "활기찬"),
-                      EmotionButton(
+                      new EmotionButton(
                           widget.events = widget.events,
                           widget.selectedDay = widget.selectedDay,
                           0XFFFFFFFF,
@@ -447,8 +457,7 @@ class DiaryEditState extends State<DiaryEdit> {
           ),
         ),
       );
-    }
-    else{
+    } else {
       return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
@@ -474,7 +483,10 @@ class DiaryEditState extends State<DiaryEdit> {
                   ]);
                   print("ㅠㅠㅠ이벤트");
                 },
-                icon: Icon(Icons.arrow_back)),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                )),
             actions: [
               TextButton(
                   onPressed: () {
@@ -531,7 +543,6 @@ class DiaryEditState extends State<DiaryEdit> {
                   ),
                 ],
               ),
-             
               Container(
                 padding: EdgeInsets.all(width * 0.024),
                 child: Column(
@@ -580,9 +591,7 @@ class DiaryEditState extends State<DiaryEdit> {
           ),
         ),
       );
-
     }
-    
   }
 
   _myDatePicker() {
