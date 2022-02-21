@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:momsori/screens/diary_edit.dart';
+import 'package:momsori/getx_controller/diary_controller.dart';
+import 'package:get/get.dart';
 
 class EmotionButton extends StatefulWidget {
   //EmotionButton(Map<DateTime, List> map, [DateTime dateTime]);
@@ -22,6 +23,7 @@ class _EmotionButtonState extends State<EmotionButton> {
 
   @override
   Widget build(BuildContext context) {
+    final diaryController = Get.put(DiaryController());
     return Column(
       children: [
         new IconButton(
@@ -29,10 +31,11 @@ class _EmotionButtonState extends State<EmotionButton> {
           padding: EdgeInsets.only(top: 0),
           onPressed: () {
             //change Icon color when pressed
-            widget.events[widget.selectDay] = [widget.color];
-            widget.feeling[widget.selectDay] = [widget.feelingText];
-            // print(events[selectDay]);
-            // print(feeling[selectDay]);
+            diaryController.events[widget.selectDay] = [widget.color];
+            diaryController.feeling[widget.selectDay] = [widget.feelingText];
+
+            //print(events[selectDay]);
+            //print(feeling[selectDay]);
             setState(() {
               _hasBeenPressed = !_hasBeenPressed;
             });

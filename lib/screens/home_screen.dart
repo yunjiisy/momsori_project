@@ -135,7 +135,7 @@ class HomeScreen extends StatelessWidget {
             right: 10,
           ),
           child: Image.asset(
-            "assets/images/gif_check.gif",
+            "assets/images/확인용.gif",
             height: 171.h,
             width: 185.w,
           ),

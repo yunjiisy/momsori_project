@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:momsori/screens/recoder_screen.dart';
 import 'package:momsori/widgets/emotion_button.dart';
@@ -8,24 +7,30 @@ import 'package:momsori/widgets/health_button.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momsori/getx_controller/diary_controller.dart';
+import 'diary_screen.dart';
 
 class DiaryEdit extends StatefulWidget {
   // DiaryEdit(Map<DateTime, List> events, [DateTime selectedday]);
-  Map<DateTime, List> events;
+  //Map<DateTime, List> events;
   DateTime selectedDay;
 
-  Map<DateTime, List> health;
-  Map<DateTime, List> diarytext;
-  Map<DateTime, List> feeling;
+  //Map<DateTime, List> health;
+  //Map<DateTime, List> diarytext;
+  //Map<DateTime, List> feeling;
 
-  DiaryEdit(
-      this.events, this.health, this.selectedDay, this.feeling, this.diarytext);
+  var color;
+
+  var feelingText;
+
+  DiaryEdit(this.selectedDay);
 
   @override
   DiaryEditState createState() => DiaryEditState();
 }
 
 class DiaryEditState extends State<DiaryEdit> {
+  var isSelected = <bool>[false, false, false];
   String _year = DateTime.now().year.toString();
   String _month = DateTime.now().month.toString();
   String _day = DateTime.now().day.toString();
@@ -39,6 +44,8 @@ class DiaryEditState extends State<DiaryEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final diaryController = Get.put(DiaryController());
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     DateTime selectDay = widget.selectedDay;
@@ -70,15 +77,14 @@ class DiaryEditState extends State<DiaryEdit> {
                 color: Colors.black,
               ),
               onPressed: () {
-                widget.events.remove(widget.selectedDay);
-                widget.health.remove(widget.selectedDay);
+                diaryController.events.remove(widget.selectedDay);
+                diaryController.health.remove(widget.selectedDay);
                 //widget.health.remove(widget.selectedDay);
 
                 Navigator.pop(context, [
-                  widget.events,
-                  widget.health,
-                  widget.diarytext,
-                  widget.feeling,
+                  //diaryController.events.values,
+                  diaryController.diarytext,
+                  diaryController.feeling,
                   widget.selectedDay
                 ]);
                 print("ㅠㅠㅠ이벤트");
@@ -87,19 +93,24 @@ class DiaryEditState extends State<DiaryEdit> {
             actions: [
               TextButton(
                   onPressed: () {
-                    if (widget.events[widget.selectedDay] == null) {
-                      widget.events[widget.selectedDay] = [0xffffff];
-                    }
+                    // if (diaryController.events[widget.selectedDay] == null) {
+                    //   diaryController.events[widget.selectedDay] = [0xffffff];
+                    // }
 
-                    Navigator.pop(context, [
-                      widget.events,
-                      widget.health,
-                      widget.diarytext,
-                      widget.feeling,
-                      widget.selectedDay
-                    ]);
+                    // Navigator.pop(context, [
+                    //   //widget.events,
+                    //   widget.health,
+                    //   widget.diarytext,
+                    //   widget.feeling,
+                    //   widget.selectedDay,
+                    // ]);
 
-                    print(widget.events);
+                    //print(widget.events);
+                    diaryController.update();
+                    Get.back();
+                    // Get.to(DiaryScreen(
+
+                    // ));
                   },
                   child: Text(
                     '확인',
@@ -157,40 +168,40 @@ class DiaryEditState extends State<DiaryEdit> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFE2EAD2,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           '무기력'),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD3E7E4,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "분노"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD3EBF4,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "예민"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD6E2F3,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "감정기복"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD7D5E4,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "피곤함"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFD7D5EA,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "불안"),
                     ],
                   ),
@@ -201,40 +212,40 @@ class DiaryEditState extends State<DiaryEdit> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFECA8C4,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "우울"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFEFC2D9,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "평온"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFF2CDCA,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "설레임"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0xFFF6E1CD,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "기쁨"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           selectDay = selectDay,
                           0xFFFBF4D8,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "활기찬"),
                       new EmotionButton(
-                          widget.events = widget.events,
+                          diaryController.events = diaryController.events,
                           widget.selectedDay = widget.selectedDay,
                           0XFFFFFFFF,
-                          widget.feeling = widget.feeling,
+                          diaryController.feeling = diaryController.feeling,
                           "기본"),
                     ],
                   ),
@@ -256,28 +267,28 @@ class DiaryEditState extends State<DiaryEdit> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/1.svg',
                           healthtext = '괜찮음'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 40.svg',
                           healthtext = '태동'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 41.svg',
                           healthtext = '배뭉침'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 42.svg',
                           healthtext = '배당김'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 43.svg',
                           healthtext = '복통'),
@@ -289,28 +300,28 @@ class DiaryEditState extends State<DiaryEdit> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 44.svg',
                           healthtext = '입덧'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 51.svg',
                           healthtext = '두통'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 45.svg',
                           healthtext = '다리부종'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 46.svg',
                           healthtext = '소화불량'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 47.svg',
                           healthtext = '변비'),
@@ -322,28 +333,28 @@ class DiaryEditState extends State<DiaryEdit> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
-                          'assets/icons/Frame 48.svg',
+                          'assets/icons/Frame 49.svg',
                           healthtext = '갈비뼈'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
-                          'assets/icons/Frame 48.svg',
-                          healthtext = '치골'),
-                      HealthButton(
-                          widget.health = widget.health,
-                          widget.selectedDay = widget.selectedDay,
-                          'assets/icons/Frame 48.svg',
-                          healthtext = '요통'),
-                      HealthButton(
-                          widget.health = widget.health,
+                          'assets/icons/Frame 49.svg',
+                          healthtext = '치골/요통'),
+                      // new HealthButton(
+                      //     widget.health = widget.health,
+                      //     widget.selectedDay = widget.selectedDay,
+                      //     'assets/icons/Frame 48.svg',
+                      //     healthtext = '요통'),
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 52.svg',
                           healthtext = '불면증'),
-                      HealthButton(
-                          widget.health = widget.health,
+                      new HealthButton(
+                          diaryController.health = diaryController.health,
                           widget.selectedDay = widget.selectedDay,
                           'assets/icons/Frame 50.svg',
                           healthtext = '어지러움'),
@@ -372,7 +383,9 @@ class DiaryEditState extends State<DiaryEdit> {
                       child: TextFormField(
                         onChanged: (text) {
                           setState(() {
-                            widget.diarytext[widget.selectedDay] = [text];
+                            diaryController.diarytext[widget.selectedDay] = [
+                              text
+                            ];
                           });
                         },
                         textInputAction: TextInputAction.done,
@@ -470,15 +483,15 @@ class DiaryEditState extends State<DiaryEdit> {
             elevation: 5.0,
             leading: IconButton(
                 onPressed: () {
-                  widget.events.remove(widget.selectedDay);
-                  widget.health.remove(widget.selectedDay);
+                  diaryController.events.remove(widget.selectedDay);
+                  diaryController.health.remove(widget.selectedDay);
                   //widget.health.remove(widget.selectedDay);
 
                   Navigator.pop(context, [
-                    widget.events,
-                    widget.health,
-                    widget.diarytext,
-                    widget.feeling,
+                    diaryController.events,
+                    diaryController.health,
+                    diaryController.diarytext,
+                    diaryController.feeling,
                     widget.selectedDay
                   ]);
                   print("ㅠㅠㅠ이벤트");
@@ -490,19 +503,17 @@ class DiaryEditState extends State<DiaryEdit> {
             actions: [
               TextButton(
                   onPressed: () {
-                    if (widget.events[widget.selectedDay] == null) {
-                      widget.events[widget.selectedDay] = [0xffffff];
+                    if (diaryController.events[widget.selectedDay] == null) {
+                      diaryController.events[widget.selectedDay] = [0xffffff];
                     }
 
                     Navigator.pop(context, [
-                      widget.events,
-                      widget.health,
-                      widget.diarytext,
-                      widget.feeling,
+                      //widget.events,
+                      //widget.health,
+                      //widget.diarytext,
+                      diaryController.feeling,
                       widget.selectedDay
                     ]);
-
-                    print(widget.events);
                   },
                   child: Text(
                     '확인',
@@ -564,7 +575,9 @@ class DiaryEditState extends State<DiaryEdit> {
                       child: TextFormField(
                         onChanged: (text) {
                           setState(() {
-                            widget.diarytext[widget.selectedDay] = [text];
+                            diaryController.diarytext[widget.selectedDay] = [
+                              text
+                            ];
                           });
                         },
                         textInputAction: TextInputAction.done,
