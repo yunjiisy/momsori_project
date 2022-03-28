@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         title: 'Momsound',
         theme: ThemeData(
           primaryColor: Color(0xFFFFA9A9),
-          fontFamily: 'Noto_Sans_KR',
+          fontFamily: 'Nanum',
           backgroundColor: Colors.white,
           inputDecorationTheme: InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(

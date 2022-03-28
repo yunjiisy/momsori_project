@@ -14,6 +14,16 @@ class RecordingButton extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Text(
+          '엄마의 목소리를 듣고 있어요🎵',
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
         Obx(() => Text(
               recordSoundController.recordTime.value,
               style: TextStyle(

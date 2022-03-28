@@ -14,7 +14,7 @@ class PrepareRecordButton extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          '아이에게 목소리를 들려주세요',
+          '아이에게 목소리를 들려주세요🎧',
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.bold,
