@@ -102,9 +102,9 @@ class DiaryScreenState extends State<DiaryScreen> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(left: 15.h),
-                        //child: Image.asset('assets/images/건강태동.png'),
-                        //child: SvgPicture.asset('assets/images/건강배당김.svg'),
-                        child: SvgPicture.asset('assets/icons/mymenu.svg'),
+                        //child: Image.asset('assets/images/치골통통.jpeg'),
+                        child: SvgPicture.asset('assets/icons/Frame 52.svg'),
+                        //child: SvgPicture.asset('assets/images/qlqlql.svg'),
                         height: 40.h,
                         width: 40.h,
                       ),

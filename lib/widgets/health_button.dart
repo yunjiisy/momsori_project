@@ -74,7 +74,7 @@ class _HealthButtonState extends State<HealthButton> {
               //         widget.image.substring(14))
               //     : SvgPicture.asset(widget.image),
               icon: _hasBeenPressed
-                  ? SvgPicture.asset(widget.image)
+                  ? SvgPicture.asset('assets/icons/Frame 52.svg')
                   : SvgPicture.asset(widget.image),
               highlightColor: Color.fromARGB(255, 226, 226, 226),
               focusNode: FocusNode(),
