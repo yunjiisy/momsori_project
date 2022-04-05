@@ -38,5 +38,5 @@ var homeCharacter = [
   'assets/home_character/37.gif',
   'assets/home_character/38.gif',
   'assets/home_character/39.gif',
-  'assets/home_character/40.gif',
+  //'assets/home_character/40.gif',
 ];
