@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
         title: 'Momsound',
         theme: ThemeData(
           primaryColor: Color(0xFFFFA9A9),
-          fontFamily: 'Noto_Sans_KR',
+          fontFamily: 'Nanum',
           backgroundColor: Colors.white,
           inputDecorationTheme: InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(

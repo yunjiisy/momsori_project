@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:momsori/widgets/contants.dart';
+import 'package:momsori/getx_controller/user_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final user = Get.find<UserController>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -41,9 +44,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SvgPicture.asset(
-                  'assets/images/check.svg',
-                  height: 0.4 * height,
+                Image.asset(
+                  'assets/icons/확인용.gif',
+                  height: 0.35 * height,
                 ),
                 TextFormField(
                   onChanged: (nextText) {},
@@ -53,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   maxLength: 6,
                   cursorColor: Color(0xFFFFA9A9),
                   decoration: InputDecoration(
-                    hintText: '엄마 이름을 입력해주세요',
+                    hintText: '${user.userName}',
                     border: InputBorder.none,
                     counterText: '',
                     fillColor: Color(0xFFE5E5E5),
@@ -73,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   maxLength: 6,
                   cursorColor: Color(0xFFFFA9A9),
                   decoration: InputDecoration(
-                    hintText: '태아의 태명을 입력해주세요',
+                    hintText: '${user.babyNickname}',
                     border: InputBorder.none,
                     counterText: '',
                     fillColor: Color(0xFFE5E5E5),
@@ -89,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   onChanged: (nextText) {},
                   cursorColor: Color(0xFFFFA9A9),
                   decoration: InputDecoration(
-                    hintText: '태아의 출생 예정일',
+                    hintText: '${user.babyBirth}',
                     border: InputBorder.none,
                     counterText: '',
                     fillColor: Color(0xFFE5E5E5),
@@ -105,6 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: height * 0.08,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      primary: Color(0XFFFFA9A9),
                       onSurface: Color(0xFFFFA9A9),
                     ),
                     onPressed: () {},

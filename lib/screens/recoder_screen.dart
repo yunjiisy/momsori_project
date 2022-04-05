@@ -59,13 +59,21 @@ class _RecoderScreenState extends State<RecoderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/background/calendar_image.jpeg'),
+              fit: BoxFit.cover)),
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: EdgeInsets.all(10),
           child: Column(
             children: [
+              SizedBox(
+                height: 20.h,
+              ),
               Row(
                 children: [
                   Container(
@@ -85,17 +93,19 @@ class _RecoderScreenState extends State<RecoderScreen> {
                   ),
                   Text(
                     '녹음',
-                    style: kTitleStyle,
+                    //style: kTitleStyle,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.h),
                   ),
                 ],
               ),
               SizedBox(
                 height: 64.h,
               ),
-              SvgPicture.asset(
-                'assets/images/check.svg',
-                height: 300.h,
-                width: 300.w,
+              Container(
+                child: Image.asset('assets/icons/녹음화면캐릭터.gif'),
+                height: 250.h,
+                width: 250.w,
               ),
               SizedBox(
                 height: 30.h,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 TextStyle kTitleStyle = TextStyle(
-  fontFamily: 'NotoSansKR',
+  //fontFamily: 'Nanum',
   fontSize: 24,
-  fontWeight: FontWeight.bold,
+  fontWeight: FontWeight.w900,
 );

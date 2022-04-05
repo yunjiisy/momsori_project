@@ -4,14 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 var titleTextStyle = TextStyle(
-  fontSize: 28,
-  fontWeight: FontWeight.w700,
+  fontSize: 20,
+  fontWeight: FontWeight.w900,
   color: Color(0xFFFFA9A9),
 );
 
 var storyTextStyle = TextStyle(
-  fontSize: 20,
-  fontWeight: FontWeight.w400,
+  fontSize: 15.5,
+  fontWeight: FontWeight.w700,
+  color: Color(0XFFA79A8E),
+  //fontFamily: 'Noto_Sans_KR',
   height: 1.3,
 );
 
@@ -29,369 +31,418 @@ var taedamStories = [
 ];
 
 var taedamStory1 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100.h,
-      width: 100.w,
-      fit: BoxFit.cover,
-    ),
-  ),
-  SizedBox(
-    height: 30,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '태명을 정해주세요',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '태아는 엄마 아빠의 목소리를 들으면서, 뇌 뿐만 아니라 정서적으로도 발달하게 됩니다. 아이를 생각하면서 예쁜 태명을 정해 불러주는 습관을 만들어보세요!  태명이 생기면, 태담이 아직 어색한 부모님들도 훨씬 수월할 거랍니다.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '태담을 나누는 시간을 정해보세요.',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '바쁜 현대사회. 태담은 잘 나누고 계신가요? 실천은 하는데 잘 하고 있는지 모르겠다면, 맘소리의 1일1토픽과 함께 꾸준히 실천해봅시다. 하루 중, 태담을 나누는 시간을 정해서 태아에게 매일 사랑을 전해주세요. 규칙적인 시간과 장소에서 태담을 나누면, 태아는 해당 시간에 태교를 받을 준비를 하기 때문에 효과를 더 높일 수 있답니다.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '토픽 & 녹음',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '태담 시간을 설정하셨나요? 지정 시간에 매일 하나씩 제공되는 태담 토픽으로, 태아와 이야기를 나누어보세요. 태담이 힘든 날엔 태담 녹음본을 PLAY하여 엄마의 수고를 덜어줄 수도 있답니다. 아기가 태어난 후, 녹음된 이야기들로 아기에게 10개월간의 추억을 선물하세요.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '인사로 태담을 시작해주세요.',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '태담, 태아에게 말을 거는 행위는 아직 어색하게 느껴질 수 있습니다. 태아에게 간단한 인사부터 시작하며 태담 습관을 만들어봅시다. (EX. 기상시 "동동이 잘 잤니~?", 퇴근 후 "동동아 아빠 다녀왔어~", 자기 전 "우리 동동이 잘자~" 등 )',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '태아를 사랑한다는 말로 마무리해줍니다.',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '태아에게도 인지능력이 있다는 사실을 아시나요? 엄마가 슬프면 태아도 슬프고, 부정적인 내용의 태담은 좋지 않습니다. 항상 긍정적인 말을 건네고 사랑한다는 말로 태담을 마무리해주세요.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '몸과 마음을 건강하게 해주세요.',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '갑작스러운 변화에 놀라셨죠? 가장 중요한 태교는 엄마의 건강입니다. 엄마가 스트레스를 받으면, 아이에게도 고스란히 전달된답니다. 앞으로 10개월 동안 건강한 시간을 만들어 보자는 마음가짐을 굳게 먹어주세요.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-];
+  Container(
+    //width: 30.0,
+    height: 250.0,
+    child: Container(
+      //aspectRatio: 2 / 3,
+      child: Image.asset(
+        'assets/images/1주차.gif',
 
-var taedamStory2 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
+        //height: 20.h,
+        //width: 10.w,
+        fit: BoxFit.contain,
+      ),
     ),
   ),
   SizedBox(
-    height: 30,
+    height: 5,
   ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '아빠의 참여가 꼭 필요해요!',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '아빠의 중저음 목소리는 태담에 매우 효과적입니다. 아빠의 목소리는 엄마의 목소리보다 양수를 잘 통과하기 때문이죠. 따라서 아빠의 목소리는 태아에게 더 잘들리고, 뇌를 자극할 수 있어요. 배우자의 참여가 태교의 지속적인 실천에 도움이 된다는 연구 결과도 있답니다. 앞으로 아빠의 참여를 돕는 토픽을 자주 넣어드릴게요, 참여해주실 거죠? :)',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '저녁 8시 ~ 밤 12시',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '태아는 주로 저녁 8시에서 밤 12시에 깨어있습니다. 퇴근 후 아빠와 함께 태담을 나누고 잠들면 딱이겠죠? 너무 늦은 시간에 태담을 하면 태아의 생체리듬을 방해할 수 있습니다. 퇴근시간이 늦어지면, 아빠와 함께 녹음한 태담을 PLAY 해주어도 좋아요.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '태담은 조용한 장소가 좋아요.',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '소음이 심한 곳에서는 태담이 태아에게 잘 전달이 안된답니다. 따라서 가능한 조용한 장소에서 편안한 분위기로 태담을 나누어주세요.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '자주 말 걸어줄 수록 좋아요.',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '청각자극은 태아의 뇌 성장에 가장 효과적입니다. 아직 태아가 들을 수 는 없지만, 태담은 엄마와 태아가 나누는 ‘마음’의 커뮤니케이션이기 때문에 임신 초기부터 태담을 실천해주는 것은 태아에게 좋은 영향을 줍니다.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-];
-
-var taedamStory3 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
-    ),
-  ),
-  SizedBox(
-    height: 30,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '몸과 정신을 편안하게',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '피로감과 입덧이 심한 시기입니다. 태담도 중요하지만, 엄마의 건강관리가 무엇보다 중요해요.  태담이 힘든 날에는, 지금까지 나눈 태담녹음을 PLAY 시켜주세요. 이 방법도 효과가 있답니다. 기분전환을 위해 간단한 스트레칭과 산책은 해주세요.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '어떻게 이야기를 나눠야할까?',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '태담은 특별한 게 아니에요. 태명을 불러주며, 항상 동행하는 것처럼 말을 건네주세요. 짧고 간단하게 끝나는 말보다는 차근차근 하루에 있었던 일들을 들려주는 것이 좋아요. 이야기를 들려주면서, 간간히 아기의 의견을 물어보는식으로 반응을 이끌어주세요. ( EX. 엄마는 요즘 사과가 너무 맛있어. 동동이도 사과 맛있었어? )',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '태아가 항상 함께 하고 있음을 기억해주세요.',
-        style: titleTextStyle,
+  Padding(
+    padding: const EdgeInsets.all(15.0),
+    child: Column(children: [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              '1. 태명을 정해주세요',
+              style: titleTextStyle,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            '태아는 엄마 아빠의 목소리를 들으면서, 뇌 뿐만 아니라 정서적으로도 발달하게 됩니다. 아이를 생각하면서 예쁜 태명을 정해 불러주는 습관을 만들어보세요!  태명이 생기면, 태담이 아직 어색한 부모님들도 훨씬 수월할 거랍니다.',
+            style: storyTextStyle,
+          ),
+        ],
       ),
       SizedBox(
         height: 28,
       ),
-      Text(
-        '태아는 항상 엄마와 아빠의 목소리를 듣고있습니다. 태담을 나누는 때가 아니더라도, 엄마와 아빠가 항상 다정한 목소리로 대화를 나누어 주세요.',
-        style: storyTextStyle,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              '1. 태담을 나누는 시간을 정해보세요.',
+              style: titleTextStyle,
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            '바쁜 현대사회. 태담은 잘 나누고 계신가요? 실천은 하는데 잘 하고 있는지 모르겠다면, 맘소리의 1일1토픽과 함께 꾸준히 실천해봅시다. 하루 중, 태담을 나누는 시간을 정해서 태아에게 매일 사랑을 전해주세요. 규칙적인 시간과 장소에서 태담을 나누면, 태아는 해당 시간에 태교를 받을 준비를 하기 때문에 효과를 더 높일 수 있답니다.',
+            style: storyTextStyle,
+          ),
+        ],
       ),
-    ],
+      SizedBox(
+        height: 28,
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              '3. 토픽 & 녹음',
+              style: titleTextStyle,
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            '태담 시간을 설정하셨나요? 지정 시간에 매일 하나씩 제공되는 태담 토픽으로, 태아와 이야기를 나누어보세요. 태담이 힘든 날엔 태담 녹음본을 PLAY하여 엄마의 수고를 덜어줄 수도 있답니다. 아기가 태어난 후, 녹음된 이야기들로 아기에게 10개월간의 추억을 선물하세요.',
+            style: storyTextStyle,
+          ),
+        ],
+      ),
+      SizedBox(
+        height: 28,
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              '4. 인사로 태담을 시작해주세요.',
+              style: titleTextStyle,
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            '태담, 태아에게 말을 거는 행위는 아직 어색하게 느껴질 수 있습니다. 태아에게 간단한 인사부터 시작하며 태담 습관을 만들어봅시다. (EX. 기상시 "동동이 잘 잤니~?", 퇴근 후 "동동아 아빠 다녀왔어~", 자기 전 "우리 동동이 잘자~" 등 )',
+            style: storyTextStyle,
+          ),
+        ],
+      ),
+      SizedBox(
+        height: 28,
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              '5. 태아를 사랑한다는 말로 마무리해줍니다.',
+              style: titleTextStyle,
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            '태아에게도 인지능력이 있다는 사실을 아시나요? 엄마가 슬프면 태아도 슬프고, 부정적인 내용의 태담은 좋지 않습니다. 항상 긍정적인 말을 건네고 사랑한다는 말로 태담을 마무리해주세요.',
+            style: storyTextStyle,
+          ),
+        ],
+      ),
+      SizedBox(
+        height: 28,
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text(
+              '6. 몸과 마음을 건강하게 해주세요.',
+              style: titleTextStyle,
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            '갑작스러운 변화에 놀라셨죠? 가장 중요한 태교는 엄마의 건강입니다. 엄마가 스트레스를 받으면, 아이에게도 고스란히 전달된답니다. 앞으로 10개월 동안 건강한 시간을 만들어 보자는 마음가짐을 굳게 먹어주세요.',
+            style: storyTextStyle,
+          ),
+        ],
+      ),
+    ]),
+  )
+];
+
+var taedamStory2 = [
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/2주차.gif',
+        fit: BoxFit.contain,
+      ),
+    ),
   ),
+  SizedBox(
+    height: 5,
+  ),
+  Padding(
+    padding: EdgeInsets.all(15),
+    child: Column(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '아빠의 참여가 꼭 필요해요!',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '아빠의 중저음 목소리는 태담에 매우 효과적입니다. 아빠의 목소리는 엄마의 목소리보다 양수를 잘 통과하기 때문이죠. 따라서 아빠의 목소리는 태아에게 더 잘들리고, 뇌를 자극할 수 있어요. 배우자의 참여가 태교의 지속적인 실천에 도움이 된다는 연구 결과도 있답니다. 앞으로 아빠의 참여를 돕는 토픽을 자주 넣어드릴게요, 참여해주실 거죠? :)',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 28,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '저녁 8시 ~ 밤 12시',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '태아는 주로 저녁 8시에서 밤 12시에 깨어있습니다. 퇴근 후 아빠와 함께 태담을 나누고 잠들면 딱이겠죠? 너무 늦은 시간에 태담을 하면 태아의 생체리듬을 방해할 수 있습니다. 퇴근시간이 늦어지면, 아빠와 함께 녹음한 태담을 PLAY 해주어도 좋아요.',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 28,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '태담은 조용한 장소가 좋아요.',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '소음이 심한 곳에서는 태담이 태아에게 잘 전달이 안된답니다. 따라서 가능한 조용한 장소에서 편안한 분위기로 태담을 나누어주세요.',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 28,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '자주 말 걸어줄 수록 좋아요.',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '청각자극은 태아의 뇌 성장에 가장 효과적입니다. 아직 태아가 들을 수 는 없지만, 태담은 엄마와 태아가 나누는 ‘마음’의 커뮤니케이션이기 때문에 임신 초기부터 태담을 실천해주는 것은 태아에게 좋은 영향을 줍니다.',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+      ],
+    ),
+  )
+];
+
+var taedamStory3 = [
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/3주차.gif',
+        fit: BoxFit.contain,
+      ),
+    ),
+  ),
+  SizedBox(
+    height: 5,
+  ),
+  Padding(
+    padding: EdgeInsets.all(15),
+    child: Column(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '몸과 정신을 편안하게',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '피로감과 입덧이 심한 시기입니다. 태담도 중요하지만, 엄마의 건강관리가 무엇보다 중요해요.  태담이 힘든 날에는, 지금까지 나눈 태담녹음을 PLAY 시켜주세요. 이 방법도 효과가 있답니다. 기분전환을 위해 간단한 스트레칭과 산책은 해주세요.',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 28,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '어떻게 이야기를 나눠야할까?',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '태담은 특별한 게 아니에요. 태명을 불러주며, 항상 동행하는 것처럼 말을 건네주세요. 짧고 간단하게 끝나는 말보다는 차근차근 하루에 있었던 일들을 들려주는 것이 좋아요. 이야기를 들려주면서, 간간히 아기의 의견을 물어보는식으로 반응을 이끌어주세요. ( EX. 엄마는 요즘 사과가 너무 맛있어. 동동이도 사과 맛있었어? )',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 28,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '태아가 항상 함께 하고 있음을 기억해주세요.',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 28,
+            ),
+            Text(
+              '태아는 항상 엄마와 아빠의 목소리를 듣고있습니다. 태담을 나누는 때가 아니더라도, 엄마와 아빠가 항상 다정한 목소리로 대화를 나누어 주세요.',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+      ],
+    ),
+  )
 ];
 
 var taedamStory4 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/4주차.gif',
+        fit: BoxFit.contain,
+      ),
     ),
   ),
   SizedBox(
-    height: 30,
+    height: 5,
   ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '태아에게 엄마 아빠의 소리가 닿고있어요!',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '임신 3~4개월부터 태아에게 소리가 닿기 시작합니다. 5개월부터는 실제로 소리를를 들을 수 있답니다. 아빠와 함께 소리의 높낮이를 갖고, 정해진 시간에 꾸준히 태담을 나눠주세요.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '엄마가 즐거워야 태아도 즐거워요.',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '태교를 위해서 억지로 싫어하는 노래를 틀거나, 글을 읽을 필요는 없어요. 엄마가 스트레스를 받으면 그대로 태아에게 전달되기 때문입니다. 노래의 장르는 상관이 없지만, 엄마를 편안하게해주는 알파파 자극 음악이 좋습니다.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
-  SizedBox(
-    height: 28,
-  ),
-  Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        '태담일기를 들려주세요.',
-        style: titleTextStyle,
-      ),
-      SizedBox(
-        height: 8,
-      ),
-      Text(
-        '태담이 어려운 부모님들을 위해, 하루일기를 작성해 태담으로 들려주세요. 태아에 대한 마음, 일상, 감정 등을 적어두었다가 태담으로 들려주면 좋습니다. 시간이 지나서도, 생생하게 기록을 간직할 수 있을거에요.',
-        style: storyTextStyle,
-      ),
-    ],
-  ),
+  Padding(
+    padding: EdgeInsets.all(15),
+    child: Column(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '태아에게 엄마 아빠의 소리가 닿고있어요!',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '임신 3~4개월부터 태아에게 소리가 닿기 시작합니다. 5개월부터는 실제로 소리를를 들을 수 있답니다. 아빠와 함께 소리의 높낮이를 갖고, 정해진 시간에 꾸준히 태담을 나눠주세요.',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 28,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '엄마가 즐거워야 태아도 즐거워요.',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '태교를 위해서 억지로 싫어하는 노래를 틀거나, 글을 읽을 필요는 없어요. 엄마가 스트레스를 받으면 그대로 태아에게 전달되기 때문입니다. 노래의 장르는 상관이 없지만, 엄마를 편안하게해주는 알파파 자극 음악이 좋습니다.',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 28,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '태담일기를 들려주세요.',
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              '태담이 어려운 부모님들을 위해, 하루일기를 작성해 태담으로 들려주세요. 태아에 대한 마음, 일상, 감정 등을 적어두었다가 태담으로 들려주면 좋습니다. 시간이 지나서도, 생생하게 기록을 간직할 수 있을거에요.',
+              style: storyTextStyle,
+            ),
+          ],
+        ),
+      ],
+    ),
+  )
 ];
 
 var taedamStory5 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/3주차.gif',
+        fit: BoxFit.contain,
+      ),
     ),
   ),
   SizedBox(
-    height: 30,
+    height: 5,
   ),
   Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -450,17 +501,17 @@ var taedamStory5 = [
 ];
 
 var taedamStory6 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/3주차.gif',
+        fit: BoxFit.contain,
+      ),
     ),
   ),
   SizedBox(
-    height: 30,
+    height: 5,
   ),
   Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -519,17 +570,17 @@ var taedamStory6 = [
 ];
 
 var taedamStory7 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/3주차.gif',
+        fit: BoxFit.contain,
+      ),
     ),
   ),
   SizedBox(
-    height: 28,
+    height: 5,
   ),
   Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -588,17 +639,17 @@ var taedamStory7 = [
 ];
 
 var taedamStory8 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/3주차.gif',
+        fit: BoxFit.contain,
+      ),
     ),
   ),
   SizedBox(
-    height: 30,
+    height: 5,
   ),
   Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -657,17 +708,17 @@ var taedamStory8 = [
 ];
 
 var taedamStory9 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/3주차.gif',
+        fit: BoxFit.contain,
+      ),
     ),
   ),
   SizedBox(
-    height: 30,
+    height: 5,
   ),
   Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -726,17 +777,17 @@ var taedamStory9 = [
 ];
 
 var taedamStory10 = [
-  AspectRatio(
-    aspectRatio: 16 / 9,
-    child: SvgPicture.asset(
-      'assets/images/check.svg',
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
+  Container(
+    height: 250.0,
+    child: Container(
+      child: Image.asset(
+        'assets/images/3주차.gif',
+        fit: BoxFit.contain,
+      ),
     ),
   ),
   SizedBox(
-    height: 30,
+    height: 5,
   ),
   Column(
     crossAxisAlignment: CrossAxisAlignment.start,

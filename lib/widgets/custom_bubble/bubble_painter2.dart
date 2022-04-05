@@ -15,18 +15,18 @@ class BubblePainter2 extends CustomPainter {
       ..lineTo(sideX * 6, 0);
 
     final tailPath = Path()
-      ..moveTo(bubbleSize.width / 2 - 20, bubbleSize.height - 10)
+      ..moveTo(bubbleSize.width / 2 - 20, bubbleSize.height - 1)
       ..lineTo(bubbleSize.width / 2, bubbleSize.height + 20)
-      ..lineTo(bubbleSize.width / 2 + 20, bubbleSize.height - 10);
+      ..lineTo(bubbleSize.width / 2 + 20, bubbleSize.height - 1);
 
     final inPath = Path()
-      ..moveTo(bubbleSize.width / 2 - 14, bubbleSize.height - 5)
+      ..moveTo(bubbleSize.width / 2 - 20, bubbleSize.height - 5)
       ..lineTo(bubbleSize.width / 2, bubbleSize.height + 15)
-      ..lineTo(bubbleSize.width / 2 + 14, bubbleSize.height - 5);
+      ..lineTo(bubbleSize.width / 2 + 20, bubbleSize.height - 5);
 
     final paint = Paint()
-      ..color = Color(0xFFD7C1B9)
-      ..strokeWidth = 5
+      ..color = Color.fromARGB(255, 219, 219, 219)
+      ..strokeWidth = 4
       ..style = PaintingStyle.stroke;
 
     final paint2 = Paint()
