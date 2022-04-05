@@ -17,25 +17,30 @@ class _StorageScreenState extends State<StorageScreen> {
   final textController = TextEditingController();
   final rlController = Get.put<RecordListController>(RecordListController());
 
-
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
-    var directoryEx =
+    var dir =
         Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
     List<FileSystemEntity> entries =
-        directoryEx.listSync(recursive: false).toList();
+        dir.listSync(recursive: false).toList();
+    rlController.categoryData.add({
+      "name": '모든 녹음',
+      "path": dir.path,
+      "checked": false,
+    });
     entries.forEach((element) {
       var tmpString = element.path
           .substring(element.parent.path.length + 1, element.path.length);
 
-      rlController.categoryData.add({
-        "name": tmpString,
-        "path": '/storage/emulated/0/momsound/$tmpString',
+        rlController.categoryData.add({
+          "name": tmpString,
+          "path": '${dir.path}/$tmpString',
         "checked": false,
       });
-      rlController.categories.removeLast();
-      rlController.categories.add(tmpString);
-      rlController.categories.add('+ 카테고리 추가');
+
+      // rlController.categories.removeLast();
+      // rlController.categories.add(tmpString);
+      // rlController.categories.add('+ 카테고리 추가');
     });
   }
   deleteCategory() {
@@ -69,7 +74,7 @@ class _StorageScreenState extends State<StorageScreen> {
     directory.create(recursive: true);
     rlController.categoryData.add({
       "name": category,
-      "path": '/storage/emulated/0/momsound/$category',
+      "path": '${directory.path}/$category',
       "checked": false,
     });
   }
@@ -178,10 +183,9 @@ class _StorageScreenState extends State<StorageScreen> {
 
   @override
   void initState() {
-    callCategoryList();
+    if(rlController.categoryData.isEmpty) callCategoryList();
     super.initState();
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -204,8 +208,7 @@ class _StorageScreenState extends State<StorageScreen> {
                   Container(
                     child: TextButton(
                       onPressed: () {
-                        if (rlController.categoryData.length == 1)
-                          callCategoryList();
+                        if(rlController.categoryData.isEmpty) callCategoryList();
                         setState(() {});
                       },
                       child: Text(

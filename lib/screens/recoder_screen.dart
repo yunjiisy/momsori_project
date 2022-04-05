@@ -33,6 +33,9 @@ class _RecoderScreenState extends State<RecoderScreen> {
         Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
     List<FileSystemEntity> entries =
         directoryEx.listSync(recursive: false).toList();
+    if(rlController.categories.isEmpty){
+      rlController.categories.add('+ 카테고리 추가');
+    }
     if (rlController.categories.first == '+ 카테고리 추가') {
       rlController.categories.removeLast();
       entries.forEach((element) {
