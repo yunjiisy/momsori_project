@@ -7,8 +7,10 @@ import 'package:momsori/getx_controller/user_controller.dart';
 import 'package:momsori/screens/menu_screen.dart';
 import 'package:momsori/screens/recoder_screen.dart';
 import 'package:momsori/widgets/custom_bubble/bubble_painter2.dart';
+import 'package:momsori/widgets/home_character.dart';
 import 'package:momsori/widgets/topics.dart';
 import 'package:vibration/vibration.dart';
+import 'package:momsori/getx_controller/diary_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,11 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   final user = Get.find<UserController>();
   var today = DateTime.now().toString().split(' ')[0].split('-');
 
-  int i = 0;
-  Widget a = abc(0);
+  late int i;
+  Widget a = abc(0, 1);
   late Widget c;
   @override
   void initState() {
+    i = ((user.babyWeek() - 1) * 7) + 1;
+
     super.initState();
   }
 
@@ -126,15 +130,16 @@ class _HomeScreenState extends State<HomeScreen> {
             InkWell(
                 onTap: () {
                   setState(() {
+                    print(i);
                     ++i;
-                    if (i == 6) {
-                      i = 0;
+                    if (i > user.babyWeek() * 7) {
+                      i = ((user.babyWeek() - 1) * 7) + 1;
                     }
                     print(i);
                   });
                   Vibration.vibrate(duration: 100);
                 },
-                child: abc(i)),
+                child: abc(i, user.babyWeek())),
             SizedBox(
               height: 7.h,
             ),
@@ -158,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Widget abc(int i) {
+Widget abc(int i, int week) {
   return Column(children: [
     // Container(
     //   height: 77.h,
@@ -191,8 +196,8 @@ Widget abc(int i) {
                 image: AssetImage(
                   'assets/background/hometalk.jpeg',
                 ),
-                width: 320,
-                height: 92,
+                width: 320.w,
+                height: 92.h,
                 fit: BoxFit.cover,
               )),
           Positioned(
@@ -200,14 +205,14 @@ Widget abc(int i) {
             child: Align(
               alignment: Alignment.center,
               child: Container(
-                margin: EdgeInsets.only(top: 26.h),
+                margin: EdgeInsets.only(top: 35.h),
                 width: 240.h,
                 child: Text(
                   topic[i],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFFD7C1B9),
-                    fontSize: 14.h,
+                    fontSize: 11.0.h,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -244,7 +249,7 @@ Widget abc(int i) {
         right: 0,
       ),
       child: Image.asset(
-        "assets/icons/확인용.gif",
+        homeCharacter[week],
         height: 187.h,
         width: 189.w,
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:momsori/getx_controller/diary_controller.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +9,7 @@ class EmotionButton extends StatefulWidget {
 
   Map<DateTime, List> events;
   DateTime selectDay;
-  int color;
+  String color;
   Map<DateTime, List> feeling;
   String feelingText;
 
@@ -21,7 +22,7 @@ class EmotionButton extends StatefulWidget {
 
 class _EmotionButtonState extends State<EmotionButton> {
   bool _hasBeenPressed = false;
-  bool pressed(Map<DateTime, List> event, DateTime selectedDay, int color) {
+  bool pressed(Map<DateTime, List> event, DateTime selectedDay, String color) {
     //if (diaryController.health[widget.selectDay] == null)
     if (event[selectedDay] == color) {
       return false;
@@ -33,29 +34,69 @@ class _EmotionButtonState extends State<EmotionButton> {
   Widget build(BuildContext context) {
     final diaryController = Get.put(DiaryController());
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(17.0),
       child: Column(
         children: [
-          new IconButton(
-            constraints: BoxConstraints(),
-            padding: EdgeInsets.only(top: 0, left: 6.h, right: 6.h),
-            iconSize: 48.h,
-            onPressed: () {
-              //change Icon color when pressed
-              diaryController.events[widget.selectDay] = [widget.color];
-              diaryController.feeling[widget.selectDay] = [widget.feelingText];
+          Transform.scale(
+            scale: 2.6,
+            child: IconButton(
+              constraints: BoxConstraints(),
+              padding: EdgeInsets.only(top: 0, left: 8.h, right: 8.h),
+              //iconSize: 30.h,
+              onPressed: () {
+                //change Icon color when pressed
+                // diaryController.events[widget.selectDay] = [widget.color];
+                // print(diaryController.events[widget.selectDay]);
+                // diaryController.feeling[widget.selectDay] = [
+                //   widget.feelingText
+                // ];
 
-              //print(events[selectDay]);
-              //print(feeling[selectDay]);
-              setState(() {
-                _hasBeenPressed = pressed(
-                    diaryController.events, widget.selectDay, widget.color);
-              });
-            },
-            icon: Icon(
-              Icons.circle,
-              color: _hasBeenPressed ? Colors.black12 : Color(widget.color),
+                //print(events[selectDay]);
+                //print(feeling[selectDay]);
+                setState(() {
+                  // _hasBeenPressed = pressed(
+                  //     diaryController.events, widget.selectDay, widget.color);
+                  if (diaryController.events[widget.selectDay] == null) {
+                    diaryController.events[widget.selectDay] = [widget.color];
+
+                    diaryController.feeling[widget.selectDay] = [
+                      widget.feelingText
+                    ];
+                  } else {
+                    diaryController.events[widget.selectDay]!
+                            .contains(widget.color)
+                        ? diaryController.events[widget.selectDay]!
+                            .remove(widget.color)
+                        : diaryController.events[widget.selectDay]!
+                            .add(widget.color);
+
+                    diaryController.feeling[widget.selectDay]!
+                            .contains(widget.feelingText)
+                        ? diaryController.feeling[widget.selectDay]!
+                            .remove(widget.feelingText)
+                        : diaryController.feeling[widget.selectDay]!
+                            .add(widget.feelingText);
+                    _hasBeenPressed = !_hasBeenPressed;
+                  }
+                  if (diaryController.events[widget.selectDay] == null) {
+                    diaryController.events[widget.selectDay] = [
+                      'assets/icons/No_image.svg'
+                    ];
+                  }
+                });
+              },
+
+              icon: _hasBeenPressed
+                  ? SvgPicture.asset(widget.color.substring(0, 14) +
+                      "_" +
+                      widget.color.substring(14))
+                  : SvgPicture.asset((widget.color)),
+              // Icons.circle,
+              // color: _hasBeenPressed ? Colors.black12 : Color(widget.color),
             ),
+          ),
+          SizedBox(
+            height: 15,
           ),
           Text(
             widget.feelingText,

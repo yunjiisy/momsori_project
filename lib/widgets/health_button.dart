@@ -31,7 +31,7 @@ class _HealthButtonState extends State<HealthButton> {
             scale: 2.0,
             child: IconButton(
               constraints: BoxConstraints(),
-              padding: EdgeInsets.only(top: 0, left: 5.h, right: 5.h),
+              padding: EdgeInsets.only(top: 0, left: 9.6.h, right: 9.6.h),
               onPressed: () {
                 // widget.health[widget.selectDay] = [widget.image];
                 // widget.health[widget.selectDay]!.add(widget.healthtext);
@@ -58,7 +58,9 @@ class _HealthButtonState extends State<HealthButton> {
                     _hasBeenPressed = !_hasBeenPressed;
                   }
                   if (diaryController.events[widget.selectDay] == null) {
-                    diaryController.events[widget.selectDay] = [0XFFFFFFFF];
+                    diaryController.events[widget.selectDay] = [
+                      'assets/icons/No_image.svg'
+                    ];
                   }
                   // _hasBeenPressed = !_hasBeenPressed;
                 });
@@ -66,11 +68,17 @@ class _HealthButtonState extends State<HealthButton> {
                 print(diaryController.health[widget.selectDay]);
                 print(widget.selectDay);
               },
+              // icon: _hasBeenPressed
+              //     ? SvgPicture.asset(widget.image.substring(0, 14) +
+              //         "건강" +
+              //         widget.image.substring(14))
+              //     : SvgPicture.asset(widget.image),
               icon: _hasBeenPressed
                   ? SvgPicture.asset(widget.image)
                   : SvgPicture.asset(widget.image),
               highlightColor: Color.fromARGB(255, 226, 226, 226),
               focusNode: FocusNode(),
+
               //iconSize: 26.h,
             ),
           ),

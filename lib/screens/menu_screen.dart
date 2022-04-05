@@ -35,7 +35,7 @@ class _MenuScreenState extends State<MenuScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 20, top: 45, right: 20),
+              padding: EdgeInsets.only(left: 15.w, top: 35.h, right: 15.w),
               child: Row(
                 children: [
                   Container(
@@ -45,8 +45,8 @@ class _MenuScreenState extends State<MenuScreen> {
                         Get.back();
                       },
                       child: Container(
-                        height: 50,
-                        width: 40,
+                        height: 50.h,
+                        width: 40.w,
                         child: Icon(
                           Icons.arrow_back_ios,
                         ),
@@ -62,14 +62,14 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 10.h),
               height: 0.15 * height,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SvgPicture.asset(
                     'assets/images/check.svg',
-                    width: 150,
+                    width: 80.h,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           child: Text(
                             '${user.userName}  ' + 'D-' + '${user.babyDay()}',
                             style: TextStyle(
-                              fontSize: 0.04 * height,
+                              fontSize: 0.022 * height,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -94,7 +94,7 @@ class _MenuScreenState extends State<MenuScreen> {
                             Text(
                               '출산예정일 : ${user.babyBirth}   ',
                               style: TextStyle(
-                                fontSize: 0.02 * height,
+                                fontSize: 0.019 * height,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -115,7 +115,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   //   ),
                   // ),
                   Container(
-                    padding: EdgeInsets.only(top: 35, left: 20),
+                    padding: EdgeInsets.only(top: 35.h, left: 20.w),
                     child: InkWell(
                       onTap: () {
                         Get.to(
@@ -123,8 +123,8 @@ class _MenuScreenState extends State<MenuScreen> {
                         );
                       },
                       child: Container(
-                        height: 25,
-                        width: 50,
+                        height: 25.h,
+                        width: 50.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),

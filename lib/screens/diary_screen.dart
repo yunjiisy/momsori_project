@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:momsori/getx_controller/diary_controller.dart';
+import 'package:flutter_svg/parser.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:momsori/screens/diary_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -75,13 +73,13 @@ class DiaryScreenState extends State<DiaryScreen> {
         backgroundColor: Colors.transparent,
         body: Padding(
             padding: EdgeInsets.fromLTRB(
-                width * 0.05, height * 0.014, width * 0.05, height * 0.014),
+                width * 0.05, height * 0.014, width * 0.05, 0.0),
             child: GetBuilder<DiaryController>(
               // init 부분 삭제.
-              builder: (_) => Column(
+              builder: (_) => ListView(
                 children: <Widget>[
                   SizedBox(
-                    height: height * 0.065,
+                    height: 70.h,
                   ),
                   Container(
                     child: Row(
@@ -104,7 +102,9 @@ class DiaryScreenState extends State<DiaryScreen> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(left: 15.h),
-                        child: SvgPicture.asset('assets/icons/editicon.svg'),
+                        //child: Image.asset('assets/images/건강태동.png'),
+                        //child: SvgPicture.asset('assets/images/건강배당김.svg'),
+                        child: SvgPicture.asset('assets/icons/mymenu.svg'),
                         height: 40.h,
                         width: 40.h,
                       ),
@@ -141,18 +141,19 @@ class DiaryScreenState extends State<DiaryScreen> {
                     padding: const EdgeInsets.only(left: 24.0, right: 24.0),
                     child: Container(
                       child: TableCalendar(
+                        //pageJumpingEnabled: true,
                         daysOfWeekHeight: height * 0.026,
                         //rowHeight: height * 0.0877,
-                        rowHeight: height * 0.068,
+                        rowHeight: height * 0.067,
                         //locale: 'ko-KR',
                         focusedDay: DateTime.now(),
                         firstDay: DateTime(2000),
                         lastDay: DateTime(2050),
                         headerStyle: HeaderStyle(
                           headerMargin: EdgeInsets.only(
-                              left: width * 0.12,
+                              left: width * 0.0,
                               top: height * 0.002,
-                              right: width * 0.12,
+                              right: width * 0.0,
                               bottom: height * 0.0),
                           titleCentered: true,
                           formatButtonVisible: false,
@@ -170,7 +171,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                           todayDecoration: BoxDecoration(boxShadow: [
                             BoxShadow(blurRadius: 3.0, color: Colors.grey)
                           ], color: Color(0XFF3F3A5E), shape: BoxShape.circle),
-                          outsideDaysVisible: true,
+                          outsideDaysVisible: false,
                           isTodayHighlighted: true,
                           weekendTextStyle:
                               TextStyle().copyWith(color: Colors.red),
@@ -192,7 +193,10 @@ class DiaryScreenState extends State<DiaryScreen> {
                         ),
 
                         selectedDayPredicate: (DateTime date) {
-                          return isSameDay(selectedDay, date);
+                          if (selectedDay == DateTime.now()) {
+                            return false;
+                          } else
+                            return isSameDay(selectedDay, date);
                         },
 
                         calendarBuilders:
@@ -210,10 +214,9 @@ class DiaryScreenState extends State<DiaryScreen> {
                             focusedDay = focusDay;
 
                             _selectedEvents = getEventsForDays(selectedDay);
-                            int colors;
+                            String colors;
                             if (diaryController.events[selectDay] == null) {
-                              colors = 0xffffffff;
-                              // colors = 0xFFF2CDCA;
+                              colors = 'assets/icons/No_image.svg';
                             } else {
                               colors = diaryController.events[selectDay]![0];
                             }
@@ -345,12 +348,13 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                         width: 5.0,
                                                       ),
                                                       Container(
-                                                        width: 218.h,
+                                                        width: width * 0.57,
                                                         //height: 5.0,
                                                         child: DottedLine(
                                                           dashColor:
                                                               Color(0XFFF2F2F2),
                                                           dashLength: 7.0,
+                                                          lineThickness: 3.0,
                                                         ),
                                                       ),
                                                     ],
@@ -363,11 +367,11 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                       //for (int i = 0; i < healthIcon.length;i++){}
                                                       Column(
                                                         children: [
-                                                          Icon(
-                                                            Icons.circle,
-                                                            color:
-                                                                Color(colors),
-                                                            size: width * 0.09,
+                                                          SvgPicture.asset(
+                                                            colors,
+                                                            width: width * 0.13,
+                                                            height:
+                                                                width * 0.13,
                                                           ),
                                                           Text(
                                                             Feeling,
@@ -397,7 +401,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                                     .asset(
                                                                   healthIcon[e],
                                                                   width: width *
-                                                                      0.09,
+                                                                      0.13,
                                                                   height:
                                                                       width *
                                                                           0.09,
@@ -434,12 +438,15 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                               width: 5.0,
                                                             ),
                                                             Container(
-                                                              width: 280.h,
+                                                              width:
+                                                                  width * 0.73,
                                                               //height: 5.0,
                                                               child: DottedLine(
                                                                 dashColor: Color(
                                                                     0XFFF2F2F2),
                                                                 dashLength: 7.0,
+                                                                lineThickness:
+                                                                    3.0,
                                                               ),
                                                             ),
                                                           ],
@@ -563,12 +570,15 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                               width: 5.0,
                                                             ),
                                                             Container(
-                                                              width: 298.h,
+                                                              width:
+                                                                  width * 0.8,
                                                               //height: 5.0,
                                                               child: DottedLine(
                                                                 dashColor: Color(
                                                                     0XFFF2F2F2),
                                                                 dashLength: 7.0,
+                                                                lineThickness:
+                                                                    3.0,
                                                               ),
                                                             ),
                                                           ],
@@ -619,7 +629,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 17.h, 25.h, 0),
+                    padding: EdgeInsets.fromLTRB(0, 0.h, 25.h, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -634,7 +644,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                             ));
                           },
                           child: SvgPicture.asset(
-                            "assets/icons/editicon.svg",
+                            "assets/icons/편집.svg",
                             height: 60.h,
                             width: 60.w,
                           ),

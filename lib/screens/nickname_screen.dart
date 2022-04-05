@@ -8,7 +8,6 @@ import 'package:momsori/screens/main_screen.dart';
 import 'package:momsori/screens/tutorial_screen.dart';
 import 'package:momsori/widgets/contants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NicknameScreen extends StatefulWidget {
   @override

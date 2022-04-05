@@ -1,9 +1,12 @@
+import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:momsori/widgets/contants.dart';
 import 'package:momsori/getx_controller/user_controller.dart';
+
+import 'main_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -12,6 +15,14 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final user = Get.find<UserController>();
+  String _mText = '';
+  String _bText = '';
+  String _dText = '';
+
+  final userController = Get.put<UserController>(
+    UserController(),
+    permanent: true,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +60,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 0.35 * height,
                 ),
                 TextFormField(
-                  onChanged: (nextText) {},
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(6),
-                  ],
+                  onChanged: (nextText) {
+                    setState(() {
+                      _mText = nextText;
+                    });
+                  },
                   maxLength: 6,
                   cursorColor: Color(0xFFFFA9A9),
                   decoration: InputDecoration(
@@ -69,10 +81,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: height * 0.02,
                 ),
                 TextFormField(
-                  onChanged: (nextText) {},
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(6),
-                  ],
+                  onChanged: (nextText) {
+                    setState(() {
+                      _bText = nextText;
+                    });
+                  },
                   maxLength: 6,
                   cursorColor: Color(0xFFFFA9A9),
                   decoration: InputDecoration(
@@ -89,7 +102,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: height * 0.02,
                 ),
                 TextFormField(
-                  onChanged: (nextText) {},
+                  onChanged: (nextText) {
+                    if (nextText.length == 4) nextText += '.';
+                    if (nextText.length == 7) nextText += '.';
+                    setState(() {
+                      _dText = nextText;
+                      print(nextText);
+                    });
+                  },
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    // FilteringTextInputFormatter.allow(RegExp("[0-9\\.]")),
+                    TextInputMask(
+                      mask: '9999.99.99',
+                    ),
+                  ],
                   cursorColor: Color(0xFFFFA9A9),
                   decoration: InputDecoration(
                     hintText: '${user.babyBirth}',
@@ -107,11 +134,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   height: height * 0.08,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0XFFFFA9A9),
-                      onSurface: Color(0xFFFFA9A9),
-                    ),
-                    onPressed: () {},
+                    style: ButtonStyle(
+                        //shape: MaterialStateProperty.all(Border),
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith((states) {
+                      if (states.contains(MaterialState.disabled)) {
+                        return Color.fromARGB(255, 189, 189, 189);
+                      } else {
+                        return Color(0xFFFFA9A9);
+                      }
+                    })),
+                    onPressed:
+                        _mText != '' && _bText != '' && _dText.length == 10
+                            ? () {
+                                FocusScopeNode currentFocus =
+                                    FocusScope.of(context);
+                                currentFocus.unfocus();
+                                userController.updateUserName(
+                                    _mText, _bText, _dText);
+                                Get.offAll(
+                                  () => MainScreen(),
+                                  transition: Transition.fadeIn,
+                                );
+                              }
+                            : null,
                     child: Text(
                       '확인',
                       style: TextStyle(

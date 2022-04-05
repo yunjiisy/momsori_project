@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momsori/getx_controller/diary_controller.dart';
-import 'diary_screen.dart';
 import 'package:dotted_line/dotted_line.dart';
 
 class DiaryEdit extends StatefulWidget {
@@ -67,9 +66,11 @@ class DiaryEditState extends State<DiaryEdit> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            centerTitle: false,
             title: Text(
               '다이어리 등록',
               style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
             ),
             backgroundColor: Colors.transparent,
             flexibleSpace: Container(
@@ -91,15 +92,13 @@ class DiaryEditState extends State<DiaryEdit> {
               onPressed: () {
                 diaryController.events.remove(widget.selectedDay);
                 diaryController.health.remove(widget.selectedDay);
+                diaryController.feeling.remove(widget.selectedDay);
                 //widget.health.remove(widget.selectedDay);
 
-                Navigator.pop(context, [
-                  //diaryController.events.values,
-                  diaryController.diarytext,
-                  diaryController.feeling,
-                  widget.selectedDay
-                ]);
-                print("ㅠㅠㅠ이벤트");
+                diaryController.update();
+                Get.back();
+                print("ㅠㅠㅠ");
+                print(diaryController.health);
               },
             ),
             actions: [
@@ -143,9 +142,9 @@ class DiaryEditState extends State<DiaryEdit> {
                     width: 8.h,
                   ),
                   Text(
-                    '$_year 년 $_month 월 $_day 일',
+                    '$_year년  $_month월  $_day일',
                     style:
-                        TextStyle(fontSize: 20.h, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 16.h, fontWeight: FontWeight.w900),
                   ),
                   // Container(
                   //   //width: double.maxFinite,
@@ -181,15 +180,15 @@ class DiaryEditState extends State<DiaryEdit> {
                           fontSize: width * 0.044, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      width: 5.0,
+                      width: 5.h,
                     ),
                     Container(
-                      width: 286.h,
+                      width: 218.h,
                       //height: 5.0,
                       child: DottedLine(
-                        lineThickness: 3.0,
+                        lineThickness: 3.0.h,
                         dashColor: Color(0XFFF9F1F1),
-                        dashLength: 7.0,
+                        dashLength: 7.0.h,
                       ),
                     )
                   ],
@@ -200,7 +199,7 @@ class DiaryEditState extends State<DiaryEdit> {
                   Container(
                     margin:
                         EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                    height: 75.0,
+                    height: 90.0.h,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       //shrinkWrap: true,
@@ -208,73 +207,73 @@ class DiaryEditState extends State<DiaryEdit> {
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFE2EAD2,
+                            'assets/images/무기력.svg',
                             diaryController.feeling = diaryController.feeling,
                             '무기력'),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFD3E7E4,
+                            'assets/images/분노.svg',
                             diaryController.feeling = diaryController.feeling,
                             "분노"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFD3EBF4,
+                            'assets/images/예민.svg',
                             diaryController.feeling = diaryController.feeling,
                             "예민"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFD6E2F3,
+                            'assets/images/감정기복.svg',
                             diaryController.feeling = diaryController.feeling,
                             "감정기복"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFD7D5E4,
+                            'assets/images/피곤함.svg',
                             diaryController.feeling = diaryController.feeling,
                             "피곤함"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFD7D5EA,
+                            'assets/images/불안.svg',
                             diaryController.feeling = diaryController.feeling,
                             "불안"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFECA8C4,
+                            'assets/images/우울.svg',
                             diaryController.feeling = diaryController.feeling,
                             "우울"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFEFC2D9,
+                            'assets/images/평온.svg',
                             diaryController.feeling = diaryController.feeling,
                             "평온"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFF2CDCA,
+                            'assets/images/설레임.svg',
                             diaryController.feeling = diaryController.feeling,
                             "설레임"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0xFFF6E1CD,
+                            'assets/images/기쁨.svg',
                             diaryController.feeling = diaryController.feeling,
                             "기쁨"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             selectDay = selectDay,
-                            0xFFFBF4D8,
+                            'assets/images/활기찬.svg',
                             diaryController.feeling = diaryController.feeling,
                             "활기찬"),
                         new EmotionButton(
                             diaryController.events = diaryController.events,
                             widget.selectedDay = widget.selectedDay,
-                            0XFFFFFFFF,
+                            'assets/images/기본.svg',
                             diaryController.feeling = diaryController.feeling,
                             "기본"),
                       ],
@@ -292,15 +291,15 @@ class DiaryEditState extends State<DiaryEdit> {
                           fontSize: width * 0.044, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      width: 5.0,
+                      width: 5.0.h,
                     ),
                     Container(
-                      width: 286.h,
+                      width: 218.h,
                       //height: 5.0,
                       child: DottedLine(
-                        lineThickness: 3.0,
+                        lineThickness: 3.0.h,
                         dashColor: Color(0XFFF9F1F1),
-                        dashLength: 7.0,
+                        dashLength: 7.0.h,
                       ),
                     )
                   ],
@@ -308,84 +307,84 @@ class DiaryEditState extends State<DiaryEdit> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                height: 90.0,
+                height: 90.0.h,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/1.svg',
+                        'assets/images/괜찮음.svg',
                         healthtext = '괜찮음'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 40.svg',
+                        'assets/images/태동.svg',
                         healthtext = '태동'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 41.svg',
+                        'assets/images/배뭉침.svg',
                         healthtext = '배뭉침'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 42.svg',
+                        'assets/images/배당김.svg',
                         healthtext = '배당김'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 43.svg',
+                        'assets/images/복통.svg',
                         healthtext = '복통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 44.svg',
+                        'assets/images/입덧.svg',
                         healthtext = '입덧'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 51.svg',
+                        'assets/images/두통.svg',
                         healthtext = '두통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 45.svg',
+                        'assets/images/다리부종.svg',
                         healthtext = '다리부종'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 46.svg',
+                        'assets/images/소화불량.svg',
                         healthtext = '소화불량'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 47.svg',
+                        'assets/images/변비.svg',
                         healthtext = '변비'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/레이어 2-4.svg',
-                        healthtext = '갈비뼈'),
+                        'assets/images/흉통.svg',
+                        healthtext = '흉통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/레이어 2.svg',
-                        healthtext = '치통'),
+                        'assets/images/치골통.svg',
+                        healthtext = '치골통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 48.svg',
-                        healthtext = '요통'),
+                        'assets/images/요토옹.svg',
+                        healthtext = '요토옹'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 52.svg',
+                        'assets/images/불면증.svg',
                         healthtext = '불면증'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/icons/Frame 50.svg',
+                        'assets/images/어지러움.svg',
                         healthtext = '어지러움'),
                   ],
                 ),
@@ -403,15 +402,15 @@ class DiaryEditState extends State<DiaryEdit> {
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          width: 5.0,
+                          width: 5.0.h,
                         ),
                         Container(
-                          width: 310.h,
+                          width: 240.h,
                           //height: 5.0,
                           child: DottedLine(
                             dashColor: Color(0XFFF9F1F1),
-                            lineThickness: 3.0,
-                            dashLength: 7.0,
+                            lineThickness: 3.0.h,
+                            dashLength: 7.0.h,
                           ),
                         )
                       ],
@@ -423,8 +422,8 @@ class DiaryEditState extends State<DiaryEdit> {
                       child: TextFormField(
                         onChanged: (text) {
                           setState(() {
-                            if (diaryController.events[selectDay] == null) {
-                              diaryController.events[selectDay] = [0XFFFFFFFF];
+                            if (diaryController.diarytext[selectDay] == null) {
+                              diaryController.diarytext[selectDay] = [' '];
                             }
                             diaryController.diarytext[widget.selectedDay] = [
                               text
@@ -432,7 +431,7 @@ class DiaryEditState extends State<DiaryEdit> {
                           });
                         },
                         textInputAction: TextInputAction.done,
-                        maxLength: 500,
+                        //maxLength: 500,
                         keyboardType: TextInputType.multiline,
                         minLines: 6,
                         maxLines: null,
@@ -467,7 +466,7 @@ class DiaryEditState extends State<DiaryEdit> {
                           width: 5.0,
                         ),
                         Container(
-                          width: 310.h,
+                          width: 240.h,
                           //height: 5.0,
                           child: DottedLine(
                             lineThickness: 3.0,
@@ -559,7 +558,9 @@ class DiaryEditState extends State<DiaryEdit> {
               TextButton(
                   onPressed: () {
                     if (diaryController.events[widget.selectedDay] == null) {
-                      diaryController.events[widget.selectedDay] = [0xffffff];
+                      diaryController.events[widget.selectedDay] = [
+                        'assets/icons/No_image.svg'
+                      ];
                     }
 
                     Navigator.pop(context, [
