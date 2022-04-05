@@ -17,6 +17,7 @@ class _StorageScreenState extends State<StorageScreen> {
   final textController = TextEditingController();
   final rlController = Get.put<RecordListController>(RecordListController());
 
+
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var directoryEx =
@@ -173,6 +174,20 @@ class _StorageScreenState extends State<StorageScreen> {
             ),
           );
         });
+  }
+
+  @override
+  void initState() {
+    callCategoryList();
+    super.initState();
+    setState(() {
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override

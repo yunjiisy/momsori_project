@@ -34,14 +34,13 @@ class _RecoderScreenState extends State<RecoderScreen> {
     List<FileSystemEntity> entries =
         directoryEx.listSync(recursive: false).toList();
     if (rlController.categories.first == '+ 카테고리 추가') {
+      rlController.categories.removeLast();
       entries.forEach((element) {
         var tmpString = element.path
             .substring(element.parent.path.length + 1, element.path.length);
-
-        rlController.categories.removeLast();
         rlController.categories.add(tmpString);
-        rlController.categories.add('+ 카테고리 추가');
       });
+      rlController.categories.add('+ 카테고리 추가');
     }
   }
 
@@ -80,6 +79,7 @@ class _RecoderScreenState extends State<RecoderScreen> {
                     alignment: Alignment.topLeft,
                     child: InkWell(
                       onTap: () {
+
                         Get.back();
                       },
                       child: Container(

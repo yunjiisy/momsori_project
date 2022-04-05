@@ -85,8 +85,8 @@ flutter:
     - assets/icons/
     - assets/background/
     - assets/fonts/
-    - assets/character/
-    - assets/emotions/
+#    - assets/character/
+#    - assets/emotions/
     - assets/home_character/
 
   # An image asset can refer to one or more resolution-specific "variants", see
