@@ -3,15 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:momsori/getx_controller/file_name_controller.dart';
+import 'package:momsori/widgets/save_dialog/add_category.dart';
 import 'package:momsori/getx_controller/record_list_controller.dart';
+import 'package:momsori/getx_controller/record_sound_controller.dart';
 import 'package:momsori/my_keep_keyboard_popup_munu/src/keep_keyboard_popup_menu_item.dart';
 import 'package:momsori/my_keep_keyboard_popup_munu/src/with_keep_keyboard_popup_menu.dart';
 import 'package:momsori/screens/main_screen.dart';
-import 'package:momsori/widgets/save_dialog/add_category.dart';
 
 Widget saveDialog(BuildContext context) {
   final controller = Get.put<RecordListController>(RecordListController());
   final fileNameController = Get.put<FileNameController>(FileNameController());
+  final rs = Get.put<RecordSoundController>(RecordSoundController());
 
   if (Get.arguments != null) {
     controller.changeCategory(Get.arguments);
@@ -174,8 +176,8 @@ Widget saveDialog(BuildContext context) {
               ),
               InkWell(
                 onTap: () {
-                  // rs.saveFile(
-                  //     fileNameController.fileName.value, controller.category);
+                   rs.saveFile(
+                       fileNameController.fileName.value, controller.category);
                   Get.back();
                   Get.snackbar(
                     '저장되었습니다!',

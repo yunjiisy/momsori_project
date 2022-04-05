@@ -6,7 +6,9 @@ import 'package:momsori/utils/record_state.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+
 class RecordSoundController extends GetxController {
+  File? file;
   final Codec _codec = Codec.aacMP4;
 
   Rx<FlutterSoundPlayer> _mPlayer = FlutterSoundPlayer().obs;
@@ -124,15 +126,20 @@ class RecordSoundController extends GetxController {
     });
   }
 
+  getTempDir() async {
+    var tempDir = await getExternalStorageDirectory();
+    var directory = Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+    return directory;
+  }
+
   void saveFile(String fileName, String category) async {
     String inputFile = '/data/user/0/com.example.momsori/cache/${_mPath.value}';
     var tempDir = await getExternalStorageDirectory();
-    var directory = Directory(
-        '${tempDir!.parent.parent.parent.parent.path}/momsound/$category/');
-    print(directory);
+    var directory = category != '전체 ▼'
+        ? Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/$category/')
+        : Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
     directory.create(recursive: true);
-
-    String outputFile = '${directory.path}$fileName.m4a';
+    String outputFile = '${directory.path}$fileName.mp3';
 
     await flutterSoundHelper.convertFile(
         inputFile, Codec.aacMP4, outputFile, Codec.aacADTS);

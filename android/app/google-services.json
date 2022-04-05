@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "698868590397",
+    "project_id": "momsound2-d6a02",
+    "storage_bucket": "momsound2-d6a02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698868590397:android:3da014926a808979630754",
+        "android_client_info": {
+          "package_name": "com.example.momsori"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698868590397-hoj99pcda427gaj8f5bb7hh2mstabcv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnr_61VHaFOlOXIXm3qOljk_6fQuPf7VY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698868590397-hoj99pcda427gaj8f5bb7hh2mstabcv5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
