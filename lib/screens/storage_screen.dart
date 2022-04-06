@@ -17,12 +17,22 @@ class _StorageScreenState extends State<StorageScreen> {
   final textController = TextEditingController();
   final rlController = Get.put<RecordListController>(RecordListController());
 
+  testFunction() async {
+    var tempDir = await getExternalStorageDirectory();
+    var dir =
+    Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+    List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
+    entries.forEach((element) {print(element);});
+    dir.create(recursive: true);
+    print(tempDir.path);
+    print(dir.path);
+  }
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var dir =
         Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
-    List<FileSystemEntity> entries =
-        dir.listSync(recursive: false).toList();
+    dir.create(recursive: true);
+    List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
     rlController.categoryData.add({
       "name": '모든 녹음',
       "path": dir.path,
@@ -32,17 +42,14 @@ class _StorageScreenState extends State<StorageScreen> {
       var tmpString = element.path
           .substring(element.parent.path.length + 1, element.path.length);
 
-        rlController.categoryData.add({
-          "name": tmpString,
-          "path": '${dir.path}/$tmpString',
+      rlController.categoryData.add({
+        "name": tmpString,
+        "path": '${dir.path}/$tmpString',
         "checked": false,
       });
-
-      // rlController.categories.removeLast();
-      // rlController.categories.add(tmpString);
-      // rlController.categories.add('+ 카테고리 추가');
     });
   }
+
   deleteCategory() {
     setState(() {
       rlController.categoryData.forEach((element) {
@@ -54,6 +61,7 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
+
   renameCategory(String category) {
     setState(() {
       rlController.categoryData.forEach((element) {
@@ -67,6 +75,7 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
+
   createCategory(String category) async {
     var tempDir = await getExternalStorageDirectory();
     var directory = Directory(
@@ -78,6 +87,7 @@ class _StorageScreenState extends State<StorageScreen> {
       "checked": false,
     });
   }
+
   createCategoryDialog() {
     showDialog(
         context: context,
@@ -129,6 +139,7 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
+
   renameCategoryDialog() {
     showDialog(
         context: context,
@@ -183,7 +194,7 @@ class _StorageScreenState extends State<StorageScreen> {
 
   @override
   void initState() {
-    if(rlController.categoryData.isEmpty) callCategoryList();
+    if (rlController.categoryData.isEmpty) callCategoryList();
     super.initState();
     setState(() {});
   }
@@ -208,7 +219,8 @@ class _StorageScreenState extends State<StorageScreen> {
                   Container(
                     child: TextButton(
                       onPressed: () {
-                        if(rlController.categoryData.isEmpty) callCategoryList();
+                        if (rlController.categoryData.isEmpty)
+                          callCategoryList();
                         setState(() {});
                       },
                       child: Text(
@@ -344,6 +356,23 @@ class _StorageScreenState extends State<StorageScreen> {
                           },
                           child: Text(
                             '+ 카테고리 추가',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, bottom: 10),
+                        child: TextButton(
+                          onPressed: () {
+                            testFunction();
+                            print('test');
+                          },
+                          child: Text(
+                            '테스트 버튼',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
