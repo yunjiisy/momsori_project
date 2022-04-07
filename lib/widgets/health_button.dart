@@ -41,26 +41,36 @@ class _HealthButtonState extends State<HealthButton> {
 
                     diaryController.health[widget.selectDay]!
                         .add(widget.healthtext);
-                  } else {
-                    diaryController.health[widget.selectDay]!
-                            .contains(widget.image)
-                        ? diaryController.health[widget.selectDay]!
-                            .remove(widget.image)
-                        : diaryController.health[widget.selectDay]!
-                            .add(widget.image);
-
-                    diaryController.health[widget.selectDay]!
-                            .contains(widget.healthtext)
-                        ? diaryController.health[widget.selectDay]!
-                            .remove(widget.healthtext)
-                        : diaryController.health[widget.selectDay]!
-                            .add(widget.healthtext);
                     _hasBeenPressed = !_hasBeenPressed;
+                  } else {
+                    if (diaryController.health[widget.selectDay]![0] ==
+                        "assets/icons/No_image.svg") {
+                      diaryController.health[widget.selectDay]![0] =
+                          widget.image;
+                      diaryController.health[widget.selectDay]![1] =
+                          widget.healthtext;
+                    } else {
+                      diaryController.health[widget.selectDay]!
+                              .contains(widget.image)
+                          ? diaryController.health[widget.selectDay]!
+                              .remove(widget.image)
+                          : diaryController.health[widget.selectDay]!
+                              .add(widget.image);
+
+                      diaryController.health[widget.selectDay]!
+                              .contains(widget.healthtext)
+                          ? diaryController.health[widget.selectDay]!
+                              .remove(widget.healthtext)
+                          : diaryController.health[widget.selectDay]!
+                              .add(widget.healthtext);
+                      _hasBeenPressed = !_hasBeenPressed;
+                    }
                   }
                   if (diaryController.events[widget.selectDay] == null) {
                     diaryController.events[widget.selectDay] = [
                       'assets/icons/No_image.svg'
                     ];
+                    diaryController.feeling[widget.selectDay] = [" "];
                   }
                   // _hasBeenPressed = !_hasBeenPressed;
                 });
@@ -68,14 +78,14 @@ class _HealthButtonState extends State<HealthButton> {
                 print(diaryController.health[widget.selectDay]);
                 print(widget.selectDay);
               },
-              // icon: _hasBeenPressed
-              //     ? SvgPicture.asset(widget.image.substring(0, 14) +
-              //         "건강" +
-              //         widget.image.substring(14))
-              //     : SvgPicture.asset(widget.image),
               icon: _hasBeenPressed
-                  ? SvgPicture.asset('assets/icons/Frame 52.svg')
+                  ? SvgPicture.asset(widget.image.substring(0, 14) +
+                      "건강" +
+                      widget.image.substring(14))
                   : SvgPicture.asset(widget.image),
+              // icon: _hasBeenPressed
+              //     ? SvgPicture.asset('assets/icons/Frame 52.svg')
+              //     : SvgPicture.asset(widget.image),
               highlightColor: Color.fromARGB(255, 226, 226, 226),
               focusNode: FocusNode(),
 

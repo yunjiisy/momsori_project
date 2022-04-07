@@ -103,7 +103,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                       Container(
                         padding: EdgeInsets.only(left: 15.h),
                         //child: Image.asset('assets/images/치골통통.jpeg'),
-                        child: SvgPicture.asset('assets/icons/Frame 52.svg'),
+                        child: SvgPicture.asset('assets/images/Ellipse 9.svg'),
                         //child: SvgPicture.asset('assets/images/qlqlql.svg'),
                         height: 40.h,
                         width: 40.h,
@@ -187,6 +187,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                             shape: BoxShape.circle,
                           ),
                           markersAutoAligned: false,
+                          markersMaxCount: 1,
                           markersAlignment: Alignment.center,
                           markerMargin:
                               EdgeInsets.symmetric(horizontal: 1, vertical: 1),

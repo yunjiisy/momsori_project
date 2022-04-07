@@ -19,6 +19,7 @@ class _StorageScreenState extends State<StorageScreen> {
 
   testFunction() async {
     var tempDir = await getExternalStorageDirectory();
+<<<<<<< HEAD
     var newDir = Directory(tempDir!.path);
     newDir.create(recursive: true);
     // var dir =
@@ -26,6 +27,15 @@ class _StorageScreenState extends State<StorageScreen> {
     // List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
     // entries.forEach((element) {print(element);});
     // dir.create(recursive: true);
+=======
+    var dir =
+        Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+    List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
+    entries.forEach((element) {
+      print(element);
+    });
+    dir.create(recursive: true);
+>>>>>>> aa88af3736fc0cb9a7df61b152675c3f29c7d0d0
     print(tempDir.path);
     List<FileSystemEntity> entries = newDir.listSync(recursive: false).toList();
     entries.forEach((element) {
@@ -33,6 +43,7 @@ class _StorageScreenState extends State<StorageScreen> {
     });
     // print(dir.path);
   }
+
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var dir = Directory(tempDir!.path);

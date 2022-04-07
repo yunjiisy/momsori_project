@@ -62,25 +62,38 @@ class _EmotionButtonState extends State<EmotionButton> {
                     diaryController.feeling[widget.selectDay] = [
                       widget.feelingText
                     ];
-                  } else {
-                    diaryController.events[widget.selectDay]!
-                            .contains(widget.color)
-                        ? diaryController.events[widget.selectDay]!
-                            .remove(widget.color)
-                        : diaryController.events[widget.selectDay]!
-                            .add(widget.color);
-
-                    diaryController.feeling[widget.selectDay]!
-                            .contains(widget.feelingText)
-                        ? diaryController.feeling[widget.selectDay]!
-                            .remove(widget.feelingText)
-                        : diaryController.feeling[widget.selectDay]!
-                            .add(widget.feelingText);
+                    print(diaryController.events[widget.selectDay]);
                     _hasBeenPressed = !_hasBeenPressed;
+                  } else {
+                    if (diaryController.events[widget.selectDay]![0] ==
+                        "assets/icons/No_image.svg") {
+                      diaryController.events[widget.selectDay]![0] =
+                          widget.color;
+                      diaryController.feeling[widget.selectDay]![0] =
+                          widget.feelingText;
+
+                      _hasBeenPressed = !_hasBeenPressed;
+                    } else {
+                      diaryController.events[widget.selectDay]!
+                              .contains(widget.color)
+                          ? diaryController.events[widget.selectDay]!
+                              .remove(widget.color)
+                          : diaryController.events[widget.selectDay]!
+                              .add(widget.color);
+
+                      diaryController.feeling[widget.selectDay]!
+                              .contains(widget.feelingText)
+                          ? diaryController.feeling[widget.selectDay]!
+                              .remove(widget.feelingText)
+                          : diaryController.feeling[widget.selectDay]!
+                              .add(widget.feelingText);
+                      _hasBeenPressed = !_hasBeenPressed;
+                    }
                   }
-                  if (diaryController.events[widget.selectDay] == null) {
-                    diaryController.events[widget.selectDay] = [
-                      'assets/icons/No_image.svg'
+                  if (diaryController.health[widget.selectDay] == null) {
+                    diaryController.health[widget.selectDay] = [
+                      'assets/icons/No_image.svg',
+                      " "
                     ];
                   }
                 });

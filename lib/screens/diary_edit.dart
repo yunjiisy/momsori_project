@@ -374,8 +374,8 @@ class DiaryEditState extends State<DiaryEdit> {
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
-                        'assets/images/요토옹.svg',
-                        healthtext = '요토옹'),
+                        'assets/images/요통.svg',
+                        healthtext = '요통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
