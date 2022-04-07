@@ -83,7 +83,7 @@ class DiaryEditState extends State<DiaryEdit> {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter)),
             ),
-            elevation: 5.0,
+            elevation: 0.0,
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,

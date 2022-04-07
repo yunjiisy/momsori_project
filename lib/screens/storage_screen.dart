@@ -17,6 +17,19 @@ class _StorageScreenState extends State<StorageScreen> {
   final textController = TextEditingController();
   final rlController = Get.put<RecordListController>(RecordListController());
 
+  testFunction() async {
+    var tempDir = await getExternalStorageDirectory();
+    var dir =
+        Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+    // List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
+    // entries.forEach((element) {
+    //   print(element);
+    // });
+    dir.create(recursive: true);
+    print(tempDir.path);
+    print(dir.path);
+  }
+
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var dir = Directory(tempDir!.path);
@@ -38,6 +51,7 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
+
   createCategory(String category) async {
     var tempDir = await getExternalStorageDirectory();
     var directory = Directory('${tempDir!.path}/$category');
@@ -49,20 +63,23 @@ class _StorageScreenState extends State<StorageScreen> {
     });
     setState(() {});
   }
+
   deleteCategory() {
     var dir;
     var toDelete = [];
-      rlController.categoryData.forEach((element) {
-        if (element["checked"] == true) {
-          toDelete.add(element);
-          dir = Directory(element["path"]);
-          dir.delete(recursive: true);
-        }
-      });
-      rlController.categoryData.removeWhere((element) => toDelete.contains(element));
+    rlController.categoryData.forEach((element) {
+      if (element["checked"] == true) {
+        toDelete.add(element);
+        dir = Directory(element["path"]);
+        dir.delete(recursive: true);
+      }
+    });
+    rlController.categoryData
+        .removeWhere((element) => toDelete.contains(element));
 
     setState(() {});
   }
+
   renameCategory(String category) {
     setState(() {
       rlController.categoryData.forEach((element) {
@@ -76,6 +93,7 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
+
   createCategoryDialog() {
     showDialog(
         context: context,
@@ -127,6 +145,7 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
+
   renameCategoryDialog() {
     showDialog(
         context: context,
@@ -178,6 +197,7 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
+
   deleteCategoryDialog() {
     showDialog(
         context: context,

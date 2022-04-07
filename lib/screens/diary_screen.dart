@@ -76,10 +76,10 @@ class DiaryScreenState extends State<DiaryScreen> {
                 width * 0.05, height * 0.014, width * 0.05, 0.0),
             child: GetBuilder<DiaryController>(
               // init 부분 삭제.
-              builder: (_) => ListView(
+              builder: (_) => Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 70.h,
+                    height: 30.h,
                   ),
                   Container(
                     child: Row(
@@ -97,16 +97,16 @@ class DiaryScreenState extends State<DiaryScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: height * 0.061),
+                  SizedBox(height: height * 0.041),
                   Row(
                     children: [
                       Container(
                         padding: EdgeInsets.only(left: 15.h),
                         //child: Image.asset('assets/images/치골통통.jpeg'),
-                        child: SvgPicture.asset('assets/images/Ellipse 9.svg'),
+                        child: Image.asset('assets/icons/메뉴아기.png'),
                         //child: SvgPicture.asset('assets/images/qlqlql.svg'),
-                        height: 40.h,
-                        width: 40.h,
+                        height: 80.h,
+                        width: 80.h,
                       ),
                       Container(
                         padding: EdgeInsets.all(height * 0.003),
@@ -135,7 +135,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: height * 0.05,
+                    height: height * 0.00,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 24.0, right: 24.0),
@@ -646,8 +646,8 @@ class DiaryScreenState extends State<DiaryScreen> {
                           },
                           child: SvgPicture.asset(
                             "assets/icons/편집.svg",
-                            height: 60.h,
-                            width: 60.w,
+                            height: 55.h,
+                            width: 55.w,
                           ),
                         ),
                       ],

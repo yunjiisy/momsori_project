@@ -62,26 +62,30 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 10.h),
+              padding: EdgeInsets.only(top: 10.h, left: 10.h),
               height: 0.15 * height,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/check.svg',
-                    width: 80.h,
+                  Image.asset(
+                    'assets/icons/메뉴아기.png',
+                    width: 70.h,
                   ),
+                  SizedBox(width: width * 0.02),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 0.029 * height,
+                      ),
                       Container(
-                        height: 44.h,
+                        height: 28.h,
                         child: Center(
                           child: Text(
                             '${user.userName}  ' + 'D-' + '${user.babyDay()}',
                             style: TextStyle(
-                              fontSize: 0.022 * height,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 0.029 * height,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
                         ),
@@ -115,7 +119,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   //   ),
                   // ),
                   Container(
-                    padding: EdgeInsets.only(top: 35.h, left: 20.w),
+                    padding: EdgeInsets.only(top: 17.h, left: 85.w),
                     child: InkWell(
                       onTap: () {
                         Get.to(
@@ -123,8 +127,8 @@ class _MenuScreenState extends State<MenuScreen> {
                         );
                       },
                       child: Container(
-                        height: 25.h,
-                        width: 50.w,
+                        height: 23.h,
+                        width: 40.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),
@@ -135,7 +139,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           child: Text(
                             '수정',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 13,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -161,7 +165,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       child: Text(
                         '아기관리',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -169,14 +173,14 @@ class _MenuScreenState extends State<MenuScreen> {
                     Container(
                       margin: EdgeInsets.only(left: 20),
                       color: Colors.grey.withOpacity(0.3),
-                      height: 0.005 * height,
+                      height: 0.002 * height,
                     ),
                     Padding(
                       padding: EdgeInsets.all(15),
                       child: Text(
                         '환경설정',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -184,14 +188,14 @@ class _MenuScreenState extends State<MenuScreen> {
                     Container(
                       margin: EdgeInsets.only(left: 20),
                       color: Colors.grey.withOpacity(0.3),
-                      height: 0.005 * height,
+                      height: 0.002 * height,
                     ),
                     Padding(
                       padding: EdgeInsets.all(15),
                       child: Text(
                         '앱관리',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -199,7 +203,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     Container(
                       margin: EdgeInsets.only(left: 20),
                       color: Colors.grey.withOpacity(0.3),
-                      height: 0.005 * height,
+                      height: 0.002 * height,
                     ),
                   ]),
             ),
