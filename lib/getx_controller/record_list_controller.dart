@@ -13,7 +13,7 @@ class RecordListController extends GetxController {
   addList(String newCategory) async {
     var tempDir = await getExternalStorageDirectory();
     var dir =
-    Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+    Directory(tempDir!.path);
     dir.create(recursive: true);
     categories.add(newCategory);
     categoryData.add({

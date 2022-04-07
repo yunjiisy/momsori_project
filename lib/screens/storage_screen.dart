@@ -19,18 +19,23 @@ class _StorageScreenState extends State<StorageScreen> {
 
   testFunction() async {
     var tempDir = await getExternalStorageDirectory();
-    var dir =
-    Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
-    List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
-    entries.forEach((element) {print(element);});
-    dir.create(recursive: true);
+    var newDir = Directory(tempDir!.path);
+    newDir.create(recursive: true);
+    // var dir =
+    // Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+    // List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
+    // entries.forEach((element) {print(element);});
+    // dir.create(recursive: true);
     print(tempDir.path);
-    print(dir.path);
+    List<FileSystemEntity> entries = newDir.listSync(recursive: false).toList();
+    entries.forEach((element) {
+      print(element);
+    });
+    // print(dir.path);
   }
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
-    var dir =
-        Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+    var dir = Directory(tempDir!.path);
     dir.create(recursive: true);
     List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
     rlController.categoryData.add({
@@ -49,19 +54,31 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
-
+  createCategory(String category) async {
+    var tempDir = await getExternalStorageDirectory();
+    var directory = Directory('${tempDir!.path}/$category');
+    directory.create(recursive: true);
+    rlController.categoryData.add({
+      "name": category,
+      "path": directory.path,
+      "checked": false,
+    });
+    setState(() {});
+  }
   deleteCategory() {
-    setState(() {
+    var dir;
+    var toDelete = [];
       rlController.categoryData.forEach((element) {
         if (element["checked"] == true) {
-          Directory dir = Directory(element["path"]);
-          dir.delete();
-          rlController.categoryData.remove(element);
+          toDelete.add(element);
+          dir = Directory(element["path"]);
+          dir.delete(recursive: true);
         }
       });
-    });
-  }
+      rlController.categoryData.removeWhere((element) => toDelete.contains(element));
 
+    setState(() {});
+  }
   renameCategory(String category) {
     setState(() {
       rlController.categoryData.forEach((element) {
@@ -75,19 +92,6 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
-
-  createCategory(String category) async {
-    var tempDir = await getExternalStorageDirectory();
-    var directory = Directory(
-        '${tempDir!.parent.parent.parent.parent.path}/momsound/$category/');
-    directory.create(recursive: true);
-    rlController.categoryData.add({
-      "name": category,
-      "path": '${directory.path}/$category',
-      "checked": false,
-    });
-  }
-
   createCategoryDialog() {
     showDialog(
         context: context,
@@ -139,7 +143,6 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
-
   renameCategoryDialog() {
     showDialog(
         context: context,
@@ -191,6 +194,50 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
+  deleteCategoryDialog() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: AlertDialog(
+              title: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("해당 파일드을 삭제하시겠습니까?"),
+                  Text("해당 녹음들은 영구 삭제됩니다."),
+                ],
+              ),
+              actions: <Widget>[
+                new CupertinoButton(
+                    child: Text(
+                      "취소",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    onPressed: () {
+                      setState(() {});
+                      print('delete file cancel');
+                      Navigator.pop(context);
+                    }),
+                new CupertinoButton(
+                    child: Text(
+                      "확인",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    onPressed: () {
+                      deleteCategory();
+                      setState(() {});
+                      print('delete file ok');
+                      Navigator.pop(context);
+                    }),
+              ],
+            ),
+          );
+        });
+  }
+
+
 
   @override
   void initState() {
@@ -324,7 +371,7 @@ class _StorageScreenState extends State<StorageScreen> {
                       IconButton(
                         onPressed: () {
                           print('folder delete');
-                          deleteCategory();
+                          deleteCategoryDialog();
                           _editMode = !_editMode;
                           setState(() {});
                         },
