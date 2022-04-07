@@ -17,33 +17,6 @@ class _StorageScreenState extends State<StorageScreen> {
   final textController = TextEditingController();
   final rlController = Get.put<RecordListController>(RecordListController());
 
-  testFunction() async {
-    var tempDir = await getExternalStorageDirectory();
-<<<<<<< HEAD
-    var newDir = Directory(tempDir!.path);
-    newDir.create(recursive: true);
-    // var dir =
-    // Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
-    // List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
-    // entries.forEach((element) {print(element);});
-    // dir.create(recursive: true);
-=======
-    var dir =
-        Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
-    List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
-    entries.forEach((element) {
-      print(element);
-    });
-    dir.create(recursive: true);
->>>>>>> aa88af3736fc0cb9a7df61b152675c3f29c7d0d0
-    print(tempDir.path);
-    List<FileSystemEntity> entries = newDir.listSync(recursive: false).toList();
-    entries.forEach((element) {
-      print(element);
-    });
-    // print(dir.path);
-  }
-
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var dir = Directory(tempDir!.path);
@@ -414,23 +387,6 @@ class _StorageScreenState extends State<StorageScreen> {
                           },
                           child: Text(
                             '+ 카테고리 추가',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, bottom: 10),
-                        child: TextButton(
-                          onPressed: () {
-                            testFunction();
-                            print('test');
-                          },
-                          child: Text(
-                            '테스트 버튼',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
