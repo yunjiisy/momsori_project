@@ -69,7 +69,6 @@ addCategory(BuildContext context1) {
                     controller.addList(newCategory);
                     controller.addList('+ 카테고리 추가');
                     Get.back();
-                    Get.dialog(saveDialog(context1), arguments: newCategory);
                   },
                   child: Text(
                     '확인',
