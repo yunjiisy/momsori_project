@@ -21,8 +21,7 @@ class _StorageScreenState extends State<StorageScreen> {
     var tempDir = await getExternalStorageDirectory();
     var dir =
         Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
-    List<FileSystemEntity> entries =
-        dir.listSync(recursive: false).toList();
+    List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
     rlController.categoryData.add({
       "name": '모든 녹음',
       "path": dir.path,
@@ -32,9 +31,9 @@ class _StorageScreenState extends State<StorageScreen> {
       var tmpString = element.path
           .substring(element.parent.path.length + 1, element.path.length);
 
-        rlController.categoryData.add({
-          "name": tmpString,
-          "path": '${dir.path}/$tmpString',
+      rlController.categoryData.add({
+        "name": tmpString,
+        "path": '${dir.path}/$tmpString',
         "checked": false,
       });
 
@@ -43,6 +42,7 @@ class _StorageScreenState extends State<StorageScreen> {
       // rlController.categories.add('+ 카테고리 추가');
     });
   }
+
   deleteCategory() {
     setState(() {
       rlController.categoryData.forEach((element) {
@@ -54,6 +54,7 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
+
   renameCategory(String category) {
     setState(() {
       rlController.categoryData.forEach((element) {
@@ -67,6 +68,7 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
+
   createCategory(String category) async {
     var tempDir = await getExternalStorageDirectory();
     var directory = Directory(
@@ -78,6 +80,7 @@ class _StorageScreenState extends State<StorageScreen> {
       "checked": false,
     });
   }
+
   createCategoryDialog() {
     showDialog(
         context: context,
@@ -129,6 +132,7 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
+
   renameCategoryDialog() {
     showDialog(
         context: context,
@@ -183,7 +187,7 @@ class _StorageScreenState extends State<StorageScreen> {
 
   @override
   void initState() {
-    if(rlController.categoryData.isEmpty) callCategoryList();
+    if (rlController.categoryData.isEmpty) callCategoryList();
     super.initState();
     setState(() {});
   }
@@ -208,7 +212,8 @@ class _StorageScreenState extends State<StorageScreen> {
                   Container(
                     child: TextButton(
                       onPressed: () {
-                        if(rlController.categoryData.isEmpty) callCategoryList();
+                        if (rlController.categoryData.isEmpty)
+                          callCategoryList();
                         setState(() {});
                       },
                       child: Text(
