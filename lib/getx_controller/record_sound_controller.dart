@@ -126,18 +126,12 @@ class RecordSoundController extends GetxController {
     });
   }
 
-  getTempDir() async {
-    var tempDir = await getExternalStorageDirectory();
-    var directory = Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
-    return directory;
-  }
-
   void saveFile(String fileName, String category) async {
     String inputFile = '/data/user/0/com.example.momsori/cache/${_mPath.value}';
     var tempDir = await getExternalStorageDirectory();
     var directory = category != '전체 ▼'
-        ? Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/$category/')
-        : Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+        ? Directory('${tempDir!.path}/$category/')
+        : Directory(tempDir!.path);
     directory.create(recursive: true);
     String outputFile = '${directory.path}$fileName.mp3';
 

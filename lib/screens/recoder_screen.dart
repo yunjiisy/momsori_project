@@ -30,7 +30,7 @@ class _RecoderScreenState extends State<RecoderScreen> {
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var directoryEx =
-        Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
+        Directory(tempDir!.path);
     directoryEx.create(recursive: true);
     List<FileSystemEntity> entries =
         directoryEx.listSync(recursive: false).toList();
