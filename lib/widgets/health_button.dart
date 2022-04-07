@@ -49,6 +49,7 @@ class _HealthButtonState extends State<HealthButton> {
                           widget.image;
                       diaryController.health[widget.selectDay]![1] =
                           widget.healthtext;
+                      _hasBeenPressed = !_hasBeenPressed;
                     } else {
                       diaryController.health[widget.selectDay]!
                               .contains(widget.image)

@@ -21,10 +21,10 @@ class _StorageScreenState extends State<StorageScreen> {
     var tempDir = await getExternalStorageDirectory();
     var dir =
         Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
-    List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
-    entries.forEach((element) {
-      print(element);
-    });
+    // List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
+    // entries.forEach((element) {
+    //   print(element);
+    // });
     dir.create(recursive: true);
     print(tempDir.path);
     print(dir.path);

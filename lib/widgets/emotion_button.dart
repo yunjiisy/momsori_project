@@ -32,16 +32,19 @@ class _EmotionButtonState extends State<EmotionButton> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     final diaryController = Get.put(DiaryController());
     return Padding(
       padding: const EdgeInsets.all(17.0),
       child: Column(
         children: [
           Transform.scale(
-            scale: 2.6,
+            scale: 2.7,
             child: IconButton(
               constraints: BoxConstraints(),
-              padding: EdgeInsets.only(top: 0, left: 8.h, right: 8.h),
+              padding: EdgeInsets.only(
+                  top: 0, left: height * 0.009, right: height * 0.009),
               //iconSize: 30.h,
               onPressed: () {
                 //change Icon color when pressed
