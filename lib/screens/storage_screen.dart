@@ -221,8 +221,6 @@ class _StorageScreenState extends State<StorageScreen> {
         });
   }
 
-
-
   @override
   void initState() {
     if (rlController.categoryData.isEmpty) callCategoryList();

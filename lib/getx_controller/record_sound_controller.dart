@@ -130,10 +130,10 @@ class RecordSoundController extends GetxController {
     String inputFile = '/data/user/0/com.example.momsori/cache/${_mPath.value}';
     var tempDir = await getExternalStorageDirectory();
     var directory = category != '전체 ▼'
-        ? Directory('${tempDir!.path}/$category/')
+        ? Directory('${tempDir!.path}/$category')
         : Directory(tempDir!.path);
     directory.create(recursive: true);
-    String outputFile = '${directory.path}$fileName.mp3';
+    String outputFile = '${directory.path}/$fileName.mp3';
 
     await flutterSoundHelper.convertFile(
         inputFile, Codec.aacMP4, outputFile, Codec.aacADTS);
