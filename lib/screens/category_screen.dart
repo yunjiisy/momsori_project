@@ -204,9 +204,31 @@ class _CategoryScreenState extends State<CategoryScreen> {
           );
         });
   }
+  callParentFileList(Directory parent) async {
+    List<FileSystemEntity> entries =
+    parent.listSync(recursive: false).toList();
+    entries.whereType<File>().forEach((element) {
+      var tmpString = element.path.substring(
+          element.parent.path.length + 1, element.path.length);
+      tmpString = tmpString.substring(0, tmpString.length - 4);
+      File tmpFile = File(element.path);
+      String date =
+      DateFormat('yy년 MM월 dd일').format(tmpFile.statSync().modified);
+      fileDataList.add({
+        "name": tmpString,
+        "path": element.path,
+        "checked": false,
+        "clicked": false,
+        "date": date,
+        "uri": element.uri,
+        "parent": element.parent.path,
+      });
+    });
+  }
   callFileList() async {
     if (_index == 0) {
       if (fileDataList.isEmpty) {
+        callParentFileList(Directory(rlController.categoryData[0]["path"]));
         rlController.categoryData.forEach((element) {
           if (element["name"] != "모든 녹음") {
             var directoryEx = Directory(element["path"]);

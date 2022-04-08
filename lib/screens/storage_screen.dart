@@ -7,6 +7,8 @@ import 'package:momsori/screens/category_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:momsori/getx_controller/record_list_controller.dart';
 
+List<Map> fileDataList = [];
+
 class StorageScreen extends StatefulWidget {
   @override
   _StorageScreenState createState() => _StorageScreenState();
@@ -16,19 +18,6 @@ class _StorageScreenState extends State<StorageScreen> {
   bool _editMode = false;
   final textController = TextEditingController();
   final rlController = Get.put<RecordListController>(RecordListController());
-
-  testFunction() async {
-    var tempDir = await getExternalStorageDirectory();
-    var dir =
-        Directory('${tempDir!.parent.parent.parent.parent.path}/momsound/');
-    // List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
-    // entries.forEach((element) {
-    //   print(element);
-    // });
-    dir.create(recursive: true);
-    print(tempDir.path);
-    print(dir.path);
-  }
 
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
@@ -40,7 +29,7 @@ class _StorageScreenState extends State<StorageScreen> {
       "path": dir.path,
       "checked": false,
     });
-    entries.forEach((element) {
+    entries.whereType<Directory>().forEach((element) {
       var tmpString = element.path
           .substring(element.parent.path.length + 1, element.path.length);
 
@@ -93,7 +82,6 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
-
   createCategoryDialog() {
     showDialog(
         context: context,
@@ -145,7 +133,6 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
-
   renameCategoryDialog() {
     showDialog(
         context: context,
@@ -197,7 +184,6 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
-
   deleteCategoryDialog() {
     showDialog(
         context: context,
