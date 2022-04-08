@@ -52,8 +52,8 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                   child: Container(
-                    height: 100,
-                    width: 100,
+                    //height: 100,
+                    //width: 100,
                     child: _selectedIndex == 0
                         ? SvgPicture.asset(
                             'assets/icons/홈_pink.svg',
@@ -70,8 +70,8 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                   child: Container(
-                    height: 110,
-                    width: 110,
+                    // height: 110,
+                    //width: 110,
                     child: _selectedIndex == 1
                         ? SvgPicture.asset(
                             'assets/icons/다이어리_pink.svg',
@@ -88,8 +88,8 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                   child: Container(
-                    height: 100,
-                    width: 100,
+                    // height: 100,
+                    //width: 100,
                     child: _selectedIndex == 2
                         ? SvgPicture.asset(
                             'assets/icons/음성일기보관함_pink.svg',
@@ -106,8 +106,8 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                   child: Container(
-                    height: 100,
-                    width: 100,
+                    // height: 100,
+                    //width: 100,
                     child: _selectedIndex == 3
                         ? SvgPicture.asset(
                             'assets/icons/태담가이드_pink.svg',
