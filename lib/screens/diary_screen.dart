@@ -68,7 +68,8 @@ class DiaryScreenState extends State<DiaryScreen> {
       decoration: BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage('assets/background/calendar_background.jpeg'))),
+              image:
+                  AssetImage('assets/background/calendar_background2.jpeg'))),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
@@ -79,13 +80,13 @@ class DiaryScreenState extends State<DiaryScreen> {
               builder: (_) => Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 30.h,
+                    height: 56.h,
                   ),
                   Container(
                     child: Row(
                       children: [
                         SizedBox(
-                          width: width * 0.032,
+                          width: width * 0.042,
                         ),
                         Text(
                           '다이어리',
@@ -113,7 +114,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                         child: Row(
                           children: [
                             SizedBox(
-                              width: width * 0.04,
+                              width: width * 0.02,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,8 +124,11 @@ class DiaryScreenState extends State<DiaryScreen> {
                                       'D-' +
                                       '${user.babyDay()}',
                                   style: TextStyle(
-                                      fontSize: width * 0.042,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: width * 0.048,
+                                      fontWeight: FontWeight.w900),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
                                 ),
                                 Text('출산예정일: ' + '${user.babyBirth}'),
                               ],
@@ -136,6 +140,15 @@ class DiaryScreenState extends State<DiaryScreen> {
                   ),
                   SizedBox(
                     height: height * 0.00,
+                  ),
+                  Container(
+                    width: width * 0.7,
+                    //height: 5.0,
+                    child: DottedLine(
+                      dashColor: Color(0XFFF9F1F1),
+                      dashLength: 7.0,
+                      lineThickness: 3.0,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 24.0, right: 24.0),
@@ -320,7 +333,9 @@ class DiaryScreenState extends State<DiaryScreen> {
                                                       Icons.close,
                                                       size: width * 0.073,
                                                     ),
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
                                                   ),
                                                 )
                                               ],
@@ -630,7 +645,7 @@ class DiaryScreenState extends State<DiaryScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0.h, 25.h, 0),
+                    padding: EdgeInsets.fromLTRB(0, 5.h, 25.h, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
