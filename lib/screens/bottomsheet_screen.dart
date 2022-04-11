@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/parser.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:momsori/screens/diary_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:momsori/getx_controller/user_controller.dart';
 import 'package:momsori/getx_controller/diary_controller.dart';
 import 'package:dotted_line/dotted_line.dart';
 
-void BottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
+void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
     BuildContext context, DateTime selectedDay, DateTime focusedDay) {
   double height = MediaQuery.of(context).size.height;
   double width = MediaQuery.of(context).size.width;
