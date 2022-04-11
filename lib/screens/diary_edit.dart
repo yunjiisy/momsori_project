@@ -90,15 +90,14 @@ class DiaryEditState extends State<DiaryEdit> {
                 color: Colors.white,
               ),
               onPressed: () {
-                diaryController.events.remove(widget.selectedDay);
-                diaryController.health.remove(widget.selectedDay);
-                diaryController.feeling.remove(widget.selectedDay);
-                //widget.health.remove(widget.selectedDay);
+                // diaryController.events.remove(widget.selectedDay);
+                // diaryController.health.remove(widget.selectedDay);
+                // diaryController.feeling.remove(widget.selectedDay);
+                // //widget.health.remove(widget.selectedDay);
 
-                diaryController.update();
+                // diaryController.update();
                 Get.back();
                 print("ㅠㅠㅠ");
-                print(diaryController.health);
               },
             ),
             actions: [
@@ -119,6 +118,11 @@ class DiaryEditState extends State<DiaryEdit> {
                     //print(widget.events);
                     diaryController.update();
                     Get.back();
+                    print(widget.selectedDay.day.toString() + "일 수정 상태");
+                    print(diaryController.health[widget.selectedDay]);
+                    print(diaryController.events[widget.selectedDay]);
+                    print(diaryController.diarytext[widget.selectedDay]);
+
                     // Get.to(DiaryScreen(
 
                     // ));
@@ -422,8 +426,20 @@ class DiaryEditState extends State<DiaryEdit> {
                       child: TextFormField(
                         onChanged: (text) {
                           setState(() {
-                            if (diaryController.diarytext[selectDay] == null) {
-                              diaryController.diarytext[selectDay] = [' '];
+                            if (diaryController.diarytext[widget.selectedDay] ==
+                                null) {
+                              diaryController.diarytext[widget.selectedDay] = [
+                                ' '
+                              ];
+                            }
+                            if (diaryController.events[widget.selectedDay] ==
+                                null) {
+                              diaryController.events[widget.selectedDay] = [
+                                'assets/icons/No_image.svg'
+                              ];
+                              diaryController.feeling[widget.selectedDay] = [
+                                " "
+                              ];
                             }
                             diaryController.diarytext[widget.selectedDay] = [
                               text

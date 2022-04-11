@@ -17,7 +17,17 @@ class HealthButton extends StatefulWidget {
 }
 
 class _HealthButtonState extends State<HealthButton> {
-  bool _hasBeenPressed = false;
+  //bool _hasBeenPressed = false;
+  bool _hasBeenPressed(
+      DateTime selectedDay, Map<DateTime, List> health, image) {
+    if (health[selectedDay] == null) {
+      return false;
+    } else if (health[selectedDay]!.contains(image)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +51,7 @@ class _HealthButtonState extends State<HealthButton> {
 
                     diaryController.health[widget.selectDay]!
                         .add(widget.healthtext);
-                    _hasBeenPressed = !_hasBeenPressed;
+                    //_hasBeenPressed = !_hasBeenPressed;
                   } else {
                     if (diaryController.health[widget.selectDay]![0] ==
                         "assets/icons/No_image.svg") {
@@ -49,7 +59,7 @@ class _HealthButtonState extends State<HealthButton> {
                           widget.image;
                       diaryController.health[widget.selectDay]![1] =
                           widget.healthtext;
-                      _hasBeenPressed = !_hasBeenPressed;
+                      // _hasBeenPressed = !_hasBeenPressed;
                     } else {
                       diaryController.health[widget.selectDay]!
                               .contains(widget.image)
@@ -64,7 +74,7 @@ class _HealthButtonState extends State<HealthButton> {
                               .remove(widget.healthtext)
                           : diaryController.health[widget.selectDay]!
                               .add(widget.healthtext);
-                      _hasBeenPressed = !_hasBeenPressed;
+                      // _hasBeenPressed = !_hasBeenPressed;
                     }
                   }
                   if (diaryController.events[widget.selectDay] == null) {
@@ -79,7 +89,8 @@ class _HealthButtonState extends State<HealthButton> {
                 print(diaryController.health[widget.selectDay]);
                 print(widget.selectDay);
               },
-              icon: _hasBeenPressed
+              icon: _hasBeenPressed(
+                      widget.selectDay, diaryController.health, widget.image)
                   ? SvgPicture.asset(widget.image.substring(0, 14) +
                       "건강" +
                       widget.image.substring(14))

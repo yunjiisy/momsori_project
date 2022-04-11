@@ -14,9 +14,13 @@ class DiaryScreen extends StatefulWidget {
   DiaryScreenState createState() => DiaryScreenState();
 }
 
-class DiaryScreenState extends State<DiaryScreen> {
+class DiaryScreenState extends State<DiaryScreen>
+    with AutomaticKeepAliveClientMixin<DiaryScreen> {
   //event
   // Map<DateTime, List<Event>> selectedEvents;
+  @override
+  bool get wantKeepAlive => true;
+
   final user = Get.find<UserController>();
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
@@ -60,6 +64,7 @@ class DiaryScreenState extends State<DiaryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final diaryController = Get.put(DiaryController());
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -781,6 +786,6 @@ class DiaryScreenState extends State<DiaryScreen> {
   }
 }
 
-Widget buildBottomSheet(BuildContext context) {
-  return Container();
-}
+// Widget buildBottomSheet(BuildContext context) {
+//   return Container();
+// }

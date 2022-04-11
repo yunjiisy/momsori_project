@@ -11,12 +11,16 @@ class TaedamScreen extends StatefulWidget {
   _TaedamScreenState createState() => _TaedamScreenState();
 }
 
-class _TaedamScreenState extends State<TaedamScreen> {
+class _TaedamScreenState extends State<TaedamScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   var _month = 5;
   final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     double width = MediaQuery.of(context).size.width;
 
     return Container(

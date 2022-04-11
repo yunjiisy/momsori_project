@@ -1,5 +1,7 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'test_user.dart';
 
@@ -33,7 +35,7 @@ class _$TestUserTearOff {
     );
   }
 
-  TestUser fromJson(Map<String, Object> json) {
+  TestUser fromJson(Map<String, Object?> json) {
     return TestUser.fromJson(json);
   }
 }
@@ -152,7 +154,7 @@ class _$_TestUser implements _TestUser {
       required this.babyBirth});
 
   factory _$_TestUser.fromJson(Map<String, dynamic> json) =>
-      _$_$_TestUserFromJson(json);
+      _$$_TestUserFromJson(json);
 
   @override
   final int id;
@@ -171,26 +173,21 @@ class _$_TestUser implements _TestUser {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _TestUser &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.nickName, nickName) ||
-                const DeepCollectionEquality()
-                    .equals(other.nickName, nickName)) &&
-            (identical(other.babyBirth, babyBirth) ||
-                const DeepCollectionEquality()
-                    .equals(other.babyBirth, babyBirth)));
+        (other.runtimeType == runtimeType &&
+            other is _TestUser &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.nickName, nickName) &&
+            const DeepCollectionEquality().equals(other.babyBirth, babyBirth));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(nickName) ^
-      const DeepCollectionEquality().hash(babyBirth);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(nickName),
+      const DeepCollectionEquality().hash(babyBirth));
 
   @JsonKey(ignore: true)
   @override
@@ -199,7 +196,7 @@ class _$_TestUser implements _TestUser {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_TestUserToJson(this);
+    return _$$_TestUserToJson(this);
   }
 }
 
@@ -213,13 +210,13 @@ abstract class _TestUser implements TestUser {
   factory _TestUser.fromJson(Map<String, dynamic> json) = _$_TestUser.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get nickName => throw _privateConstructorUsedError;
+  String get nickName;
   @override
-  String get babyBirth => throw _privateConstructorUsedError;
+  String get babyBirth;
   @override
   @JsonKey(ignore: true)
   _$TestUserCopyWith<_TestUser> get copyWith =>

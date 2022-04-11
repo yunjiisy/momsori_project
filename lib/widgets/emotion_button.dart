@@ -21,13 +21,15 @@ class EmotionButton extends StatefulWidget {
 }
 
 class _EmotionButtonState extends State<EmotionButton> {
-  bool _hasBeenPressed = false;
-  bool pressed(Map<DateTime, List> event, DateTime selectedDay, String color) {
-    //if (diaryController.health[widget.selectDay] == null)
-    if (event[selectedDay] == color) {
+  bool _hasBeenPressed(
+      DateTime selectedDay, Map<DateTime, List> events, String color) {
+    if (events[selectedDay] == null) {
+      return false;
+    } else if (events[selectedDay]!.contains(color)) {
+      return true;
+    } else {
       return false;
     }
-    return true;
   }
 
   @override
@@ -66,7 +68,7 @@ class _EmotionButtonState extends State<EmotionButton> {
                       widget.feelingText
                     ];
                     print(diaryController.events[widget.selectDay]);
-                    _hasBeenPressed = !_hasBeenPressed;
+                    //_hasBeenPressed = !_hasBeenPressed;
                   } else {
                     if (diaryController.events[widget.selectDay]![0] ==
                         "assets/icons/No_image.svg") {
@@ -75,7 +77,7 @@ class _EmotionButtonState extends State<EmotionButton> {
                       diaryController.feeling[widget.selectDay]![0] =
                           widget.feelingText;
 
-                      _hasBeenPressed = !_hasBeenPressed;
+                      // _hasBeenPressed = !_hasBeenPressed;
                     } else {
                       diaryController.events[widget.selectDay]!
                               .contains(widget.color)
@@ -90,7 +92,7 @@ class _EmotionButtonState extends State<EmotionButton> {
                               .remove(widget.feelingText)
                           : diaryController.feeling[widget.selectDay]!
                               .add(widget.feelingText);
-                      _hasBeenPressed = !_hasBeenPressed;
+                      //_hasBeenPressed = !_hasBeenPressed;
                     }
                   }
                   if (diaryController.health[widget.selectDay] == null) {
@@ -102,7 +104,8 @@ class _EmotionButtonState extends State<EmotionButton> {
                 });
               },
 
-              icon: _hasBeenPressed
+              icon: _hasBeenPressed(
+                      widget.selectDay, diaryController.events, widget.color)
                   ? SvgPicture.asset(widget.color.substring(0, 14) +
                       "_" +
                       widget.color.substring(14))
