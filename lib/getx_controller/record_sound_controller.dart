@@ -6,7 +6,6 @@ import 'package:momsori/utils/record_state.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 class RecordSoundController extends GetxController {
   File? file;
   final Codec _codec = Codec.aacMP4;

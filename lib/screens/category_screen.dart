@@ -65,12 +65,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
     }
     await player.setShuffleModeEnabled(enable);
   }
+
   onPreviousSongButtonPressed() {
     player.seekToPrevious();
   }
+
   onNextSongButtonPressed() {
     player.seekToNext();
   }
+
   onRepeatButtonPressed() {
     repeatButtonNotifier.nextState();
     switch (repeatButtonNotifier.value) {
@@ -84,6 +87,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         player.setLoopMode(LoopMode.all);
     }
   }
+
   renameFileDialog() {
     showDialog(
         context: context,
@@ -135,6 +139,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           );
         });
   }
+
   renameFile(String newFile) {
     setState(() {
       fileDataList.forEach((element) {
@@ -151,6 +156,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       });
     });
   }
+
   deleteFile() {
     fileDataList.forEach((element) {
       setState(() {
@@ -162,6 +168,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       });
     });
   }
+
   deleteFileDialog() {
     showDialog(
         context: context,
@@ -204,16 +211,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
           );
         });
   }
+
   callParentFileList(Directory parent) async {
-    List<FileSystemEntity> entries =
-    parent.listSync(recursive: false).toList();
+    List<FileSystemEntity> entries = parent.listSync(recursive: false).toList();
     entries.whereType<File>().forEach((element) {
-      var tmpString = element.path.substring(
-          element.parent.path.length + 1, element.path.length);
+      var tmpString = element.path
+          .substring(element.parent.path.length + 1, element.path.length);
       tmpString = tmpString.substring(0, tmpString.length - 4);
       File tmpFile = File(element.path);
       String date =
-      DateFormat('yy년 MM월 dd일').format(tmpFile.statSync().modified);
+          DateFormat('yy년 MM월 dd일').format(tmpFile.statSync().modified);
       fileDataList.add({
         "name": tmpString,
         "path": element.path,
@@ -225,6 +232,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       });
     });
   }
+
   callFileList() async {
     if (_index == 0) {
       if (fileDataList.isEmpty) {
@@ -278,6 +286,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       }
     }
   }
+
   moveFile(String newCategory) {
     setState(() {
       fileDataList.forEach((element) {
@@ -292,6 +301,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       });
     });
   }
+
   moveFileDialog() {
     showDialog(
         context: context,
@@ -427,11 +437,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
           );
         });
   }
+
+  //AudioPlayer? _player;
   setupFile(String filePath, String tag) async {
     _playlist.add(ConcatenatingAudioSource(
         children: [AudioSource.uri(Uri.file(filePath), tag: tag)]));
     await player.setAudioSource(_playlist);
   }
+
+  // Future<void> setupFile(String filePath, String tag, AudioPlayer player) async {
+  //   _playlist.add(ConcatenatingAudioSource(
+  //       children: [AudioSource.uri(Uri.file(filePath), tag: tag)]));
+  //   await player.setAudioSource(_playlist);
+  // }
+
   setupAllFile() async {
     fileDataList.forEach((element) {
       _playlist.add(ConcatenatingAudioSource(children: [
@@ -440,6 +459,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     });
     await player.setAudioSource(_playlist);
   }
+
   setupList() async {
     fileDataList.forEach((element) {
       if (element["checked"]) {
@@ -450,6 +470,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     });
     await player.setAudioSource(_playlist);
   }
+
   _init() async {
     _listenForChangesInPlayerState();
     _listenForChangesInSequenceState();
@@ -457,6 +478,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     _listenForChangesInBufferedPosition();
     _listenForChangesInTotalDuration();
   }
+
   _listenForChangesInPlayerState() {
     player.playerStateStream.listen((playerState) {
       final isPlaying = playerState.playing;
@@ -474,6 +496,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       }
     });
   }
+
   _listenForChangesInPlayerPosition() {
     player.positionStream.listen((position) {
       final oldState = progressNotifier.value;
@@ -484,6 +507,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       );
     });
   }
+
   _listenForChangesInBufferedPosition() {
     player.bufferedPositionStream.listen((bufferedPosition) {
       final oldState = progressNotifier.value;
@@ -494,6 +518,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       );
     });
   }
+
   _listenForChangesInTotalDuration() {
     player.durationStream.listen((totalDuration) {
       final oldState = progressNotifier.value;
@@ -504,6 +529,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       );
     });
   }
+
   _listenForChangesInSequenceState() {
     player.sequenceStateStream.listen((sequenceState) {
       if (sequenceState == null) return;
@@ -531,9 +557,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
       }
     });
   }
+
   seek(Duration position) {
     player.seek(position);
   }
+
   clearMode() {
     _editMode = false;
     _clicked = false;
@@ -557,454 +585,512 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          clearMode();
-                          Get.back(closeOverlays: true);
-                          setState(() {});
-                        },
-                        icon: Icon(Icons.arrow_back_ios),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {});
-                        },
-                        child: Text(
-                          rlController.categoryData[_index]["name"],
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          print('search');
-                          _clicked = false;
-                          setState(() {});
-                          Get.to(() => SearchScreen(),
-                              transition: Transition.downToUp);
-                        },
-                        child: Text(
-                          '검색',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          print('edit mode');
-                          // ignore: unnecessary_statements
-                          _clicked = false;
-                          _editMode = !_editMode;
-                          rlController.categoryData.forEach((element) {
-                            element["checked"] = false;
-                            element["clicked"] = false;
-                          });
-                          setState(() {});
-                        },
-                        child: Text(
-                          '편집',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Visibility(
-                    visible: _editMode,
-                    child: Column(
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/background/storage_background.jpg'),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       children: [
                         IconButton(
-                            onPressed: () {
-                              fileDataList.forEach((element) {
-                                element["checked"] = true;
-                              });
-                              setState(() {});
-                            },
-                            icon: Icon(Icons.check)),
-                        Text(
-                          "전체 선택",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
+                          onPressed: () {
+                            clearMode();
+                            Get.back(closeOverlays: true);
+                            setState(() {});
+                          },
+                          icon: Icon(Icons.arrow_back_ios),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            print(fileDataList);
+                            setState(() {});
+                          },
+                          child: Text(
+                            rlController.categoryData[_index]["name"],
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
                           ),
-                        )
+                        ),
                       ],
                     ),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            print('search');
+                            _clicked = false;
+                            setState(() {});
+                            Get.to(() => SearchScreen(),
+                                transition: Transition.downToUp);
+                          },
+                          child: Text(
+                            '검색',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            print('edit mode');
+                            // ignore: unnecessary_statements
+                            _clicked = false;
+                            _editMode = !_editMode;
+                            rlController.categoryData.forEach((element) {
+                              element["checked"] = false;
+                              element["clicked"] = false;
+                            });
+                            setState(() {});
+                          },
+                          child: Text(
+                            '편집',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(right: width * 0.006, top: height * 0.01),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [Image.asset('assets/icons/storage_icon1.png')],
+                    ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    children: [
-                      IconButton(
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Visibility(
+                      visible: _editMode,
+                      child: Column(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                fileDataList.forEach((element) {
+                                  element["checked"] = true;
+                                });
+                                setState(() {});
+                              },
+                              icon: Icon(Icons.check)),
+                          Text(
+                            "전체 선택",
+                            style: TextStyle(
+                              wordSpacing: 0.7,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
                           onPressed: () {
                             _editMode = false;
                             _clicked = true;
                             setState(() {});
                             setupAllFile();
                           },
-                          icon: Icon(Icons.play_arrow)),
-                      Text(
-                        "전체 재생",
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                          icon: Icon(Icons.play_arrow),
+                          // iconSize: width * 0.05,
                         ),
-                      )
-                    ],
-                  ),
-
-                ],
-              ),
-              fileDataList.isEmpty
-                  ? Expanded(
-                      child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                            child: Text(
-                          'is Empty',
+                        Text(
+                          "전체 재생",
                           style: TextStyle(
-                              fontSize: 45,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        )),
+                            wordSpacing: 0.7,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                        )
                       ],
-                    ))
-                  : Expanded(
-                      child: _editMode == false
-                          ? Container(
-                              child: ListView.builder(
-                              itemCount: fileDataList.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 8),
-                                  child: ListTile(
-                                    title: Text(
-                                      fileDataList[index]["name"],
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    trailing: Text(
-                                      fileDataList[index]["date"].toString(),
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      if (!_clicked) _clicked = true;
-                                      _playlist.clear();
-                                      player.pause();
-                                      setupFile(fileDataList[index]["path"],
-                                          fileDataList[index]["name"]);
-                                      setState(() {});
-                                    },
-                                  ),
-                                );
-                              },
-                            ))
-                          : Container(
-                              child: ListView.builder(
-                              itemCount: fileDataList.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: CheckboxListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
+                    ),
+                  ],
+                ),
+                fileDataList.isEmpty
+                    ? Expanded(
+                        child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                              child: Text(
+                            'is Empty',
+                            style: TextStyle(
+                                fontSize: 45,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          )),
+                        ],
+                      ))
+                    : Expanded(
+                        child: _editMode == false
+                            ? Container(
+                                child: ListView.builder(
+                                itemCount: fileDataList.length,
+                                itemBuilder: (context, index) {
+                                  if (fileDataList[index]["clicked"] == null) {
+                                    fileDataList[index]["clicked"] = false;
+                                  }
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 0),
+                                    child: ListTile(
+                                      leading: fileDataList[index]["clicked"]
+                                          ? SvgPicture.asset(
+                                              'assets/background/storage_pause.svg')
+                                          : SvgPicture.asset(
+                                              'assets/background/storage_play.svg'),
                                       title: Text(
                                         fileDataList[index]["name"],
                                         style: TextStyle(
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w700,
                                           color: Colors.black,
                                         ),
                                       ),
                                       subtitle: Text(
-                                        fileDataList[index]["date"],
+                                        fileDataList[index]["date"].toString(),
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      value: fileDataList[index]["checked"],
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          fileDataList[index]["checked"] =
-                                              !fileDataList[index]["checked"];
-                                        });
-                                      }),
-                                );
-                              },
-                            )),
-                    ),
-              !_editMode
-                  ? Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Visibility(
-                        visible: _clicked,
-                        child: Column(
-                          children: [
-                            ValueListenableBuilder<String>(
-                              valueListenable: currentSongTitleNotifier,
-                              builder: (_, title, __) {
-                                return Text(title,
-                                    style: TextStyle(
-                                        fontSize: 40, color: Colors.black));
-                              },
-                            ),
-                            // ValueListenableBuilder<List<String>>(
-                            //   valueListenable: playlistNotifier,
-                            //   builder: (context, playlistTitles, _) {
-                            //     return ListView.builder(
-                            //       itemCount: playlistTitles.length,
-                            //       itemBuilder: (context, index) {
-                            //         return ListTile(
-                            //           title: Text('${playlistTitles[index]}'),
-                            //         );
-                            //       },
-                            //     );
-                            //   },
-                            // ),
-                            ValueListenableBuilder<ProgressBarState>(
-                              valueListenable: progressNotifier,
-                              builder: (_, value, __) {
-                                return ProgressBar(
-                                  onSeek: seek,
-                                  progress: value.current,
-                                  buffered: value.buffered,
-                                  total: value.total,
-                                );
-                              },
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ValueListenableBuilder<RepeatState>(
-                                  valueListenable: repeatButtonNotifier,
-                                  builder: (context, value, child) {
-                                    Icon icon;
-                                    switch (value) {
-                                      case RepeatState.off:
-                                        icon = Icon(Icons.repeat,
-                                            color: Colors.grey);
-                                        break;
-                                      case RepeatState.repeatSong:
-                                        icon = Icon(Icons.repeat_one);
-                                        break;
-                                      case RepeatState.repeatPlaylist:
-                                        icon = Icon(Icons.repeat);
-                                        break;
-                                    }
-                                    return IconButton(
-                                      icon: icon,
-                                      onPressed: onRepeatButtonPressed,
-                                    );
-                                  },
-                                ),
-                                ValueListenableBuilder<bool>(
-                                  valueListenable: isFirstSongNotifier,
-                                  builder: (_, isFirst, __) {
-                                    return IconButton(
-                                      icon: Icon(Icons.skip_previous),
-                                      onPressed: (isFirst)
-                                          ? null
-                                          : onPreviousSongButtonPressed,
-                                    );
-                                  },
-                                ),
-                                ValueListenableBuilder<ButtonState>(
-                                  valueListenable: playButtonNotifier,
-                                  builder: (_, value, __) {
-                                    switch (value) {
-                                      case ButtonState.loading:
-                                        return Container(
-                                          margin: const EdgeInsets.all(8.0),
-                                          width: 32.0,
-                                          height: 32.0,
-                                          child:
-                                              const CircularProgressIndicator(),
-                                        );
-                                      case ButtonState.paused:
-                                        return IconButton(
-                                          icon: const Icon(Icons.play_arrow),
-                                          iconSize: 32.0,
-                                          onPressed: () {
-                                            player.play();
-                                          },
-                                        );
-                                      case ButtonState.playing:
-                                        return IconButton(
-                                          icon: const Icon(Icons.pause),
-                                          iconSize: 32.0,
-                                          onPressed: () {
-                                            player.pause();
-                                          },
-                                        );
-                                    }
-                                  },
-                                ),
-                                ValueListenableBuilder<bool>(
-                                  valueListenable: isLastSongNotifier,
-                                  builder: (_, isLast, __) {
-                                    return IconButton(
-                                      icon: Icon(Icons.skip_next),
-                                      onPressed: (isLast)
-                                          ? null
-                                          : onNextSongButtonPressed,
-                                    );
-                                  },
-                                ),
-                                ValueListenableBuilder<bool>(
-                                  valueListenable: isShuffleModeEnabledNotifier,
-                                  builder: (context, isEnabled, child) {
-                                    return IconButton(
-                                      icon: (isEnabled)
-                                          ? Icon(Icons.shuffle)
-                                          : Icon(Icons.shuffle,
-                                              color: Colors.grey),
-                                      onPressed: onShuffleButtonPressed,
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                      // trailing: Text(
+                                      //   fileDataList[index]["date"].toString(),
+                                      //   style: TextStyle(
+                                      //     fontSize: 16,
+                                      //     fontWeight: FontWeight.w500,
+                                      //     color: Colors.black,
+                                      //   ),
+                                      // ),
+                                      onTap: () {
+                                        for (int i = 0;
+                                            i < fileDataList.length;
+                                            i++) {
+                                          if (i != index) {
+                                            fileDataList[i]["clicked"] = false;
+                                            _clicked = false;
+                                          }
+                                        }
+                                        if (!_clicked) {
+                                          _clicked = true;
+                                          fileDataList[index]["clicked"] = true;
+                                        } else {
+                                          _clicked = false;
+                                          fileDataList[index]["clicked"] =
+                                              false;
+                                        }
+
+                                        _playlist.clear();
+                                        //setState(() {});
+                                        player.pause();
+                                        setupFile(fileDataList[index]["path"],
+                                            fileDataList[index]["name"]);
+                                        setState(() {});
+                                      },
+                                    ),
+                                  );
+                                },
+                              ))
+                            : Container(
+                                child: ListView.builder(
+                                itemCount: fileDataList.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 0.0),
+                                    child: CheckboxListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                        title: Text(
+                                          fileDataList[index]["name"],
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        subtitle: Text(
+                                          fileDataList[index]["date"],
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        value: fileDataList[index]["checked"],
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            fileDataList[index]["checked"] =
+                                                !fileDataList[index]["checked"];
+                                          });
+                                        }),
+                                  );
+                                },
+                              )),
                       ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Visibility(
-                          visible: _editMode,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                !_editMode
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Visibility(
+                          visible: _clicked,
+                          child: Column(
                             children: [
-                              Column(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      print("move to others");
-                                      moveFileDialog();
-                                    },
-                                    icon: Icon(Icons.arrow_right_alt),
-                                    iconSize: 30,
-                                  ),
-                                  Text(
-                                    "이동",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                ],
+                              ValueListenableBuilder<String>(
+                                valueListenable: currentSongTitleNotifier,
+                                builder: (_, title, __) {
+                                  return Text(title,
+                                      style: TextStyle(
+                                          fontSize: 40, color: Colors.black));
+                                },
                               ),
-                              Column(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      print("delete");
-                                      deleteFileDialog();
-                                    },
-                                    icon: Icon(Icons.delete),
-                                    iconSize: 30,
-                                  ),
-                                  Text(
-                                    "삭제",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                ],
+                              // ValueListenableBuilder<List<String>>(
+                              //   valueListenable: playlistNotifier,
+                              //   builder: (context, playlistTitles, _) {
+                              //     return ListView.builder(
+                              //       itemCount: playlistTitles.length,
+                              //       itemBuilder: (context, index) {
+                              //         return ListTile(
+                              //           title: Text('${playlistTitles[index]}'),
+                              //         );
+                              //       },
+                              //     );
+                              //   },
+                              // ),
+                              ValueListenableBuilder<ProgressBarState>(
+                                valueListenable: progressNotifier,
+                                builder: (_, value, __) {
+                                  return ProgressBar(
+                                    onSeek: seek,
+                                    progress: value.current,
+                                    buffered: value.buffered,
+                                    total: value.total,
+                                  );
+                                },
                               ),
-                              Column(
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      renameFileDialog();
-                                      print("rename");
+                                  ValueListenableBuilder<RepeatState>(
+                                    valueListenable: repeatButtonNotifier,
+                                    builder: (context, value, child) {
+                                      Icon icon;
+                                      switch (value) {
+                                        case RepeatState.off:
+                                          icon = Icon(Icons.repeat,
+                                              color: Colors.grey);
+                                          break;
+                                        case RepeatState.repeatSong:
+                                          icon = Icon(Icons.repeat_one);
+                                          break;
+                                        case RepeatState.repeatPlaylist:
+                                          icon = Icon(Icons.repeat);
+                                          break;
+                                      }
+                                      return IconButton(
+                                        icon: icon,
+                                        onPressed: onRepeatButtonPressed,
+                                      );
                                     },
-                                    icon: Icon(Icons.edit),
-                                    iconSize: 30,
                                   ),
-                                  Text(
-                                    "이름 변경",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      _clicked = true;
-                                      _editMode = false;
-                                      setState(() {});
-                                      setupList();
+                                  ValueListenableBuilder<bool>(
+                                    valueListenable: isFirstSongNotifier,
+                                    builder: (_, isFirst, __) {
+                                      return IconButton(
+                                        icon: Icon(Icons.skip_previous),
+                                        onPressed: (isFirst)
+                                            ? null
+                                            : onPreviousSongButtonPressed,
+                                      );
                                     },
-                                    icon: Icon(Icons.play_arrow),
-                                    iconSize: 30,
                                   ),
-                                  Text(
-                                    "재생",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
+                                  ValueListenableBuilder<ButtonState>(
+                                    valueListenable: playButtonNotifier,
+                                    builder: (_, value, __) {
+                                      switch (value) {
+                                        case ButtonState.loading:
+                                          return Container(
+                                            margin: const EdgeInsets.all(8.0),
+                                            width: 32.0,
+                                            height: 32.0,
+                                            child:
+                                                const CircularProgressIndicator(),
+                                          );
+                                        case ButtonState.paused:
+                                          return IconButton(
+                                            icon: const Icon(Icons.play_arrow),
+                                            iconSize: 32.0,
+                                            onPressed: () {
+                                              player.play();
+                                            },
+                                          );
+                                        case ButtonState.playing:
+                                          return IconButton(
+                                            icon: const Icon(Icons.pause),
+                                            iconSize: 32.0,
+                                            onPressed: () {
+                                              player.pause();
+                                            },
+                                          );
+                                      }
+                                    },
+                                  ),
+                                  ValueListenableBuilder<bool>(
+                                    valueListenable: isLastSongNotifier,
+                                    builder: (_, isLast, __) {
+                                      return IconButton(
+                                        icon: Icon(Icons.skip_next),
+                                        onPressed: (isLast)
+                                            ? null
+                                            : onNextSongButtonPressed,
+                                      );
+                                    },
+                                  ),
+                                  ValueListenableBuilder<bool>(
+                                    valueListenable:
+                                        isShuffleModeEnabledNotifier,
+                                    builder: (context, isEnabled, child) {
+                                      return IconButton(
+                                        icon: (isEnabled)
+                                            ? Icon(Icons.shuffle)
+                                            : Icon(Icons.shuffle,
+                                                color: Colors.grey),
+                                        onPressed: onShuffleButtonPressed,
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
                             ],
-                          )),
-                    )
-            ],
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Visibility(
+                            visible: _editMode,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        print("move to others");
+                                        moveFileDialog();
+                                      },
+                                      icon: Icon(Icons.arrow_right_alt),
+                                      iconSize: 30,
+                                    ),
+                                    Text(
+                                      "이동",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        print("delete");
+                                        deleteFileDialog();
+                                      },
+                                      icon: Icon(Icons.delete),
+                                      iconSize: 30,
+                                    ),
+                                    Text(
+                                      "삭제",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        renameFileDialog();
+                                        print("rename");
+                                      },
+                                      icon: Icon(Icons.edit),
+                                      iconSize: 30,
+                                    ),
+                                    Text(
+                                      "이름 변경",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        _clicked = true;
+                                        _editMode = false;
+                                        setState(() {});
+                                        setupList();
+                                      },
+                                      icon: Icon(Icons.play_arrow),
+                                      iconSize: 30,
+                                    ),
+                                    Text(
+                                      "재생",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )),
+                      )
+              ],
+            ),
           ),
         ),
       ),

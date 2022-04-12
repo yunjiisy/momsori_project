@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:momsori/screens/category_screen.dart';
 import 'package:momsori/screens/diary_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,7 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
   var week = selectDay.weekday;
 
   String colors;
+
   if (diaryController.events[selectDay] == null) {
     colors = 'assets/icons/No_image.svg';
   } else {
@@ -240,7 +242,7 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                                                   fontSize: width * 0.024),
                                               overflow: TextOverflow.ellipsis,
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -286,6 +288,62 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                         ),
                         SizedBox(
                           height: 10.h,
+                        ),
+                        fileDataList.isEmpty
+                            ? Container(
+                                child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                      child: Text(
+                                    'is Empty',
+                                    style: TextStyle(
+                                        fontSize: 45,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                  )),
+                                ],
+                              ))
+                            : Container(
+                                child: Container(
+                                    child: Padding(
+                                padding: const EdgeInsets.only(top: 8),
+                                child: ListTile(
+                                  title: Text(
+                                    fileDataList[0]["name"],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  trailing: Text(
+                                    fileDataList[0]["date"].toString(),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // onTap: () {
+                                  //   if (!_clicked) _clicked = true;
+                                  //   _playlist.clear();
+                                  //   player.pause();
+                                  //   setupFile(fileDataList[index]["path"],
+                                  //       fileDataList[index]["name"]);
+                                  //   //setState(() {});
+                                  // },
+                                ),
+                              ))),
+                        // Container(
+                        //   child: Text(fileDataList[0]["name"]),
+                        // ),
+                        TextButton(
+                          child: Text('버튼'),
+                          onPressed: () {
+                            print(fileDataList);
+                          },
                         ),
                         Container(
                           padding: EdgeInsets.only(top: width * 0.024),

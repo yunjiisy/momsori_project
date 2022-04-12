@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:momsori/screens/category_screen.dart';
 import 'package:path_provider/path_provider.dart';
@@ -82,6 +83,7 @@ class _StorageScreenState extends State<StorageScreen> {
       });
     });
   }
+
   createCategoryDialog() {
     showDialog(
         context: context,
@@ -133,6 +135,7 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
+
   renameCategoryDialog() {
     showDialog(
         context: context,
@@ -184,6 +187,7 @@ class _StorageScreenState extends State<StorageScreen> {
           );
         });
   }
+
   deleteCategoryDialog() {
     showDialog(
         context: context,
@@ -242,166 +246,196 @@ class _StorageScreenState extends State<StorageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.all(12),
-        child: Column(
-          children: [
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: TextButton(
-                      onPressed: () {
-                        if (rlController.categoryData.isEmpty)
-                          callCategoryList();
-                        setState(() {});
-                      },
-                      child: Text(
-                        '저장소',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      TextButton(
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/background/storage_background.jpg'),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: TextButton(
                         onPressed: () {
-                          print('edit mode');
-                          // ignore: unnecessary_statements
-                          _editMode = !_editMode;
-                          rlController.categoryData.forEach((element) {
-                            element["checked"] = false;
-                          });
+                          if (rlController.categoryData.isEmpty)
+                            callCategoryList();
                           setState(() {});
                         },
                         child: Text(
-                          '편집',
+                          '저장소',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
                             color: Colors.black,
                           ),
                         ),
                       ),
+                    ),
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            print('edit mode');
+                            // ignore: unnecessary_statements
+                            _editMode = !_editMode;
+                            rlController.categoryData.forEach((element) {
+                              element["checked"] = false;
+                            });
+                            setState(() {});
+                          },
+                          child: Text(
+                            '편집',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(right: width * 0.03, top: height * 0.01),
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset(
+                        'assets/icons/storage_icon2.png',
+                        scale: 0.98,
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
 
-            // Storage, Search, Edit
-            Expanded(
-              child: _editMode == false
-                  ? Container(
-                      child: ListView.builder(
-                      itemCount: rlController.categoryData.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: ListTile(
-                            title: Text(
-                              rlController.categoryData[index]["name"],
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
-                            ),
-                            onTap: () {
-                              Get.to(() => CategoryScreen(),
-                                  arguments: index,
-                                  transition: Transition.downToUp);
-                            },
-                          ),
-                        );
-                      },
-                    ))
-                  : Container(
-                      child: ListView.builder(
-                      itemCount: rlController.categoryData.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: CheckboxListTile(
-                              controlAffinity: ListTileControlAffinity.leading,
+              // Storage, Search, Edit
+              Expanded(
+                child: _editMode == false
+                    ? Container(
+                        child: ListView.builder(
+                        itemCount: rlController.categoryData.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(top: 0),
+                            child: ListTile(
+                              leading: SvgPicture.asset(
+                                  'assets/background/storage_folder.svg'),
                               title: Text(
                                 rlController.categoryData[index]["name"],
                                 style: TextStyle(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w700,
                                   color: Colors.black,
                                 ),
                               ),
-                              value: rlController.categoryData[index]
-                                  ["checked"],
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  rlController.categoryData[index]["checked"] =
-                                      !rlController.categoryData[index]
-                                          ["checked"];
-                                });
-                              }),
-                        );
-                      },
-                    )),
-            ),
+                              // subtitle: Text(
+                              //     rlController.categoryData[index]["date"]),
+                              onTap: () {
+                                Get.to(() => CategoryScreen(),
+                                    arguments: index,
+                                    transition: Transition.downToUp);
+                              },
+                            ),
+                          );
+                        },
+                      ))
+                    : Container(
+                        child: ListView.builder(
+                        itemCount: rlController.categoryData.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 0.0),
+                            child: CheckboxListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                title: Text(
+                                  rlController.categoryData[index]["name"],
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                value: rlController.categoryData[index]
+                                    ["checked"],
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    rlController.categoryData[index]
+                                            ["checked"] =
+                                        !rlController.categoryData[index]
+                                            ["checked"];
+                                  });
+                                }),
+                          );
+                        },
+                      )),
+              ),
 
-            _editMode
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          print('folder delete');
-                          deleteCategoryDialog();
-                          _editMode = !_editMode;
-                          setState(() {});
-                        },
-                        icon: Icon(Icons.delete_forever_sharp),
-                        iconSize: 40,
-                        color: Color(0xFFFFA9A9),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          renameCategoryDialog();
-                          print('folder rename');
-                          _editMode = !_editMode;
-                        },
-                        icon: Icon(Icons.edit),
-                        iconSize: 40,
-                        color: Color(0xFFFFA9A9),
-                      ),
-                    ],
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, bottom: 10),
-                        child: TextButton(
+              _editMode
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
                           onPressed: () {
-                            createCategoryDialog();
-                            print('add Dialog');
+                            print('folder delete');
+                            deleteCategoryDialog();
+                            _editMode = !_editMode;
+                            setState(() {});
                           },
-                          child: Text(
-                            '+ 카테고리 추가',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                          icon: Icon(Icons.delete_forever_sharp),
+                          iconSize: 40,
+                          color: Color(0xFFFFA9A9),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            renameCategoryDialog();
+                            print('folder rename');
+                            _editMode = !_editMode;
+                          },
+                          icon: Icon(Icons.edit),
+                          iconSize: 40,
+                          color: Color(0xFFFFA9A9),
+                        ),
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, bottom: 10),
+                          child: TextButton(
+                            onPressed: () {
+                              createCategoryDialog();
+                              print('add Dialog');
+                            },
+                            child: Text(
+                              '+ 카테고리 추가',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  )
-          ],
+                      ],
+                    )
+            ],
+          ),
         ),
       ),
     );

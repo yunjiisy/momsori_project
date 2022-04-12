@@ -144,9 +144,6 @@ class DiaryScreenState extends State<DiaryScreen>
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: height * 0.00,
-                  ),
                   Container(
                     width: width * 0.7,
                     //height: 5.0,
@@ -161,9 +158,9 @@ class DiaryScreenState extends State<DiaryScreen>
                     child: Container(
                       child: TableCalendar(
                           //pageJumpingEnabled: true,
-                          daysOfWeekHeight: height * 0.026,
+                          daysOfWeekHeight: height * 0.028,
                           //rowHeight: height * 0.0877,
-                          rowHeight: height * 0.067,
+                          rowHeight: height * 0.062,
                           //locale: 'ko-KR',
                           focusedDay: DateTime.now(),
                           firstDay: DateTime(2000),
