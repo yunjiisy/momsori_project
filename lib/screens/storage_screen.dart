@@ -246,6 +246,8 @@ class _StorageScreenState extends State<StorageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final rlController = Get.put<RecordListController>(RecordListController());
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
@@ -255,113 +257,87 @@ class _StorageScreenState extends State<StorageScreen> {
               fit: BoxFit.cover)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            children: [
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: TextButton(
-                        onPressed: () {
-                          if (rlController.categoryData.isEmpty)
-                            callCategoryList();
-                          setState(() {});
-                        },
-                        child: Text(
-                          '저장소',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        TextButton(
+        body: GetBuilder<RecordListController>(
+          init: rlController,
+          builder: (context) => Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              children: [
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: TextButton(
                           onPressed: () {
-                            print('edit mode');
-                            // ignore: unnecessary_statements
-                            _editMode = !_editMode;
-                            rlController.categoryData.forEach((element) {
-                              element["checked"] = false;
-                            });
+                            if (rlController.categoryData.isEmpty)
+                              callCategoryList();
                             setState(() {});
                           },
                           child: Text(
-                            '편집',
+                            '저장소',
                             style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
                               color: Colors.black,
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.only(right: width * 0.03, top: height * 0.01),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Image.asset(
-                        'assets/icons/storage_icon2.png',
-                        scale: 0.98,
+                      ),
+                      Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              print('edit mode');
+                              // ignore: unnecessary_statements
+                              _editMode = !_editMode;
+                              rlController.categoryData.forEach((element) {
+                                element["checked"] = false;
+                              });
+                              setState(() {});
+                            },
+                            child: Text(
+                              '편집',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-              ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(right: width * 0.03, top: height * 0.01),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Image.asset(
+                          'assets/icons/storage_icon2.png',
+                          scale: 0.98,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
 
-              // Storage, Search, Edit
-              Expanded(
-                child: _editMode == false
-                    ? Container(
-                        child: ListView.builder(
-                        itemCount: rlController.categoryData.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(top: 0),
-                            child: ListTile(
-                              leading: SvgPicture.asset(
-                                  'assets/background/storage_folder.svg'),
-                              title: Text(
-                                rlController.categoryData[index]["name"],
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // subtitle: Text(
-                              //     rlController.categoryData[index]["date"]),
-                              onTap: () {
-                                Get.to(() => CategoryScreen(),
-                                    arguments: index,
-                                    transition: Transition.downToUp);
-                              },
-                            ),
-                          );
-                        },
-                      ))
-                    : Container(
-                        child: ListView.builder(
-                        itemCount: rlController.categoryData.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 0.0),
-                            child: CheckboxListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
+                // Storage, Search, Edit
+                Expanded(
+                  child: _editMode == false
+                      ? Container(
+                          child: ListView.builder(
+                          itemCount: rlController.categoryData.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(top: 0),
+                              child: ListTile(
+                                leading: SvgPicture.asset(
+                                    'assets/background/storage_folder.svg'),
                                 title: Text(
                                   rlController.categoryData[index]["name"],
                                   style: TextStyle(
@@ -370,71 +346,101 @@ class _StorageScreenState extends State<StorageScreen> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                value: rlController.categoryData[index]
-                                    ["checked"],
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    rlController.categoryData[index]
-                                            ["checked"] =
-                                        !rlController.categoryData[index]
-                                            ["checked"];
-                                  });
-                                }),
-                          );
-                        },
-                      )),
-              ),
+                                // subtitle: Text(
+                                //     rlController.categoryData[index]["date"]),
+                                onTap: () {
+                                  Get.to(() => CategoryScreen(),
+                                      arguments: index,
+                                      transition: Transition.downToUp);
+                                },
+                              ),
+                            );
+                          },
+                        ))
+                      : Container(
+                          child: ListView.builder(
+                          itemCount: rlController.categoryData.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 0.0),
+                              child: CheckboxListTile(
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  title: Text(
+                                    rlController.categoryData[index]["name"],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  value: rlController.categoryData[index]
+                                      ["checked"],
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      rlController.categoryData[index]
+                                              ["checked"] =
+                                          !rlController.categoryData[index]
+                                              ["checked"];
+                                    });
+                                  }),
+                            );
+                          },
+                        )),
+                ),
 
-              _editMode
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            print('folder delete');
-                            deleteCategoryDialog();
-                            _editMode = !_editMode;
-                            setState(() {});
-                          },
-                          icon: Icon(Icons.delete_forever_sharp),
-                          iconSize: 40,
-                          color: Color(0xFFFFA9A9),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            renameCategoryDialog();
-                            print('folder rename');
-                            _editMode = !_editMode;
-                          },
-                          icon: Icon(Icons.edit),
-                          iconSize: 40,
-                          color: Color(0xFFFFA9A9),
-                        ),
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, bottom: 10),
-                          child: TextButton(
+                _editMode
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
                             onPressed: () {
-                              createCategoryDialog();
-                              print('add Dialog');
+                              print('folder delete');
+                              deleteCategoryDialog();
+                              _editMode = !_editMode;
+                              setState(() {});
                             },
-                            child: Text(
-                              '+ 카테고리 추가',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                            icon: Icon(Icons.delete_forever_sharp),
+                            iconSize: 40,
+                            color: Color(0xFFFFA9A9),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              renameCategoryDialog();
+                              print('folder rename');
+                              _editMode = !_editMode;
+                            },
+                            icon: Icon(Icons.edit),
+                            iconSize: 40,
+                            color: Color(0xFFFFA9A9),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 20, bottom: 10),
+                            child: TextButton(
+                              onPressed: () {
+                                createCategoryDialog();
+                                print('add Dialog');
+                              },
+                              child: Text(
+                                '+ 카테고리 추가',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    )
-            ],
+                        ],
+                      )
+              ],
+            ),
           ),
         ),
       ),

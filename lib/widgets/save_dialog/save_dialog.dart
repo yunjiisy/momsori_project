@@ -176,15 +176,15 @@ Widget saveDialog(BuildContext context) {
               ),
               InkWell(
                 onTap: () {
-                   rs.saveFile(
-                       fileNameController.fileName.value, controller.category);
+                  rs.saveFile(
+                      fileNameController.fileName.value, controller.category);
                   Get.back();
                   Get.snackbar(
                     '저장되었습니다!',
                     '탭하면 보관함으로 이동',
                     snackPosition: SnackPosition.BOTTOM,
                     onTap: (_) {
-                      Get.offAll(
+                      Get.to(
                         () => MainScreen(),
                         arguments: 2,
                       );

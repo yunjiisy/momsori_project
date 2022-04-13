@@ -862,7 +862,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                 !_editMode
                     ? Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.only(bottom: 7),
                         child: Visibility(
                           visible: _clicked,
                           child: Column(
@@ -872,7 +872,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 builder: (_, title, __) {
                                   return Text(title,
                                       style: TextStyle(
-                                          fontSize: 40, color: Colors.black));
+                                          fontSize: 20,
+                                          color:
+                                              Color.fromARGB(255, 46, 46, 46),
+                                          fontWeight: FontWeight.w700));
                                 },
                               ),
                               // ValueListenableBuilder<List<String>>(
@@ -888,29 +891,46 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               //     );
                               //   },
                               // ),
+                              SizedBox(height: height * 0.005),
                               ValueListenableBuilder<ProgressBarState>(
                                 valueListenable: progressNotifier,
                                 builder: (_, value, __) {
                                   return ProgressBar(
+                                    barHeight: 0.006 * height,
+                                    thumbRadius: 0.01 * height,
+                                    progressBarColor: Color(0XFFFFA9A9),
+                                    thumbColor:
+                                        Color.fromARGB(255, 255, 154, 154),
+                                    thumbGlowColor: Color(0XFFFFA9A9),
+                                    bufferedBarColor:
+                                        Color.fromARGB(255, 255, 222, 222),
                                     onSeek: seek,
                                     progress: value.current,
                                     buffered: value.buffered,
                                     total: value.total,
+                                    timeLabelPadding: 2,
+                                    timeLabelTextStyle: TextStyle(
+                                        fontSize: height * 0.016,
+                                        color: Colors.black),
                                   );
                                 },
                               ),
                               Row(
+                                mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   ValueListenableBuilder<RepeatState>(
                                     valueListenable: repeatButtonNotifier,
                                     builder: (context, value, child) {
                                       Icon icon;
+
                                       switch (value) {
                                         case RepeatState.off:
-                                          icon = Icon(Icons.repeat,
-                                              color: Colors.grey);
+                                          icon = Icon(
+                                            Icons.repeat,
+                                            color: Colors.grey,
+                                          );
                                           break;
                                         case RepeatState.repeatSong:
                                           icon = Icon(Icons.repeat_one);

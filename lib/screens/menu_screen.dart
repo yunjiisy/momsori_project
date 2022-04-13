@@ -84,7 +84,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           child: Text(
                             '${user.userName}  ' + 'D-' + '${user.babyDay()}',
                             style: TextStyle(
-                              fontSize: 0.029 * height,
+                              fontSize: 0.026 * height,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
@@ -98,7 +98,7 @@ class _MenuScreenState extends State<MenuScreen> {
                             Text(
                               '출산예정일 : ${user.babyBirth}   ',
                               style: TextStyle(
-                                fontSize: 0.019 * height,
+                                fontSize: 0.018 * height,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -119,7 +119,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   //   ),
                   // ),
                   Container(
-                    padding: EdgeInsets.only(top: 17.h, left: 85.w),
+                    padding: EdgeInsets.only(top: 22.h, left: 50.w),
                     child: InkWell(
                       onTap: () {
                         Get.to(
@@ -171,7 +171,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20),
+                      margin: EdgeInsets.only(left: 10),
                       color: Colors.grey.withOpacity(0.3),
                       height: 0.002 * height,
                     ),
@@ -186,7 +186,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20),
+                      margin: EdgeInsets.only(left: 10),
                       color: Colors.grey.withOpacity(0.3),
                       height: 0.002 * height,
                     ),
@@ -201,7 +201,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20),
+                      margin: EdgeInsets.only(left: 10),
                       color: Colors.grey.withOpacity(0.3),
                       height: 0.002 * height,
                     ),
