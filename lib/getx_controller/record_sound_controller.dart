@@ -132,6 +132,8 @@ class RecordSoundController extends GetxController {
         ? Directory('${tempDir!.path}/$category')
         : Directory(tempDir!.path);
     directory.create(recursive: true);
+    print("디렉토리 경로");
+    print(directory.path);
     String outputFile = '${directory.path}/$fileName.mp3';
 
     await flutterSoundHelper.convertFile(

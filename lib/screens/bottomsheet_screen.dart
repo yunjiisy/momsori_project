@@ -9,12 +9,20 @@ import 'package:dotted_line/dotted_line.dart';
 
 void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
     BuildContext context, DateTime selectedDay, DateTime focusedDay) {
+  final diaryController = Get.put(DiaryController());
+
   double height = MediaQuery.of(context).size.height;
   double width = MediaQuery.of(context).size.width;
   var year = focusDay.year;
   var month = selectDay.month;
   var day = selectDay.day;
   var week = selectDay.weekday;
+  var color = diaryController.events[selectDay];
+  if (diaryController.events[selectedDay] == null) {
+    color = ['assets/icons/No_image.svg'];
+  } else {
+    color = diaryController.events[selectedDay];
+  }
 
   String colors;
 
@@ -65,26 +73,14 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
       //sdiarytext = diarytext,
     ));
   } else {
-    Get.bottomSheet(GetBuilder<DiaryController>(builder: (_) {
-      return Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(),
-            height: height * 0.452,
-            child: Container(
+    Get.bottomSheet(
+      GetBuilder<DiaryController>(builder: (_) {
+        return Container(
+          decoration: BoxDecoration(),
+          height: height * 0.452,
+          child: Container(
               padding: EdgeInsets.only(top: height * 0.0146),
-              //color: Colors.white,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0)),
-                color: Colors.white,
-              ),
-              // borderRadius: BorderRadius.only(
-              //     topLeft: Radius.circular(10.0),
-              //     topRight: Radius.circular(10.0))),
               child: ListView(
-                //scrollDirection: Axis.vertical,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,7 +109,7 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                     ],
                   ),
                   Container(
-                    width: double.infinity,
+                    //width: double.infinity,
                     padding: EdgeInsets.only(
                         left: width * 0.05,
                         top: 0.007,
@@ -148,22 +144,21 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                         ),
                         Row(
                           children: [
-                            //for (int i = 0; i < healthIcon.length;i++){}
-                            Column(
-                              children: [
-                                SvgPicture.asset(
-                                  colors,
-                                  width: width * 0.13,
-                                  height: width * 0.13,
-                                ),
-                                Text(
-                                  Feeling,
-                                  style: TextStyle(
-                                      fontSize: width * 0.028,
-                                      fontWeight: FontWeight.w600),
-                                )
-                              ],
-                            ),
+                            // Column(
+                            //   children: [
+                            //     SvgPicture.asset(
+                            //       colors[0],
+                            //       width: width * 0.13,
+                            //       height: width * 0.13,
+                            //     ),
+                            //     Text(
+                            //       Feeling,
+                            //       style: TextStyle(
+                            //           fontSize: width * 0.028,
+                            //           fontWeight: FontWeight.w600),
+                            //     )
+                            //   ],
+                            // ),
                           ],
                         ),
                         SizedBox(
@@ -289,62 +284,6 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                         SizedBox(
                           height: 10.h,
                         ),
-                        fileDataList.isEmpty
-                            ? Container(
-                                child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      child: Text(
-                                    'is Empty',
-                                    style: TextStyle(
-                                        fontSize: 45,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black),
-                                  )),
-                                ],
-                              ))
-                            : Container(
-                                child: Container(
-                                    child: Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: ListTile(
-                                  title: Text(
-                                    fileDataList[0]["name"],
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  trailing: Text(
-                                    fileDataList[0]["date"].toString(),
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // onTap: () {
-                                  //   if (!_clicked) _clicked = true;
-                                  //   _playlist.clear();
-                                  //   player.pause();
-                                  //   setupFile(fileDataList[index]["path"],
-                                  //       fileDataList[index]["name"]);
-                                  //   //setState(() {});
-                                  // },
-                                ),
-                              ))),
-                        // Container(
-                        //   child: Text(fileDataList[0]["name"]),
-                        // ),
-                        TextButton(
-                          child: Text('버튼'),
-                          onPressed: () {
-                            print(fileDataList);
-                          },
-                        ),
                         Container(
                           padding: EdgeInsets.only(top: width * 0.024),
                           child: Column(
@@ -393,12 +332,14 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-        ],
-      );
-    }));
+              )),
+        );
+      }),
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
   } //bottom sheet
 
   // print(focusedDay);

@@ -102,6 +102,7 @@ Widget saveDialog(BuildContext context) {
                               },
                               child: Center(
                                 child: Text(
+                                  //+카테고리추가
                                   '${_.categories[index]}',
                                   style: TextStyle(
                                     fontSize: 12.sp,
@@ -178,6 +179,9 @@ Widget saveDialog(BuildContext context) {
                 onTap: () {
                   rs.saveFile(
                       fileNameController.fileName.value, controller.category);
+                  print("카테고리" + (controller.category).toString());
+                  print(
+                      "파일: " + (fileNameController.fileName.value).toString());
                   Get.back();
                   Get.snackbar(
                     '저장되었습니다!',

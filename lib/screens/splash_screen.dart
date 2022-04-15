@@ -7,20 +7,30 @@ import 'tutorial_screen.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-      splash: Text(
-        'MOMSORY\nSplashScreen\n2초 후에 넘어갑니다',
-        style: TextStyle(
-          fontSize: 32.0,
-          fontWeight: FontWeight.w900,
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/background/splashScreen.png"),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: AnimatedSplashScreen(
+          backgroundColor: Colors.transparent,
+          splash: Text(
+            ' ',
+            style: TextStyle(
+              fontSize: 32.0,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          splashIconSize: 200,
+          nextScreen: TutorialScreen(),
+          // nextScreen: LoginScreen(),
+          duration: 2000,
+          splashTransition: SplashTransition.fadeTransition,
+          pageTransitionType: PageTransitionType.fade,
         ),
       ),
-      splashIconSize: 200,
-      nextScreen: TutorialScreen(),
-      // nextScreen: LoginScreen(),
-      duration: 2000,
-      splashTransition: SplashTransition.fadeTransition,
-      pageTransitionType: PageTransitionType.fade,
     );
   }
 }

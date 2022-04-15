@@ -52,16 +52,36 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                   child: Container(
-                    //height: 100,
-                    //width: 100,
-                    child: _selectedIndex == 0
-                        ? SvgPicture.asset(
-                            'assets/icons/홈_pink.svg',
-                          )
-                        : SvgPicture.asset(
-                            'assets/icons/홈_gray.svg',
+                      height: 90,
+                      width: 90,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _selectedIndex == 0
+                              ? SvgPicture.asset(
+                                  'assets/icons/home_pink.svg',
+                                )
+                              : SvgPicture.asset(
+                                  'assets/icons/home_gray.svg',
+                                ),
+                          SizedBox(
+                            height: 3.h,
                           ),
-                  ),
+                          _selectedIndex == 0
+                              ? Text(
+                                  ' 홈',
+                                  style: TextStyle(
+                                      color: Colors.pink, fontSize: 7.h),
+                                  textAlign: TextAlign.center,
+                                )
+                              : Text(
+                                  ' 홈',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 7.h),
+                                  textAlign: TextAlign.center,
+                                )
+                        ],
+                      )),
                 ),
                 InkWell(
                   onTap: () {
@@ -70,16 +90,36 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                   child: Container(
-                    // height: 110,
-                    //width: 110,
-                    child: _selectedIndex == 1
-                        ? SvgPicture.asset(
-                            'assets/icons/다이어리_pink.svg',
-                          )
-                        : SvgPicture.asset(
-                            'assets/icons/다이어리_gray.svg',
+                      height: 90,
+                      width: 90,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _selectedIndex == 1
+                              ? SvgPicture.asset(
+                                  'assets/icons/diary_pink.svg',
+                                )
+                              : SvgPicture.asset(
+                                  'assets/icons/diary_gray.svg',
+                                ),
+                          SizedBox(
+                            height: 3.h,
                           ),
-                  ),
+                          _selectedIndex == 1
+                              ? Text(
+                                  ' 다이어리',
+                                  style: TextStyle(
+                                      color: Colors.pink, fontSize: 7.h),
+                                  textAlign: TextAlign.center,
+                                )
+                              : Text(
+                                  ' 다이어리',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 7.h),
+                                  textAlign: TextAlign.center,
+                                )
+                        ],
+                      )),
                 ),
                 InkWell(
                   onTap: () {
@@ -88,16 +128,36 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                   child: Container(
-                    // height: 100,
-                    //width: 100,
-                    child: _selectedIndex == 2
-                        ? SvgPicture.asset(
-                            'assets/icons/음성일기보관함_pink.svg',
-                          )
-                        : SvgPicture.asset(
-                            'assets/icons/음성일기보관함_gray.svg',
+                      height: 90,
+                      width: 90,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _selectedIndex == 2
+                              ? SvgPicture.asset(
+                                  'assets/icons/storage_pink.svg',
+                                )
+                              : SvgPicture.asset(
+                                  'assets/icons/storage_gray.svg',
+                                ),
+                          SizedBox(
+                            height: 3.h,
                           ),
-                  ),
+                          _selectedIndex == 2
+                              ? Text(
+                                  ' 음성일기보관함',
+                                  style: TextStyle(
+                                      color: Colors.pink, fontSize: 7.h),
+                                  textAlign: TextAlign.center,
+                                )
+                              : Text(
+                                  ' 음성일기보관함',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 7.h),
+                                  textAlign: TextAlign.center,
+                                )
+                        ],
+                      )),
                 ),
                 InkWell(
                   onTap: () {
@@ -106,16 +166,36 @@ class _MainScreenState extends State<MainScreen> {
                     });
                   },
                   child: Container(
-                    // height: 100,
-                    //width: 100,
-                    child: _selectedIndex == 3
-                        ? SvgPicture.asset(
-                            'assets/icons/태담가이드_pink.svg',
-                          )
-                        : SvgPicture.asset(
-                            'assets/icons/태담가이드_gray.svg',
+                      height: 90,
+                      width: 90,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _selectedIndex == 3
+                              ? SvgPicture.asset(
+                                  'assets/icons/t_pink.svg',
+                                )
+                              : SvgPicture.asset(
+                                  'assets/icons/t_gray.svg',
+                                ),
+                          SizedBox(
+                            height: 3.h,
                           ),
-                  ),
+                          _selectedIndex == 3
+                              ? Text(
+                                  ' 태담가이드',
+                                  style: TextStyle(
+                                      color: Colors.pink, fontSize: 7.h),
+                                  textAlign: TextAlign.center,
+                                )
+                              : Text(
+                                  ' 태담가이드',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 7.h),
+                                  textAlign: TextAlign.center,
+                                )
+                        ],
+                      )),
                 ),
               ],
             ),

@@ -22,11 +22,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
             PageView(
               children: [
                 Container(
-                  color: Colors.grey,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/background/tutorial1.png"),
+                          fit: BoxFit.cover)),
+                  // color: Colors.grey,
                   margin: EdgeInsets.only(
-                    top: height * 0.1,
-                    bottom: height * 0.2,
-                  ),
+                      //top: height * 0.1,
+                      //bottom: height * 0.2,
+                      ),
                   child: Center(
                     child: Text(
                       '튜토리얼1',
@@ -34,17 +38,17 @@ class _TutorialScreenState extends State<TutorialScreen> {
                         fontSize: 32.0,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFFFA9A9),
-                        fontFamily: 'NotoSansKR',
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  color: Colors.grey,
-                  margin: EdgeInsets.only(
-                    top: height * 0.1,
-                    bottom: height * 0.2,
-                  ),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/background/tutorial2.png"),
+                          fit: BoxFit.cover)),
+                  // color: Colors.grey,
+
                   child: Center(
                     child: Text(
                       '튜토리얼2',
@@ -52,17 +56,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
                         fontSize: 32.0,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFFFA9A9),
-                        fontFamily: 'NotoSansKR',
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  color: Colors.grey,
-                  margin: EdgeInsets.only(
-                    top: height * 0.1,
-                    bottom: height * 0.2,
-                  ),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/background/tutorial3.png"),
+                          fit: BoxFit.cover)),
                   child: Center(
                     child: Text(
                       '튜토리얼3',
@@ -70,17 +72,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
                         fontSize: 32.0,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFFFA9A9),
-                        fontFamily: 'NotoSansKR',
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  color: Colors.grey,
-                  margin: EdgeInsets.only(
-                    top: height * 0.1,
-                    bottom: height * 0.2,
-                  ),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/background/tutorial4.png"),
+                          fit: BoxFit.cover)),
                   child: Center(
                     child: Text(
                       '튜토리얼4',
@@ -88,7 +88,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
                         fontSize: 32.0,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFFFA9A9),
-                        fontFamily: 'NotoSansKR',
                       ),
                     ),
                   ),
@@ -119,9 +118,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
                         'Skip',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'NotoSansKR',
                           fontSize: 18,
-                          color: Color(0xFFFFA9A9),
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -192,7 +190,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue,
+              color: Color(0xFFFFA9A9),
             ),
           ),
           SizedBox(
@@ -249,7 +247,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue,
+              color: Color(0xFFFFA9A9),
             ),
           ),
           SizedBox(
@@ -306,7 +304,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue,
+              color: Color(0xFFFFA9A9),
             ),
           ),
           SizedBox(
@@ -363,7 +361,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue,
+              color: Color(0xFFFFA9A9),
             ),
           ),
         ],
