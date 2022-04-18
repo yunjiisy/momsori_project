@@ -46,7 +46,9 @@ class _HealthButtonState extends State<HealthButton> {
                 // widget.health[widget.selectDay] = [widget.image];
                 // widget.health[widget.selectDay]!.add(widget.healthtext);
                 setState(() {
-                  if (diaryController.health[widget.selectDay] == null) {
+                  if (diaryController.health[widget.selectDay] == null ||
+                      diaryController.health[widget.selectDay]!.isEmpty ==
+                          true) {
                     diaryController.health[widget.selectDay] = [widget.image];
 
                     diaryController.health[widget.selectDay]!
@@ -75,6 +77,7 @@ class _HealthButtonState extends State<HealthButton> {
                           : diaryController.health[widget.selectDay]!
                               .add(widget.healthtext);
                       // _hasBeenPressed = !_hasBeenPressed;
+
                     }
                   }
                   if (diaryController.events[widget.selectDay] == null) {
@@ -83,6 +86,15 @@ class _HealthButtonState extends State<HealthButton> {
                     ];
                     diaryController.feeling[widget.selectDay] = [" "];
                   }
+                  if (diaryController.events[widget.selectDay] ==
+                          ['assets/icons/No_image.svg'] &&
+                      diaryController.health[widget.selectDay]!.isEmpty ==
+                          true) {
+                    diaryController.events[widget.selectDay]!
+                        .remove(widget.selectDay);
+                  }
+
+                  //헬쓰가 엠티면 이븐트도 노이미지 말고 엠티로 바꿔주기
                   // _hasBeenPressed = !_hasBeenPressed;
                 });
 

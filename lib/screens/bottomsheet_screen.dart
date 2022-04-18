@@ -17,19 +17,16 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
   var month = selectDay.month;
   var day = selectDay.day;
   var week = selectDay.weekday;
-  var color = diaryController.events[selectDay];
-  if (diaryController.events[selectedDay] == null) {
-    color = ['assets/icons/No_image.svg'];
-  } else {
-    color = diaryController.events[selectedDay];
-  }
 
-  String colors;
+  var colors;
+  print("현재 상태");
+  print(diaryController.events[selectDay]);
+  print(diaryController.health[selectDay]);
 
   if (diaryController.events[selectDay] == null) {
     colors = 'assets/icons/No_image.svg';
   } else {
-    colors = diaryController.events[selectDay]![0];
+    colors = diaryController.events[selectDay];
   }
 
   List<int> h = List.filled(14, 15, growable: true);
@@ -56,14 +53,16 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
   } else {
     diaryText = diaryController.diarytext[selectedDay]![0];
   }
-  String Feeling;
+  var Feeling;
   if (diaryController.feeling[selectDay] == null) {
     Feeling = ' ';
   } else {
-    Feeling = diaryController.feeling[selectedDay]![0];
+    Feeling = diaryController.feeling[selectedDay];
   }
-  if (diaryController.events[selectDay] == null &&
-      diaryController.health[selectDay] == null &&
+  if ((diaryController.events[selectDay] == null ||
+          diaryController.events[selectDay]!.isEmpty == true) &&
+      (diaryController.health[selectDay] == null ||
+          diaryController.health[selectDay]!.isEmpty == true) &&
       diaryController.diarytext[selectDay] == null) {
     Get.to(DiaryEdit(
       //events = events,
@@ -80,259 +79,264 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
           height: height * 0.452,
           child: Container(
               padding: EdgeInsets.only(top: height * 0.0146),
-              child: ListView(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: width * 0.0486),
-                        child: Text(
-                          '$year.$month.$day (32주차)',
-                          style: TextStyle(
-                              fontSize: width * 0.0486,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Container(
-                        child: IconButton(
-                          padding: EdgeInsets.only(right: width * 0.024),
-                          icon: Icon(
-                            Icons.close,
-                            size: width * 0.073,
-                          ),
-                          onPressed: () {
-                            Get.back();
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                  Container(
-                    //width: double.infinity,
-                    padding: EdgeInsets.only(
-                        left: width * 0.05,
-                        top: 0.007,
-                        right: width * 0.05,
-                        bottom: height * 0.315),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              '감정상태/건강상태 ',
+              child: ListView.builder(
+                  itemCount: colors.length,
+                  key: UniqueKey(),
+                  itemBuilder: (context, index) {
+                    return Column(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: width * 0.0486),
+                            child: Text(
+                              '$year.$month.$day (32주차)',
                               style: TextStyle(
-                                  fontSize: width * 0.036,
+                                  fontSize: width * 0.0486,
                                   fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              width: 5.0,
-                            ),
-                            Container(
-                              width: width * 0.57,
-                              //height: 5.0,
-                              child: DottedLine(
-                                dashColor: Color(0XFFF2F2F2),
-                                dashLength: 7.0,
-                                lineThickness: 3.0,
+                          ),
+                          Container(
+                            child: IconButton(
+                              padding: EdgeInsets.only(right: width * 0.024),
+                              icon: Icon(
+                                Icons.close,
+                                size: width * 0.073,
                               ),
+                              onPressed: () {
+                                Get.back();
+                              },
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        Row(
+                          )
+                        ],
+                      ),
+                      Container(
+                        //width: double.infinity,
+                        padding: EdgeInsets.only(
+                            left: width * 0.05,
+                            top: 0.007,
+                            right: width * 0.05,
+                            bottom: height * 0.315),
+                        child: Column(
                           children: [
-                            // Column(
-                            //   children: [
-                            //     SvgPicture.asset(
-                            //       colors[0],
-                            //       width: width * 0.13,
-                            //       height: width * 0.13,
-                            //     ),
-                            //     Text(
-                            //       Feeling,
-                            //       style: TextStyle(
-                            //           fontSize: width * 0.028,
-                            //           fontWeight: FontWeight.w600),
-                            //     )
-                            //   ],
-                            // ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          child: Wrap(
-                              spacing: 10,
-                              children: h.map((e) {
-                                return Column(children: [
-                                  SvgPicture.asset(
-                                    healthIcon[e],
-                                    width: width * 0.13,
-                                    height: width * 0.09,
+                            Row(
+                              children: [
+                                Text(
+                                  '감정상태/건강상태 ',
+                                  style: TextStyle(
+                                      fontSize: width * 0.036,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                Container(
+                                  width: width * 0.57,
+                                  //height: 5.0,
+                                  child: DottedLine(
+                                    dashColor: Color(0XFFF2F2F2),
+                                    dashLength: 7.0,
+                                    lineThickness: 3.0,
                                   ),
-                                  Text(
-                                    healthText[e],
-                                    style: TextStyle(
-                                        fontSize: width * 0.028,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ]);
-                              }).toList()),
-                        ),
-                        Container(
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    '녹음파일',
-                                    style: TextStyle(
-                                        fontSize: width * 0.036,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Container(
-                                    width: width * 0.73,
-                                    //height: 5.0,
-                                    child: DottedLine(
-                                      dashColor: Color(0XFFF2F2F2),
-                                      dashLength: 7.0,
-                                      lineThickness: 3.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: height * 0.015,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: 0,
-                                    top: height * 0.0146,
-                                    right: width * 0.045),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: height * 0.015,
+                            ),
+                            Row(
+                              children: [
+                                Column(
                                   children: [
-                                    InkWell(
-                                      onTap: () {},
-                                      child: Column(
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/icons/play_arrow-24px_3.svg',
-                                            width: width * 0.087,
-                                          ),
-                                          Container(
-                                            width: width * 0.243,
-                                            child: Text(
-                                              '열자를 넘게하면 이렇게 됨!',
-                                              style: TextStyle(
-                                                  fontSize: width * 0.024),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                    SvgPicture.asset(
+                                      colors[index],
+                                      width: width * 0.13,
+                                      height: width * 0.13,
                                     ),
-                                    Column(
-                                      children: [
-                                        SvgPicture.asset(
-                                          'assets/icons/play_arrow-24px_3.svg',
-                                          width: width * 0.087,
-                                        ),
-                                        Container(
-                                          width: width * 0.243,
-                                          child: Text(
-                                            '열자를 넘게하면 이렇게 됨!',
-                                            style: TextStyle(
-                                                fontSize: width * 0.024),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        SvgPicture.asset(
-                                          'assets/icons/play_arrow-24px_3.svg',
-                                          width: width * 0.087,
-                                        ),
-                                        Container(
-                                          width: width * 0.243,
-                                          child: Text(
-                                            '열자를 넘게하면 이렇게 됨!',
-                                            style: TextStyle(
-                                                fontSize: width * 0.024),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                    Text(
+                                      Feeling[index],
+                                      style: TextStyle(
+                                          fontSize: width * 0.028,
+                                          fontWeight: FontWeight.w600),
+                                    )
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: width * 0.024),
-                          child: Column(
-                            children: [
-                              Row(
+                              ],
+                            ),
+                            SizedBox(
+                              height: height * 0.015,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              child: Wrap(
+                                  spacing: 10,
+                                  children: h.map((e) {
+                                    return Column(children: [
+                                      SvgPicture.asset(
+                                        healthIcon[e],
+                                        width: width * 0.13,
+                                        height: width * 0.09,
+                                      ),
+                                      Text(
+                                        healthText[e],
+                                        style: TextStyle(
+                                            fontSize: width * 0.028,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ]);
+                                  }).toList()),
+                            ),
+                            Container(
+                              child: Column(
                                 children: [
-                                  Text(
-                                    '메모',
-                                    style: TextStyle(
-                                        fontSize: width * 0.036,
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '녹음파일',
+                                        style: TextStyle(
+                                            fontSize: width * 0.036,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      Container(
+                                        width: width * 0.73,
+                                        //height: 5.0,
+                                        child: DottedLine(
+                                          dashColor: Color(0XFFF2F2F2),
+                                          dashLength: 7.0,
+                                          lineThickness: 3.0,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
-                                    width: 5.0,
+                                    height: height * 0.015,
                                   ),
                                   Container(
-                                    width: width * 0.8,
-                                    //height: 5.0,
-                                    child: DottedLine(
-                                      dashColor: Color(0XFFF2F2F2),
-                                      dashLength: 7.0,
-                                      lineThickness: 3.0,
+                                    padding: EdgeInsets.only(
+                                        left: 0,
+                                        top: height * 0.0146,
+                                        right: width * 0.045),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Column(
+                                            children: [
+                                              SvgPicture.asset(
+                                                'assets/icons/play_arrow-24px_3.svg',
+                                                width: width * 0.087,
+                                              ),
+                                              Container(
+                                                width: width * 0.243,
+                                                child: Text(
+                                                  '열자를 넘게하면 이렇게 됨!',
+                                                  style: TextStyle(
+                                                      fontSize: width * 0.024),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Column(
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/icons/play_arrow-24px_3.svg',
+                                              width: width * 0.087,
+                                            ),
+                                            Container(
+                                              width: width * 0.243,
+                                              child: Text(
+                                                '열자를 넘게하면 이렇게 됨!',
+                                                style: TextStyle(
+                                                    fontSize: width * 0.024),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/icons/play_arrow-24px_3.svg',
+                                              width: width * 0.087,
+                                            ),
+                                            Container(
+                                              width: width * 0.243,
+                                              child: Text(
+                                                '열자를 넘게하면 이렇게 됨!',
+                                                style: TextStyle(
+                                                    fontSize: width * 0.024),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
-                              SizedBox(
-                                height: height * 0.018,
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: width * 0.024),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '메모',
+                                        style: TextStyle(
+                                            fontSize: width * 0.036,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      Container(
+                                        width: width * 0.8,
+                                        //height: 5.0,
+                                        child: DottedLine(
+                                          dashColor: Color(0XFFF2F2F2),
+                                          dashLength: 7.0,
+                                          lineThickness: 3.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.018,
+                                  ),
+                                  Container(
+                                      //color: Color(0xFFE5E5E5),
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFFE5E5E5),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0.h),
+                                        child: Text(
+                                          diaryText,
+                                        ),
+                                      )),
+                                ],
                               ),
-                              Container(
-                                  //color: Color(0xFFE5E5E5),
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFE5E5E5),
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0.h),
-                                    child: Text(
-                                      diaryText,
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              )),
+                            )
+                          ],
+                        ),
+                      )
+                    ]);
+                  })),
         );
       }),
       backgroundColor: Colors.white,

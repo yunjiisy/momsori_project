@@ -201,9 +201,9 @@ class DiaryScreenState extends State<DiaryScreen>
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                             selectedDecoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(blurRadius: 3.0, color: Colors.grey)
-                              ],
+                              // boxShadow: [
+                              //   BoxShadow(blurRadius: 3.0, color: Colors.grey)
+                              // ],
                               color: Color(0XFFFFD1D1),
                               shape: BoxShape.circle,
                             ),
@@ -305,8 +305,9 @@ class DiaryScreenState extends State<DiaryScreen>
             width: 8.w,
             height: 8.h,
             decoration: BoxDecoration(
-                border: Border.all(
-                    width: 1, color: Color.fromARGB(255, 204, 187, 187)),
+                // border: Border.all(
+                //     width: 1, color: Color.fromARGB(255, 204, 187, 187)
+                //     ),
 
                 //backgroundBlendMode: BlendMode. ,
                 color: Color(0XFFFFD1D1),

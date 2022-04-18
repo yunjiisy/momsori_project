@@ -61,14 +61,15 @@ class _EmotionButtonState extends State<EmotionButton> {
                 setState(() {
                   // _hasBeenPressed = pressed(
                   //     diaryController.events, widget.selectDay, widget.color);
-                  if (diaryController.events[widget.selectDay] == null) {
+                  if (diaryController.events[widget.selectDay] == null ||
+                      diaryController.events[widget.selectDay]!.isEmpty ==
+                          true) {
+                    print(diaryController.events[widget.selectDay]);
                     diaryController.events[widget.selectDay] = [widget.color];
 
                     diaryController.feeling[widget.selectDay] = [
                       widget.feelingText
                     ];
-                    print(diaryController.events[widget.selectDay]);
-                    //_hasBeenPressed = !_hasBeenPressed;
                   } else {
                     if (diaryController.events[widget.selectDay]![0] ==
                         "assets/icons/No_image.svg") {
@@ -76,8 +77,6 @@ class _EmotionButtonState extends State<EmotionButton> {
                           widget.color;
                       diaryController.feeling[widget.selectDay]![0] =
                           widget.feelingText;
-
-                      // _hasBeenPressed = !_hasBeenPressed;
                     } else {
                       diaryController.events[widget.selectDay]!
                               .contains(widget.color)
@@ -92,7 +91,6 @@ class _EmotionButtonState extends State<EmotionButton> {
                               .remove(widget.feelingText)
                           : diaryController.feeling[widget.selectDay]!
                               .add(widget.feelingText);
-                      //_hasBeenPressed = !_hasBeenPressed;
                     }
                   }
                   if (diaryController.health[widget.selectDay] == null) {
