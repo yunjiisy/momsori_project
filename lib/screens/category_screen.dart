@@ -787,14 +787,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // trailing: Text(
-                                      //   fileDataList[index]["date"].toString(),
-                                      //   style: TextStyle(
-                                      //     fontSize: 16,
-                                      //     fontWeight: FontWeight.w500,
-                                      //     color: Colors.black,
-                                      //   ),
-                                      // ),
                                       onTap: () {
                                         for (int i = 0;
                                             i < fileDataList.length;
@@ -878,19 +870,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           fontWeight: FontWeight.w700));
                                 },
                               ),
-                              // ValueListenableBuilder<List<String>>(
-                              //   valueListenable: playlistNotifier,
-                              //   builder: (context, playlistTitles, _) {
-                              //     return ListView.builder(
-                              //       itemCount: playlistTitles.length,
-                              //       itemBuilder: (context, index) {
-                              //         return ListTile(
-                              //           title: Text('${playlistTitles[index]}'),
-                              //         );
-                              //       },
-                              //     );
-                              //   },
-                              // ),
                               SizedBox(height: height * 0.005),
                               ValueListenableBuilder<ProgressBarState>(
                                 valueListenable: progressNotifier,

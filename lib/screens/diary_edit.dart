@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,13 +13,7 @@ import 'package:momsori/getx_controller/diary_controller.dart';
 import 'package:dotted_line/dotted_line.dart';
 
 class DiaryEdit extends StatefulWidget {
-  // DiaryEdit(Map<DateTime, List> events, [DateTime selectedday]);
-  //Map<DateTime, List> events;
   DateTime selectedDay;
-
-  //Map<DateTime, List> health;
-  //Map<DateTime, List> diarytext;
-  //Map<DateTime, List> feeling;
 
   var color;
 
@@ -34,11 +30,10 @@ class DiaryEditState extends State<DiaryEdit> {
   String _year = DateTime.now().year.toString();
   String _month = DateTime.now().month.toString();
   String _day = DateTime.now().day.toString();
-  late String healthtext;
+  late String healthText;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -54,13 +49,13 @@ class DiaryEditState extends State<DiaryEdit> {
     _month = selectDay.month.toString();
 
     final DateTime date = DateTime.now();
-    DateTime date_now = DateTime(date.year, date.month, date.day);
-    DateTime date_selected =
+    DateTime dateNow = DateTime(date.year, date.month, date.day);
+    DateTime dateSelected =
         DateTime(selectDay.year, selectDay.month, selectDay.day);
 
     bool valDate = widget.selectedDay.isBefore(date);
 
-    if (valDate || date_now == date_selected) {
+    if (valDate || dateNow == dateSelected) {
       return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
@@ -110,7 +105,7 @@ class DiaryEditState extends State<DiaryEdit> {
                     // Navigator.pop(context, [
                     //   //widget.events,
                     //   widget.health,
-                    //   widget.diarytext,
+                    //   widget.diaryText,
                     //   widget.feeling,
                     //   widget.selectedDay,
                     // ]);
@@ -319,77 +314,77 @@ class DiaryEditState extends State<DiaryEdit> {
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/괜찮음.svg',
-                        healthtext = '괜찮음'),
+                        healthText = '괜찮음'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/태동.svg',
-                        healthtext = '태동'),
+                        healthText = '태동'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/배뭉침.svg',
-                        healthtext = '배뭉침'),
+                        healthText = '배뭉침'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/배당김.svg',
-                        healthtext = '배당김'),
+                        healthText = '배당김'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/복통.svg',
-                        healthtext = '복통'),
+                        healthText = '복통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/입덧.svg',
-                        healthtext = '입덧'),
+                        healthText = '입덧'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/두통.svg',
-                        healthtext = '두통'),
+                        healthText = '두통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/다리부종.svg',
-                        healthtext = '다리부종'),
+                        healthText = '다리부종'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/소화불량.svg',
-                        healthtext = '소화불량'),
+                        healthText = '소화불량'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/변비.svg',
-                        healthtext = '변비'),
+                        healthText = '변비'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/흉통.svg',
-                        healthtext = '흉통'),
+                        healthText = '흉통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/치골통.svg',
-                        healthtext = '치골통'),
+                        healthText = '치골통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/요통.svg',
-                        healthtext = '요통'),
+                        healthText = '요통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/불면증.svg',
-                        healthtext = '불면증'),
+                        healthText = '불면증'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/어지러움.svg',
-                        healthtext = '어지러움'),
+                        healthText = '어지러움'),
                   ],
                 ),
               ),

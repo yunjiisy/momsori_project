@@ -1,4 +1,7 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:momsori/screens/category_screen.dart';
 import 'package:momsori/screens/diary_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,13 +9,54 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:momsori/getx_controller/diary_controller.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:momsori/widgets/call_diary_record_list_widget.dart';
+import 'package:momsori/widgets/notifiers/play_button_notifier.dart';
 
-void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
-    BuildContext context, DateTime selectedDay, DateTime focusedDay) {
+void bottomSheet(
+    DateTime selectDay,
+    DateTime focusDay,
+    final diaryController,
+    BuildContext context,
+    DateTime selectedDay,
+    DateTime focusedDay,
+    AudioPlayer player) async {
+  final playButtonNotifier = PlayButtonNotifier();
+  final playlistNotifier = ValueNotifier<List<String>>([]);
+  final progressNotifier = ValueNotifier<ProgressBarState>(ProgressBarState(
+    current: Duration.zero,
+    total: Duration.zero,
+    buffered: Duration.zero,
+  ));
   final diaryController = Get.put(DiaryController());
+  late ConcatenatingAudioSource _playlist =
+      ConcatenatingAudioSource(children: []);
+
+  Future<List<Map>> tmpList = callDiaryRecordListWidget(selectDay);
+  List<Map> recordList = await tmpList;
+  recordList.forEach((element) {
+    print(element);
+  });
+
+  void setupFile(int index) async {
+    _playlist.add(ConcatenatingAudioSource(children: [
+      AudioSource.uri(Uri.file(recordList[index]["path"]),
+          tag: recordList[index]["name"]),
+    ]));
+    await player.setAudioSource(_playlist);
+  }
+
+  void setupList() async {
+    recordList.forEach((element) {
+      _playlist.add(ConcatenatingAudioSource(children: [
+        AudioSource.uri(Uri.file(element["path"]), tag: element["name"]),
+      ]));
+    });
+    await player.setAudioSource(_playlist);
+  }
 
   double height = MediaQuery.of(context).size.height;
   double width = MediaQuery.of(context).size.width;
+
   var year = focusDay.year;
   var month = selectDay.month;
   var day = selectDay.day;
@@ -54,8 +98,9 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
     diaryText = diaryController.diarytext[selectedDay]![0];
   }
   var Feeling;
+
   if (diaryController.feeling[selectDay] == null) {
-    Feeling = ' ';
+    Feeling = " ";
   } else {
     Feeling = diaryController.feeling[selectedDay];
   }
@@ -220,28 +265,146 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                                         top: height * 0.0146,
                                         right: width * 0.045),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {},
-                                          child: Column(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/play_arrow-24px_3.svg',
-                                                width: width * 0.087,
-                                              ),
-                                              Container(
-                                                width: width * 0.243,
-                                                child: Text(
-                                                  '열자를 넘게하면 이렇게 됨!',
-                                                  style: TextStyle(
-                                                      fontSize: width * 0.024),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {},
+                                            child: Column(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/icons/play_arrow-24px_3.svg',
+                                                  width: width * 0.087,
                                                 ),
-                                              ),
-                                            ],
+                                                Container(
+                                                  width: width * 0.243,
+                                                  child: Text(
+                                                    '열자를 넘게하면 이렇게 됨!',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            width * 0.024),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.015,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: 0,
+                                        top: height * 0.0146,
+                                        right: width * 0.045),
+                                    child: Column(
+                                      children: <Widget>[
+                                        ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: recordList.length,
+                                            itemBuilder: (context, index) =>
+                                                ListTile(
+                                                  leading:
+                                                      ValueListenableBuilder<
+                                                          ButtonState>(
+                                                    valueListenable:
+                                                        playButtonNotifier,
+                                                    builder: (_, value, __) {
+                                                      switch (value) {
+                                                        case ButtonState
+                                                            .loading:
+                                                          return Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            width: 32.0,
+                                                            height: 32.0,
+                                                            child:
+                                                                const CircularProgressIndicator(),
+                                                          );
+                                                        case ButtonState.paused:
+                                                          return IconButton(
+                                                            icon: const Icon(
+                                                                Icons
+                                                                    .play_arrow),
+                                                            iconSize: 32.0,
+                                                            onPressed: () {
+                                                              setupFile(index);
+                                                              player.play();
+                                                            },
+                                                          );
+                                                        case ButtonState
+                                                            .playing:
+                                                          return IconButton(
+                                                            icon: const Icon(
+                                                                Icons.pause),
+                                                            iconSize: 32.0,
+                                                            onPressed: () {
+                                                              player.pause();
+                                                            },
+                                                          );
+                                                      }
+                                                    },
+                                                  ),
+                                                  title: Text(recordList[index]
+                                                      ["name"]),
+                                                  onTap: () {},
+                                                )),
+                                      ],
+                                    ),
+                                    /*
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Column(
+                                        children: [
+
+                                          ValueListenableBuilder<ButtonState>(
+                                            valueListenable: playButtonNotifier,
+                                            builder: (_, value, __) {
+                                              switch (value) {
+                                                case ButtonState.loading:
+                                                  return Container(
+                                                    margin:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    width: 32.0,
+                                                    height: 32.0,
+                                                    child:
+                                                        const CircularProgressIndicator(),
+                                                  );
+                                                case ButtonState.paused:
+                                                  return IconButton(
+                                                    icon: const Icon(
+                                                        Icons.play_arrow),
+                                                    iconSize: 32.0,
+                                                    onPressed: () {
+                                                      setupList();
+                                                      player.play();
+                                                    },
+                                                  );
+                                                case ButtonState.playing:
+                                                  return IconButton(
+                                                    icon:
+                                                        const Icon(Icons.pause),
+                                                    iconSize: 32.0,
+                                                    onPressed: () {
+                                                      player.pause();
+                                                    },
+                                                  );
+                                              }
+                                            },
+                                          ),
+                                          SvgPicture.asset(
+                                            'assets/icons/play_arrow-24px_3.svg',
+                                            width: width * 0.087,
+>>>>>>> 2d917879bc9fd703f486e70d63976d30378150c1
                                           ),
                                         ),
                                         Column(
@@ -280,6 +443,10 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                                         ),
                                       ],
                                     ),
+                              
+                                  ],
+                                ),
+                                */
                                   )
                                 ],
                               ),
@@ -289,48 +456,50 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                             ),
                             Container(
                               padding: EdgeInsets.only(top: width * 0.024),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        '메모',
-                                        style: TextStyle(
-                                            fontSize: width * 0.036,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        width: 5.0,
-                                      ),
-                                      Container(
-                                        width: width * 0.8,
-                                        //height: 5.0,
-                                        child: DottedLine(
-                                          dashColor: Color(0XFFF2F2F2),
-                                          dashLength: 7.0,
-                                          lineThickness: 3.0,
+                              child: Column(children: [
+                                Row(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '메모',
+                                          style: TextStyle(
+                                              fontSize: width * 0.036,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.018,
-                                  ),
-                                  Container(
-                                      //color: Color(0xFFE5E5E5),
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFE5E5E5),
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0.h),
-                                        child: Text(
-                                          diaryText,
+                                        SizedBox(
+                                          width: 5.0,
                                         ),
-                                      )),
-                                ],
-                              ),
+                                        Container(
+                                          width: width * 0.8,
+                                          //height: 5.0,
+                                          child: DottedLine(
+                                            dashColor: Color(0XFFF2F2F2),
+                                            dashLength: 7.0,
+                                            lineThickness: 3.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.018,
+                                    ),
+                                    Container(
+                                        //color: Color(0xFFE5E5E5),
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFE5E5E5),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(8.0.h),
+                                          child: Text(
+                                            diaryText,
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                              ]),
                             )
                           ],
                         ),

@@ -39,7 +39,7 @@ class _RecoderScreenState extends State<RecoderScreen> {
     }
     if (rlController.categories.first == '+ 카테고리 추가') {
       rlController.categories.removeLast();
-      entries.forEach((element) {
+      entries.whereType<Directory>().forEach((element) {
         var tmpString = element.path
             .substring(element.parent.path.length + 1, element.path.length);
         rlController.categories.add(tmpString);
