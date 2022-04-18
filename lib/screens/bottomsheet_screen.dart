@@ -1,4 +1,7 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:momsori/screens/category_screen.dart';
 import 'package:momsori/screens/diary_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,13 +9,48 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:momsori/getx_controller/diary_controller.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:momsori/widgets/call_diary_record_list_widget.dart';
+import 'package:momsori/widgets/notifiers/play_button_notifier.dart';
 
 void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
-    BuildContext context, DateTime selectedDay, DateTime focusedDay) {
+    BuildContext context, DateTime selectedDay, DateTime focusedDay, AudioPlayer player) async {
+
+  final playButtonNotifier = PlayButtonNotifier();
+  final playlistNotifier = ValueNotifier<List<String>>([]);
+  final progressNotifier = ValueNotifier<ProgressBarState>(ProgressBarState(
+    current: Duration.zero,
+    total: Duration.zero,
+    buffered: Duration.zero,
+  ));
   final diaryController = Get.put(DiaryController());
+  late ConcatenatingAudioSource _playlist =
+      ConcatenatingAudioSource(children: []);
+
+  Future<List<Map>> tmpList = callDiaryRecordListWidget(selectDay);
+  List<Map> recordList = await tmpList;
+  recordList.forEach((element) {
+    print(element);
+  });
+
+  void setupFile(int index) async {
+    _playlist.add(ConcatenatingAudioSource(children: [
+      AudioSource.uri(Uri.file(recordList[index]["path"]), tag: recordList[index]["name"]),
+    ]));
+    await player.setAudioSource(_playlist);
+  }
+
+  void setupList() async {
+    recordList.forEach((element) {
+      _playlist.add(ConcatenatingAudioSource(children: [
+        AudioSource.uri(Uri.file(element["path"]), tag: element["name"]),
+      ]));
+    });
+    await player.setAudioSource(_playlist);
+  }
 
   double height = MediaQuery.of(context).size.height;
   double width = MediaQuery.of(context).size.width;
+
   var year = focusDay.year;
   var month = selectDay.month;
   var day = selectDay.day;
@@ -56,11 +94,11 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
   } else {
     diaryText = diaryController.diarytext[selectedDay]![0];
   }
-  String Feeling;
+  String feelings;
   if (diaryController.feeling[selectDay] == null) {
-    Feeling = ' ';
+    feelings = ' ';
   } else {
-    Feeling = diaryController.feeling[selectedDay]![0];
+    feelings = diaryController.feeling[selectedDay]![0];
   }
   if (diaryController.events[selectDay] == null &&
       diaryController.health[selectDay] == null &&
@@ -217,7 +255,58 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                                     left: 0,
                                     top: height * 0.0146,
                                     right: width * 0.045),
-                                child: Row(
+                                child: Column(
+                                  children: <Widget>[
+                                    ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: recordList.length,
+                                        itemBuilder: (context, index) =>
+                                            ListTile(
+                                              leading: ValueListenableBuilder<
+                                                  ButtonState>(
+                                                valueListenable:
+                                                    playButtonNotifier,
+                                                builder: (_, value, __) {
+                                                  switch (value) {
+                                                    case ButtonState.loading:
+                                                      return Container(
+                                                        margin: const EdgeInsets
+                                                            .all(8.0),
+                                                        width: 32.0,
+                                                        height: 32.0,
+                                                        child:
+                                                            const CircularProgressIndicator(),
+                                                      );
+                                                    case ButtonState.paused:
+                                                      return IconButton(
+                                                        icon: const Icon(
+                                                            Icons.play_arrow),
+                                                        iconSize: 32.0,
+                                                        onPressed: () {
+                                                          setupFile(index);
+                                                          player.play();
+                                                        },
+                                                      );
+                                                    case ButtonState.playing:
+                                                      return IconButton(
+                                                        icon: const Icon(
+                                                            Icons.pause),
+                                                        iconSize: 32.0,
+                                                        onPressed: () {
+                                                          player.pause();
+                                                        },
+                                                      );
+                                                  }
+                                                },
+                                              ),
+                                              title: Text(recordList[index]["name"]),
+                                              onTap: () {},
+                                            )),
+
+                                  ],
+                                ),
+                                /*
+                                Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -225,6 +314,43 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                                       onTap: () {},
                                       child: Column(
                                         children: [
+
+                                          ValueListenableBuilder<ButtonState>(
+                                            valueListenable: playButtonNotifier,
+                                            builder: (_, value, __) {
+                                              switch (value) {
+                                                case ButtonState.loading:
+                                                  return Container(
+                                                    margin:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    width: 32.0,
+                                                    height: 32.0,
+                                                    child:
+                                                        const CircularProgressIndicator(),
+                                                  );
+                                                case ButtonState.paused:
+                                                  return IconButton(
+                                                    icon: const Icon(
+                                                        Icons.play_arrow),
+                                                    iconSize: 32.0,
+                                                    onPressed: () {
+                                                      setupList();
+                                                      player.play();
+                                                    },
+                                                  );
+                                                case ButtonState.playing:
+                                                  return IconButton(
+                                                    icon:
+                                                        const Icon(Icons.pause),
+                                                    iconSize: 32.0,
+                                                    onPressed: () {
+                                                      player.pause();
+                                                    },
+                                                  );
+                                              }
+                                            },
+                                          ),
                                           SvgPicture.asset(
                                             'assets/icons/play_arrow-24px_3.svg',
                                             width: width * 0.087,
@@ -277,6 +403,7 @@ void bottomSheet(DateTime selectDay, DateTime focusDay, final diaryController,
                                     ),
                                   ],
                                 ),
+                                */
                               )
                             ],
                           ),

@@ -16,6 +16,7 @@ class ProgressBarState {
 
   final buttonNotifier = ValueNotifier<ButtonState>(ButtonState.paused);
 }
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -40,6 +41,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final cs = CategoryScreen();
   bool _clicked = false;
   final player = AudioPlayer();
+
   _init() async {
     player.playerStateStream.listen((playerState) {
       final isPlaying = playerState.playing;
@@ -51,7 +53,8 @@ class _SearchScreenState extends State<SearchScreen> {
         playButtonNotifier.value = ButtonState.paused;
       } else if (processingState != ProcessingState.completed) {
         playButtonNotifier.value = ButtonState.playing;
-      } else { // completed
+      } else {
+        // completed
         player.seek(Duration.zero);
         player.pause();
       }
@@ -93,6 +96,7 @@ class _SearchScreenState extends State<SearchScreen> {
       );
     });
   }
+
   setupFile(String filePath) async {
     if (_clicked) {
       player.setFilePath(filePath);
@@ -100,9 +104,11 @@ class _SearchScreenState extends State<SearchScreen> {
       player.stop();
     }
   }
+
   seek(Duration position) {
     player.seek(position);
   }
+
   onShuffleButtonPressed() async {
     final enable = !player.shuffleModeEnabled;
     if (enable) {
@@ -110,12 +116,15 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     await player.setShuffleModeEnabled(enable);
   }
+
   onPreviousSongButtonPressed() {
     player.seekToPrevious();
   }
+
   onNextSongButtonPressed() {
     player.seekToNext();
   }
+
   onRepeatButtonPressed() {
     repeatButtonNotifier.nextState();
     switch (repeatButtonNotifier.value) {
@@ -129,6 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
         player.setLoopMode(LoopMode.all);
     }
   }
+
   filterSearchResults(String query) {
     searchDataList.clear();
     tmpDataList.addAll(fileDataList);
@@ -141,6 +151,7 @@ class _SearchScreenState extends State<SearchScreen> {
     tmpDataList.clear();
     setState(() {});
   }
+
   @override
   void initState() {
     _init();
@@ -266,8 +277,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           builder: (_, isFirst, __) {
                             return IconButton(
                               icon: Icon(Icons.skip_previous),
-                              onPressed:
-                              (isFirst) ? null : onPreviousSongButtonPressed,
+                              onPressed: (isFirst)
+                                  ? null
+                                  : onPreviousSongButtonPressed,
                             );
                           },
                         ),
@@ -306,7 +318,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           builder: (_, isLast, __) {
                             return IconButton(
                               icon: Icon(Icons.skip_next),
-                              onPressed: (isLast) ? null : onNextSongButtonPressed,
+                              onPressed:
+                                  (isLast) ? null : onNextSongButtonPressed,
                             );
                           },
                         ),
