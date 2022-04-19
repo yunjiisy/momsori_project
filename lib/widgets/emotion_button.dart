@@ -46,7 +46,7 @@ class _EmotionButtonState extends State<EmotionButton> {
             child: IconButton(
               constraints: BoxConstraints(),
               padding: EdgeInsets.only(
-                  top: 0, left: height * 0.009, right: height * 0.009),
+                  top: 0, left: height * 0.014, right: height * 0.014),
               //iconSize: 30.h,
               onPressed: () {
                 //change Icon color when pressed

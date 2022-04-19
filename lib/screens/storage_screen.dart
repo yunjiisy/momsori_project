@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -277,10 +278,9 @@ class _StorageScreenState extends State<StorageScreen> {
                           child: Text(
                             '저장소',
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black,
-                            ),
+                                color: Colors.black,
+                                fontSize: width * 0.06,
+                                fontWeight: FontWeight.w900),
                           ),
                         ),
                       ),
@@ -335,24 +335,33 @@ class _StorageScreenState extends State<StorageScreen> {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: EdgeInsets.only(top: 0),
-                              child: ListTile(
-                                leading: SvgPicture.asset(
-                                    'assets/background/storage_folder.svg'),
-                                title: Text(
-                                  rlController.categoryData[index]["name"],
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: SvgPicture.asset(
+                                        'assets/background/storage_folder.svg'),
+                                    title: Text(
+                                      rlController.categoryData[index]["name"],
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    // subtitle: Text(
+                                    //     rlController.categoryData[index]["date"]),
+                                    onTap: () {
+                                      Get.to(() => CategoryScreen(),
+                                          arguments: index,
+                                          transition: Transition.downToUp);
+                                    },
                                   ),
-                                ),
-                                // subtitle: Text(
-                                //     rlController.categoryData[index]["date"]),
-                                onTap: () {
-                                  Get.to(() => CategoryScreen(),
-                                      arguments: index,
-                                      transition: Transition.downToUp);
-                                },
+                                  Container(
+                                    height: 1.0,
+                                    width: width * 0.86,
+                                    color: Color.fromARGB(255, 239, 212, 212),
+                                  )
+                                ],
                               ),
                             );
                           },

@@ -42,7 +42,10 @@ class _TaedamScreenState extends State<TaedamScreen>
                 ),
                 Text(
                   '태담 가이드',
-                  style: kTitleStyle,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: width * 0.06,
+                      fontWeight: FontWeight.w900),
                   // style: kTitleStyle,
                 ),
               ],

@@ -188,7 +188,7 @@ Widget saveDialog(BuildContext context) {
                     '탭하면 보관함으로 이동',
                     snackPosition: SnackPosition.BOTTOM,
                     onTap: (_) {
-                      Get.offAll(
+                      Get.off(
                         () => MainScreen(),
                         arguments: 2,
                       );

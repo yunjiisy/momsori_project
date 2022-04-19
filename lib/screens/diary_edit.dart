@@ -85,12 +85,6 @@ class DiaryEditState extends State<DiaryEdit> {
                 color: Colors.white,
               ),
               onPressed: () {
-                // diaryController.events.remove(widget.selectedDay);
-                // diaryController.health.remove(widget.selectedDay);
-                // diaryController.feeling.remove(widget.selectedDay);
-                // //widget.health.remove(widget.selectedDay);
-
-                // diaryController.update();
                 Get.back();
                 print("ㅠㅠㅠ");
               },
@@ -98,19 +92,6 @@ class DiaryEditState extends State<DiaryEdit> {
             actions: [
               TextButton(
                   onPressed: () {
-                    // if (diaryController.events[widget.selectedDay] == null) {
-                    //   diaryController.events[widget.selectedDay] = [0xffffff];
-                    // }
-
-                    // Navigator.pop(context, [
-                    //   //widget.events,
-                    //   widget.health,
-                    //   widget.diaryText,
-                    //   widget.feeling,
-                    //   widget.selectedDay,
-                    // ]);
-
-                    //print(widget.events);
                     diaryController.update();
                     Get.back();
                     print(widget.selectedDay.day.toString() + "일 수정 상태");
@@ -145,28 +126,6 @@ class DiaryEditState extends State<DiaryEdit> {
                     style:
                         TextStyle(fontSize: 16.h, fontWeight: FontWeight.w900),
                   ),
-                  // Container(
-                  //   //width: double.maxFinite,
-                  //   width: width * 0.95,
-                  //   height: height * 0.073,
-                  //   child: ElevatedButton(
-                  //     onPressed: () {
-                  //       _myDatePicker();
-                  //     },
-                  //     child: Text(
-                  //       '$_year 년 $_month 월 $_day 일',
-                  //       // '$widget.selectedDay',
-                  //       style: TextStyle(
-                  //           fontSize: width * 0.048,
-                  //           fontWeight: FontWeight.normal,
-                  //           color: Colors.black),
-                  //     ),
-                  //     style: ElevatedButton.styleFrom(
-                  //         primary: Colors.white,
-                  //         elevation: 0.0,
-                  //         side: BorderSide(color: Colors.black)),
-                  //   ),
-                  // ),
                 ],
               ),
               Container(
@@ -539,85 +498,72 @@ class DiaryEditState extends State<DiaryEdit> {
       return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
+            centerTitle: false,
             title: Text(
               '다이어리 등록',
               style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
             ),
-            backgroundColor: Colors.white,
-            elevation: 5.0,
+            backgroundColor: Colors.transparent,
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
+                  gradient: LinearGradient(
+                      colors: [Color(0XFFFFA9A9), Color(0XFFFFBFAB)],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter)),
+            ),
+            elevation: 0.0,
             leading: IconButton(
-                onPressed: () {
-                  diaryController.events.remove(widget.selectedDay);
-                  diaryController.health.remove(widget.selectedDay);
-                  //widget.health.remove(widget.selectedDay);
-
-                  Navigator.pop(context, [
-                    diaryController.events,
-                    diaryController.health,
-                    diaryController.diarytext,
-                    diaryController.feeling,
-                    widget.selectedDay
-                  ]);
-                  print("ㅠㅠㅠ이벤트");
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                )),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Get.back();
+                print("ㅠㅠㅠ");
+              },
+            ),
             actions: [
               TextButton(
                   onPressed: () {
-                    if (diaryController.events[widget.selectedDay] == null) {
-                      diaryController.events[widget.selectedDay] = [
-                        'assets/icons/No_image.svg'
-                      ];
-                    }
+                    diaryController.update();
+                    Get.back();
+                    print(widget.selectedDay.day.toString() + "일 수정 상태");
+                    print(diaryController.health[widget.selectedDay]);
+                    print(diaryController.events[widget.selectedDay]);
+                    print(diaryController.diarytext[widget.selectedDay]);
 
-                    Navigator.pop(context, [
-                      //widget.events,
-                      //widget.health,
-                      //widget.diarytext,
-                      diaryController.feeling,
-                      widget.selectedDay
-                    ]);
+                    // Get.to(DiaryScreen(
+
+                    // ));
                   },
                   child: Text(
                     '확인',
                     style: TextStyle(
                         fontSize: width * 0.044,
-                        color: Colors.black,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ))
             ],
           ),
           body: Padding(
             padding: EdgeInsets.fromLTRB(
-                width * 0.024, height * 0.007, width * 0.024, height * 0.007),
+                width * 0.024, height * 0.032, width * 0.024, height * 0.007),
             child: ListView(children: [
               Row(
                 children: [
-                  Container(
-                    //width: double.maxFinite,
-                    width: width * 0.95,
-                    height: height * 0.073,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _myDatePicker();
-                      },
-                      child: Text(
-                        '$_year 년 $_month 월 $_day 일',
-                        // '$widget.selectedDay',
-                        style: TextStyle(
-                            fontSize: width * 0.048,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          elevation: 0.0,
-                          side: BorderSide(color: Colors.black)),
-                    ),
+                  SizedBox(
+                    width: 8.h,
+                  ),
+                  Text(
+                    '$_year년  $_month월  $_day일',
+                    style:
+                        TextStyle(fontSize: 16.h, fontWeight: FontWeight.w900),
                   ),
                 ],
               ),
