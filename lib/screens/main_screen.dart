@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:momsori/getx_controller/record_list_controller.dart';
 import 'package:momsori/screens/diary_screen.dart';
 import 'package:momsori/screens/home_screen.dart';
 import 'package:momsori/screens/storage_screen.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'taedam_screen.dart';
 
@@ -16,11 +20,35 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   var jsonData;
+  final rlController = Get.put<RecordListController>(RecordListController());
+
+  callCategoryList() async {
+    var tempDir = await getExternalStorageDirectory();
+    var dir = Directory(tempDir!.path);
+    dir.create(recursive: true);
+    List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
+
+    rlController.categoryData.clear();
+    rlController.categoryData.add({
+      "name": '모든 녹음',
+      "path": dir.path,
+      "checked": false,
+    });
+    entries.whereType<Directory>().forEach((element) {
+      var tmpString = element.path
+          .substring(element.parent.path.length + 1, element.path.length);
+
+      rlController.categoryData.add({
+        "name": tmpString,
+        "path": '${dir.path}/$tmpString',
+        "checked": false,
+      });
+    });
+  }
 
   @override
   void initState() {
-    // jsonData = Get.arguments;
-    // user = UserTest.fromJson(jsonData);
+    callCategoryList();
     super.initState();
     if (Get.arguments != null) {
       _selectedIndex = Get.arguments;

@@ -404,7 +404,6 @@ void bottomSheet(
                                           SvgPicture.asset(
                                             'assets/icons/play_arrow-24px_3.svg',
                                             width: width * 0.087,
->>>>>>> 2d917879bc9fd703f486e70d63976d30378150c1
                                           ),
                                         ),
                                         Column(
