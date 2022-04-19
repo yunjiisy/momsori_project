@@ -26,6 +26,8 @@ class _StorageScreenState extends State<StorageScreen> {
     var dir = Directory(tempDir!.path);
     dir.create(recursive: true);
     List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
+
+    rlController.categoryData.clear();
     rlController.categoryData.add({
       "name": '모든 녹음',
       "path": dir.path,
@@ -234,14 +236,15 @@ class _StorageScreenState extends State<StorageScreen> {
 
   @override
   void initState() {
-    if (rlController.categoryData.isEmpty) callCategoryList();
+    setState(() {
+      callCategoryList();
+    });
     super.initState();
     setState(() {});
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -271,8 +274,7 @@ class _StorageScreenState extends State<StorageScreen> {
                       Container(
                         child: TextButton(
                           onPressed: () {
-                            if (rlController.categoryData.isEmpty)
-                              callCategoryList();
+                            callCategoryList();
                             setState(() {});
                           },
                           child: Text(
