@@ -96,6 +96,7 @@ Widget saveDialog(BuildContext context) {
                           ? InkWell(
                               onTap: () {
                                 closePopup();
+                                Get.appUpdate();
                                 Get.dialog(
                                   addCategory(context),
                                 );
@@ -213,92 +214,92 @@ Widget saveDialog(BuildContext context) {
     ),
   );
 }
-          // GetBuilder<RecordListController>(
-          //   init: controller,
-          //   builder: (_) => WithKeepKeyboardPopupMenu(
-          //     childBuilder: (context, openPopup) => InkWell(
-          //       onTap: openPopup,
-          //       child: Text(
-          //         '${controller.category}',
-          //         style: TextStyle(
-          //           fontSize: 12.sp,
-          //           fontWeight: FontWeight.w500,
-          //         ),
-          //       ),
-          //     ),
-          //     backgroundBuilder: (context, child) => Material(
-          //       elevation: 20,
-          //       borderRadius: BorderRadius.circular(30),
-          //       color: Colors.white,
-          //       shadowColor: Colors.grey,
-          //       child: child,
-          //     ),
-          //     menuBuilder: (context, closePopup) => Container(
-          //       padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(30),
-          //         color: Colors.white,
-          //       ),
-          //       height: 170.h,
-          //       width: 120.w,
-          //       child: ListView.builder(
-          //         itemCount: _.categories.length,
-          //         itemBuilder: (context, index) {
-          //           return KeepKeyboardPopupMenuItem(
-          //             height: 30.h,
-          //             child: index == _.categories.length - 1
-          //                 ? InkWell(
-          //                     onTap: () {
-          //                       closePopup();
-          //                       Get.dialog(
-          //                         addCategory(context),
-          //                       );
-          //                     },
-          //                     child: Center(
-          //                       child: Text(
-          //                         '${_.categories[index]}',
-          //                         style: TextStyle(
-          //                           fontSize: 12.sp,
-          //                           fontWeight: FontWeight.w500,
-          //                           color: Colors.black,
-          //                         ),
-          //                       ),
-          //                     ),
-          //                   )
-          //                 : InkWell(
-          //                     onTap: () {
-          //                       controller.changeIndex(index);
-          //                       controller.changeCategory(
-          //                           controller.categories[index]);
-          //                       closePopup();
-          //                     },
-          //                     child: Container(
-          //                       height: 30.h,
-          //                       child: Row(
-          //                         mainAxisAlignment: MainAxisAlignment.start,
-          //                         children: [
-          //                           controller.categoryIndex == index
-          //                               ? SvgPicture.asset(
-          //                                   'assets/icons/체크박스선택.svg')
-          //                               : SvgPicture.asset(
-          //                                   'assets/icons/체크박스선택x.svg'),
-          //                           SizedBox(
-          //                             width: 6.w,
-          //                           ),
-          //                           Text(
-          //                             '${_.categories[index]}',
-          //                             style: TextStyle(
-          //                               fontWeight: FontWeight.w500,
-          //                               fontSize: 12.sp,
-          //                             ),
-          //                           ),
-          //                         ],
-          //                       ),
-          //                     ),
-          //                   ),
-          //           );
-          //         },
-          //       ),
-          //     ),
-          //   ),
-          // ),
+// GetBuilder<RecordListController>(
+//   init: controller,
+//   builder: (_) => WithKeepKeyboardPopupMenu(
+//     childBuilder: (context, openPopup) => InkWell(
+//       onTap: openPopup,
+//       child: Text(
+//         '${controller.category}',
+//         style: TextStyle(
+//           fontSize: 12.sp,
+//           fontWeight: FontWeight.w500,
+//         ),
+//       ),
+//     ),
+//     backgroundBuilder: (context, child) => Material(
+//       elevation: 20,
+//       borderRadius: BorderRadius.circular(30),
+//       color: Colors.white,
+//       shadowColor: Colors.grey,
+//       child: child,
+//     ),
+//     menuBuilder: (context, closePopup) => Container(
+//       padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(30),
+//         color: Colors.white,
+//       ),
+//       height: 170.h,
+//       width: 120.w,
+//       child: ListView.builder(
+//         itemCount: _.categories.length,
+//         itemBuilder: (context, index) {
+//           return KeepKeyboardPopupMenuItem(
+//             height: 30.h,
+//             child: index == _.categories.length - 1
+//                 ? InkWell(
+//                     onTap: () {
+//                       closePopup();
+//                       Get.dialog(
+//                         addCategory(context),
+//                       );
+//                     },
+//                     child: Center(
+//                       child: Text(
+//                         '${_.categories[index]}',
+//                         style: TextStyle(
+//                           fontSize: 12.sp,
+//                           fontWeight: FontWeight.w500,
+//                           color: Colors.black,
+//                         ),
+//                       ),
+//                     ),
+//                   )
+//                 : InkWell(
+//                     onTap: () {
+//                       controller.changeIndex(index);
+//                       controller.changeCategory(
+//                           controller.categories[index]);
+//                       closePopup();
+//                     },
+//                     child: Container(
+//                       height: 30.h,
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.start,
+//                         children: [
+//                           controller.categoryIndex == index
+//                               ? SvgPicture.asset(
+//                                   'assets/icons/체크박스선택.svg')
+//                               : SvgPicture.asset(
+//                                   'assets/icons/체크박스선택x.svg'),
+//                           SizedBox(
+//                             width: 6.w,
+//                           ),
+//                           Text(
+//                             '${_.categories[index]}',
+//                             style: TextStyle(
+//                               fontWeight: FontWeight.w500,
+//                               fontSize: 12.sp,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//           );
+//         },
+//       ),
+//     ),
+//   ),
+// ),

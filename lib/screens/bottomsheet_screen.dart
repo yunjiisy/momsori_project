@@ -1,5 +1,4 @@
-// ignore_for_file: unused_local_variable
-
+// ignore: unnecessary_import
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -23,12 +22,6 @@ void bottomSheet(
     DateTime focusedDay,
     AudioPlayer player) async {
   final playButtonNotifier = PlayButtonNotifier();
-  final playlistNotifier = ValueNotifier<List<String>>([]);
-  final progressNotifier = ValueNotifier<ProgressBarState>(ProgressBarState(
-    current: Duration.zero,
-    total: Duration.zero,
-    buffered: Duration.zero,
-  ));
   final diaryController = Get.put(DiaryController());
   late ConcatenatingAudioSource _playlist =
       ConcatenatingAudioSource(children: []);
@@ -44,15 +37,6 @@ void bottomSheet(
       AudioSource.uri(Uri.file(recordList[index]["path"]),
           tag: recordList[index]["name"]),
     ]));
-    await player.setAudioSource(_playlist);
-  }
-
-  void setupList() async {
-    recordList.forEach((element) {
-      _playlist.add(ConcatenatingAudioSource(children: [
-        AudioSource.uri(Uri.file(element["path"]), tag: element["name"]),
-      ]));
-    });
     await player.setAudioSource(_playlist);
   }
 
@@ -99,12 +83,12 @@ void bottomSheet(
   } else {
     diaryText = diaryController.diarytext[selectedDay]![0];
   }
-  var Feeling;
+  late var feeling;
 
   if (diaryController.feeling[selectDay] == null) {
-    Feeling = " ";
+    feeling = " ";
   } else {
-    Feeling = diaryController.feeling[selectedDay];
+    feeling = diaryController.feeling[selectedDay];
   }
   if ((diaryController.events[selectDay] == null ||
           diaryController.events[selectDay]!.isEmpty == true) &&
@@ -229,7 +213,7 @@ void bottomSheet(
                                           height: width * 0.13,
                                         ),
                                         Text(
-                                          Feeling[index],
+                                          feeling[index],
                                           style: TextStyle(
                                               fontSize: width * 0.028,
                                               fontWeight: FontWeight.w600),
@@ -346,7 +330,7 @@ void bottomSheet(
                                                         onPressed: () {
                                                           print('재생!!');
                                                           setupFile(index);
-                                                          player.play();
+                                                          player.play().obs;
                                                         },
                                                       );
                                                     case ButtonState.playing:
@@ -356,7 +340,7 @@ void bottomSheet(
                                                         iconSize: width * 0.087,
                                                         onPressed: () {
                                                           print('멈춘!!');
-                                                          player.pause();
+                                                          player.pause().obs;
                                                         },
                                                       );
                                                   }
@@ -389,7 +373,7 @@ void bottomSheet(
                                         onTap: () {},
                                         child: Column(
                                           children: [
-          
+
                                             ValueListenableBuilder<ButtonState>(
                                               valueListenable: playButtonNotifier,
                                               builder: (_, value, __) {
@@ -467,7 +451,7 @@ void bottomSheet(
                                           ),
                                         ],
                                       ),
-                                
+
                                     ],
                                   ),
                                   */

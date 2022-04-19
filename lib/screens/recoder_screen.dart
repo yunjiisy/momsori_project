@@ -2,12 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:momsori/getx_controller/record_list_controller.dart';
 import 'package:momsori/getx_controller/record_sound_controller.dart';
 import 'package:momsori/utils/record_state.dart';
-import 'package:momsori/widgets/contants.dart';
 import 'package:momsori/widgets/record_buttons/pause_button.dart';
 import 'package:momsori/widgets/record_buttons/playing_button.dart';
 import 'package:momsori/widgets/record_buttons/prepare_play_button.dart';
@@ -29,12 +27,11 @@ class _RecoderScreenState extends State<RecoderScreen> {
 
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
-    var directoryEx =
-        Directory(tempDir!.path);
+    var directoryEx = Directory(tempDir!.path);
     directoryEx.create(recursive: true);
     List<FileSystemEntity> entries =
         directoryEx.listSync(recursive: false).toList();
-    if(rlController.categories.isEmpty){
+    if (rlController.categories.isEmpty) {
       rlController.categories.add('+ 카테고리 추가');
     }
     if (rlController.categories.first == '+ 카테고리 추가') {
@@ -83,7 +80,6 @@ class _RecoderScreenState extends State<RecoderScreen> {
                     alignment: Alignment.topLeft,
                     child: InkWell(
                       onTap: () {
-
                         Get.back();
                       },
                       child: Container(

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:momsori/getx_controller/record_list_controller.dart';
-import 'package:momsori/widgets/save_dialog/save_dialog.dart';
 
-addCategory(BuildContext context1) {
+addCategory(BuildContext context) {
   final controller = Get.put(RecordListController());
   String newCategory = '';
 
@@ -65,9 +64,11 @@ addCategory(BuildContext context1) {
                 ),
                 InkWell(
                   onTap: () {
-                    controller.deleteList();
                     controller.addList(newCategory);
-                    controller.addList('+ 카테고리 추가');
+                    controller.callCategoryList();
+                    controller.callCategories();
+                    controller.changeCategory(newCategory);
+                    Get.appUpdate();
                     Get.back();
                   },
                   child: Text(

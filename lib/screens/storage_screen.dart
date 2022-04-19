@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,7 +20,7 @@ class _StorageScreenState extends State<StorageScreen> {
   final textController = TextEditingController();
   final rlController = Get.put<RecordListController>(RecordListController());
 
-  callCategoryList() async {
+  void callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var dir = Directory(tempDir!.path);
     dir.create(recursive: true);
@@ -43,23 +42,29 @@ class _StorageScreenState extends State<StorageScreen> {
         "checked": false,
       });
     });
-  }
-
-  createCategory(String category) async {
-    var tempDir = await getExternalStorageDirectory();
-    var directory = Directory('${tempDir!.path}/$category');
-    directory.create(recursive: true);
-    rlController.categoryData.add({
-      "name": category,
-      "path": directory.path,
-      "checked": false,
-    });
+    callCategories();
     setState(() {});
   }
 
-  deleteCategory() {
-    var dir;
-    var toDelete = [];
+  void callCategories() {
+    rlController.categories.clear();
+    rlController.categoryData.forEach((element) {
+      rlController.categories.add(element["name"]);
+    });
+    rlController.categories.add('+ 카테고리 추가');
+    rlController.category = '전체 ▼';
+  }
+
+  void createCategory(String category) async {
+    var tempDir = await getExternalStorageDirectory();
+    Directory directory = Directory('${tempDir!.path}/$category');
+    directory.create(recursive: true);
+    setState(() {});
+  }
+
+  void deleteCategory() {
+    Directory dir;
+    List toDelete = [];
     rlController.categoryData.forEach((element) {
       if (element["checked"] == true) {
         toDelete.add(element);
@@ -69,15 +74,15 @@ class _StorageScreenState extends State<StorageScreen> {
     });
     rlController.categoryData
         .removeWhere((element) => toDelete.contains(element));
-
     setState(() {});
   }
 
-  renameCategory(String category) {
+  void renameCategory(String category) {
     setState(() {
       rlController.categoryData.forEach((element) {
         if (element["checked"] == true) {
           Directory dir = Directory(element["path"]);
+          category = dir.parent.path + '/$category';
           dir.rename(category);
           element["name"] = category;
           element["path"] = dir.path;
@@ -87,7 +92,7 @@ class _StorageScreenState extends State<StorageScreen> {
     });
   }
 
-  createCategoryDialog() {
+  void createCategoryDialog() {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -118,7 +123,6 @@ class _StorageScreenState extends State<StorageScreen> {
                       setState(() {
                         textController.clear();
                       });
-                      print('Add Directory Cancel');
                       Navigator.pop(context);
                     }),
                 new CupertinoButton(
@@ -127,10 +131,13 @@ class _StorageScreenState extends State<StorageScreen> {
                       style: TextStyle(color: Colors.black),
                     ),
                     onPressed: () {
-                      createCategory(textController.text);
-                      textController.clear();
+                      setState(() {
+                        createCategory(textController.text);
+                        setState(() {});
+                        textController.clear();
+                        callCategoryList();
+                      });
                       setState(() {});
-                      print('OK');
                       Navigator.pop(context);
                     }),
               ],
@@ -139,7 +146,7 @@ class _StorageScreenState extends State<StorageScreen> {
         });
   }
 
-  renameCategoryDialog() {
+  void renameCategoryDialog() {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -170,7 +177,6 @@ class _StorageScreenState extends State<StorageScreen> {
                       setState(() {
                         textController.clear();
                       });
-                      print('Rename Directory Cancel');
                       Navigator.pop(context);
                     }),
                 new CupertinoButton(
@@ -181,6 +187,7 @@ class _StorageScreenState extends State<StorageScreen> {
                     onPressed: () {
                       renameCategory(textController.text);
                       textController.clear();
+                      callCategoryList();
                       setState(() {});
                       print('OK');
                       Navigator.pop(context);
@@ -191,7 +198,7 @@ class _StorageScreenState extends State<StorageScreen> {
         });
   }
 
-  deleteCategoryDialog() {
+  void deleteCategoryDialog() {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -406,7 +413,6 @@ class _StorageScreenState extends State<StorageScreen> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              print('folder delete');
                               deleteCategoryDialog();
                               _editMode = !_editMode;
                               setState(() {});
@@ -418,7 +424,6 @@ class _StorageScreenState extends State<StorageScreen> {
                           IconButton(
                             onPressed: () {
                               renameCategoryDialog();
-                              print('folder rename');
                               _editMode = !_editMode;
                             },
                             icon: Icon(Icons.edit),
@@ -436,7 +441,10 @@ class _StorageScreenState extends State<StorageScreen> {
                             child: TextButton(
                               onPressed: () {
                                 createCategoryDialog();
-                                print('add Dialog');
+                                setState(() {
+                                  callCategoryList();
+                                });
+                                setState(() {});
                               },
                               child: Text(
                                 '+ 카테고리 추가',

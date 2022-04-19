@@ -22,6 +22,14 @@ class _MainScreenState extends State<MainScreen> {
   var jsonData;
   final rlController = Get.put<RecordListController>(RecordListController());
 
+  callCategories() {
+    rlController.categories.clear();
+    rlController.categoryData.forEach((element) {
+      rlController.categories.add(element["name"]);
+    });
+    rlController.categories.add('+ 카테고리 추가');
+  }
+
   callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var dir = Directory(tempDir!.path);
@@ -44,6 +52,7 @@ class _MainScreenState extends State<MainScreen> {
         "checked": false,
       });
     });
+    callCategories();
   }
 
   @override
@@ -53,6 +62,7 @@ class _MainScreenState extends State<MainScreen> {
     if (Get.arguments != null) {
       _selectedIndex = Get.arguments;
     }
+    setState(() {});
   }
 
   @override
