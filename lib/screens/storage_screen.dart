@@ -20,26 +20,49 @@ class _StorageScreenState extends State<StorageScreen> {
   final textController = TextEditingController();
   final rlController = Get.put<RecordListController>(RecordListController());
 
+  ListTile listTileWidget(int index) {
+    return ListTile(
+      leading: SvgPicture.asset(
+          'assets/background/storage_folder.svg'),
+      title: Text(
+        rlController.categoryData[index]["name"],
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: Colors.black,
+        ),
+      ),
+      // subtitle: Text(
+      //     rlController.categoryData[index]["date"]),
+      onTap: () {
+        Get.to(() => CategoryScreen(),
+            arguments: index,
+            transition: Transition.downToUp);
+      },
+    );
+  }
+
   void callCategoryList() async {
     var tempDir = await getExternalStorageDirectory();
     var dir = Directory(tempDir!.path);
     dir.create(recursive: true);
     List<FileSystemEntity> entries = dir.listSync(recursive: false).toList();
-
-    rlController.categoryData.clear();
-    rlController.categoryData.add({
-      "name": '모든 녹음',
-      "path": dir.path,
-      "checked": false,
-    });
-    entries.whereType<Directory>().forEach((element) {
-      var tmpString = element.path
-          .substring(element.parent.path.length + 1, element.path.length);
-
+    setState(() {
+      rlController.categoryData.clear();
       rlController.categoryData.add({
-        "name": tmpString,
-        "path": '${dir.path}/$tmpString',
+        "name": '모든 녹음',
+        "path": dir.path,
         "checked": false,
+      });
+      entries.whereType<Directory>().forEach((element) {
+        var tmpString = element.path
+            .substring(element.parent.path.length + 1, element.path.length);
+
+        rlController.categoryData.add({
+          "name": tmpString,
+          "path": '${dir.path}/$tmpString',
+          "checked": false,
+        });
       });
     });
     callCategories();
@@ -297,7 +320,7 @@ class _StorageScreenState extends State<StorageScreen> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              print('edit mode');
+                              print('edit mode : $_editMode');
                               // ignore: unnecessary_statements
                               _editMode = !_editMode;
                               rlController.categoryData.forEach((element) {
@@ -340,31 +363,14 @@ class _StorageScreenState extends State<StorageScreen> {
                   child: _editMode == false
                       ? Container(
                           child: ListView.builder(
+                          shrinkWrap: true,
                           itemCount: rlController.categoryData.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: EdgeInsets.only(top: 0),
                               child: Column(
                                 children: [
-                                  ListTile(
-                                    leading: SvgPicture.asset(
-                                        'assets/background/storage_folder.svg'),
-                                    title: Text(
-                                      rlController.categoryData[index]["name"],
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // subtitle: Text(
-                                    //     rlController.categoryData[index]["date"]),
-                                    onTap: () {
-                                      Get.to(() => CategoryScreen(),
-                                          arguments: index,
-                                          transition: Transition.downToUp);
-                                    },
-                                  ),
+                                  listTileWidget(index),
                                   Container(
                                     height: 1.0,
                                     width: width * 0.86,
@@ -441,9 +447,7 @@ class _StorageScreenState extends State<StorageScreen> {
                             child: TextButton(
                               onPressed: () {
                                 createCategoryDialog();
-                                setState(() {
-                                  callCategoryList();
-                                });
+                                callCategoryList();
                                 setState(() {});
                               },
                               child: Text(
