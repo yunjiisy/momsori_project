@@ -104,267 +104,271 @@ void bottomSheet(
     ));
   } else {
     Get.bottomSheet(
-      GetBuilder<DiaryController>(builder: (_) {
-        return Column(children: [
-          Stack(children: [
-            Container(
-              width: double.infinity,
-              height: 50.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)),
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color.fromARGB(220, 255, 149, 149),
-                      Color.fromARGB(130, 255, 154, 97),
-                    ]),
-                //color: Colors.black,
+      StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return Column(children: [
+            Stack(children: [
+              Container(
+                width: double.infinity,
+                height: 50.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromARGB(220, 255, 149, 149),
+                        Color.fromARGB(130, 255, 154, 97),
+                      ]),
+                  //color: Colors.black,
+                ),
               ),
-            ),
-            Positioned(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: width * 0.04),
-                    child: Text(
-                      '$year.$month.$day (32주차)',
-                      style: TextStyle(
-                          fontSize: width * 0.0486,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+              Positioned(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: width * 0.04),
+                      child: Text(
+                        '$year.$month.$day (32주차)',
+                        style: TextStyle(
+                            fontSize: width * 0.0486,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
-                  ),
-                  // SizedBox(
-                  //   width: width * 0.41,
-                  // ),
+                    // SizedBox(
+                    //   width: width * 0.41,
+                    // ),
+                    Container(
+                      child: IconButton(
+                        padding: EdgeInsets.only(right: width * 0.024),
+                        icon: Icon(
+                          Icons.close,
+                          size: width * 0.073,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Get.back();
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ]),
+            Expanded(
+              child: ListView(children: [
+                Column(children: [
                   Container(
-                    child: IconButton(
-                      padding: EdgeInsets.only(right: width * 0.024),
-                      icon: Icon(
-                        Icons.close,
-                        size: width * 0.073,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Get.back();
-                      },
-                    ),
-                  )
-                ],
-              ),
-            )
-          ]),
-          Expanded(
-            child: ListView(children: [
-              Column(children: [
-                Container(
-                  margin: EdgeInsets.only(top: height * 0.015),
-                  //width: double.infinity,
-                  padding: EdgeInsets.only(
-                      left: width * 0.05,
-                      top: 0.007,
-                      right: width * 0.05,
-                      bottom: height * 0.315),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            '감정상태/건강상태 ',
-                            style: TextStyle(
-                                fontSize: width * 0.036,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 5.0,
-                          ),
-                          Container(
-                            width: width * 0.57,
-                            //height: 5.0,
-                            child: DottedLine(
-                              dashColor: Color(0XFFF2F2F2),
-                              dashLength: 7.0,
-                              lineThickness: 3.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: height * 0.005,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 70,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: colors.length,
-                            itemBuilder: (context, index) => Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        SvgPicture.asset(
-                                          colors[index],
-                                          width: width * 0.13,
-                                          height: width * 0.13,
-                                        ),
-                                        Text(
-                                          feeling[index],
-                                          style: TextStyle(
-                                              fontSize: width * 0.028,
-                                              fontWeight: FontWeight.w600),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                )),
-                      ),
-                      SizedBox(
-                        height: height * 0.015,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: width * 0.009),
-                        width: MediaQuery.of(context).size.width,
-                        height: 70,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: healthIcon.length,
-                            itemBuilder: (context, index) => Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        SvgPicture.asset(
-                                          healthIcon[index],
-                                          width: width * 0.1,
-                                          height: width * 0.1,
-                                        ),
-                                        SizedBox(
-                                          height: height * 0.006,
-                                        ),
-                                        Text(
-                                          healthText[index],
-                                          style: TextStyle(
-                                              fontSize: width * 0.028,
-                                              fontWeight: FontWeight.w600),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: width * 0.034,
-                                    )
-                                  ],
-                                )),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 0.03 * width),
-                        child: Column(
+                    margin: EdgeInsets.only(top: height * 0.015),
+                    //width: double.infinity,
+                    padding: EdgeInsets.only(
+                        left: width * 0.05,
+                        top: 0.007,
+                        right: width * 0.05,
+                        bottom: height * 0.315),
+                    child: Column(
+                      children: [
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                Text(
-                                  '녹음파일',
-                                  style: TextStyle(
-                                      fontSize: width * 0.036,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Container(
-                                  width: width * 0.73,
-                                  //height: 5.0,
-                                  child: DottedLine(
-                                    dashColor: Color(0XFFF2F2F2),
-                                    dashLength: 7.0,
-                                    lineThickness: 3.0,
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              '감정상태/건강상태 ',
+                              style: TextStyle(
+                                  fontSize: width * 0.036,
+                                  fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              height: height * 0.015,
+                              width: 5.0,
                             ),
                             Container(
-                              // margin:
-                              //     EdgeInsets.only(left: width * 0.009),
-                              width: MediaQuery.of(context).size.width,
-                              height: 70,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemCount: recordList.length,
-                                  itemBuilder: (context, index) => Row(
+                              width: width * 0.57,
+                              //height: 5.0,
+                              child: DottedLine(
+                                dashColor: Color(0XFFF2F2F2),
+                                dashLength: 7.0,
+                                lineThickness: 3.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: height * 0.005,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 70,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: colors.length,
+                              itemBuilder: (context, index) => Row(
+                                    children: [
+                                      Column(
                                         children: [
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                right: 0.02 * width),
-                                            width: width * 0.2,
-                                            child: Column(children: [
-                                              ValueListenableBuilder<
-                                                  ButtonState>(
-                                                valueListenable:
-                                                    playButtonNotifier,
-                                                builder: (_, value, __) {
-                                                  switch (value) {
-                                                    case ButtonState.loading:
-                                                      return Container(
-                                                        margin:
-                                                            EdgeInsets.all(8.0),
-                                                        width: width * 0.087,
-                                                        height: width * 0.087,
-                                                        child:
-                                                            const CircularProgressIndicator(),
-                                                      );
-                                                    case ButtonState.paused:
-                                                      return IconButton(
-                                                        icon: SvgPicture.asset(
-                                                          'assets/icons/play_arrow-24px_3.svg',
-                                                          width: width * 0.087,
-                                                        ),
-                                                        iconSize: width * 0.087,
-                                                        onPressed: () {
-                                                          print('재생!!');
-                                                          setupFile(index);
-                                                          player.play().obs;
-                                                        },
-                                                      );
-                                                    case ButtonState.playing:
-                                                      return IconButton(
-                                                        icon: const Icon(
-                                                            Icons.pause),
-                                                        iconSize: width * 0.087,
-                                                        onPressed: () {
-                                                          print('멈춘!!');
-                                                          player.pause().obs;
-                                                        },
-                                                      );
-                                                  }
-                                                },
-                                              ),
-                                              Container(
-                                                //width: width * 0.243,
-                                                child: Text(
-                                                  recordList[index]["name"],
-                                                  style: TextStyle(
-                                                      fontSize: width * 0.028,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                              ),
-                                              //onTap: () {},
-                                            ]),
+                                          SvgPicture.asset(
+                                            colors[index],
+                                            width: width * 0.13,
+                                            height: width * 0.13,
                                           ),
+                                          Text(
+                                            feeling[index],
+                                            style: TextStyle(
+                                                fontSize: width * 0.028,
+                                                fontWeight: FontWeight.w600),
+                                          )
                                         ],
-                                      )),
+                                      )
+                                    ],
+                                  )),
+                        ),
+                        SizedBox(
+                          height: height * 0.015,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: width * 0.009),
+                          width: MediaQuery.of(context).size.width,
+                          height: 70,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: healthIcon.length,
+                              itemBuilder: (context, index) => Row(
+                                    children: [
+                                      Column(
+                                        children: [
+                                          SvgPicture.asset(
+                                            healthIcon[index],
+                                            width: width * 0.1,
+                                            height: width * 0.1,
+                                          ),
+                                          SizedBox(
+                                            height: height * 0.006,
+                                          ),
+                                          Text(
+                                            healthText[index],
+                                            style: TextStyle(
+                                                fontSize: width * 0.028,
+                                                fontWeight: FontWeight.w600),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.034,
+                                      )
+                                    ],
+                                  )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 0.03 * width),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    '녹음파일',
+                                    style: TextStyle(
+                                        fontSize: width * 0.036,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Container(
+                                    width: width * 0.73,
+                                    //height: 5.0,
+                                    child: DottedLine(
+                                      dashColor: Color(0XFFF2F2F2),
+                                      dashLength: 7.0,
+                                      lineThickness: 3.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.015,
+                              ),
+                              Container(
+                                // margin:
+                                //     EdgeInsets.only(left: width * 0.009),
+                                width: MediaQuery.of(context).size.width,
+                                height: 70,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemCount: recordList.length,
+                                    itemBuilder: (context, index) => Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  right: 0.02 * width),
+                                              width: width * 0.2,
+                                              child: Column(children: [
+                                                ValueListenableBuilder<
+                                                    ButtonState>(
+                                                  valueListenable:
+                                                      playButtonNotifier,
+                                                  builder: (_, value, __) {
+                                                    switch (value) {
+                                                      case ButtonState.loading:
+                                                        return Container(
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  8.0),
+                                                          width: width * 0.087,
+                                                          height: width * 0.087,
+                                                          child:
+                                                              const CircularProgressIndicator(),
+                                                        );
+                                                      case ButtonState.paused:
+                                                        return IconButton(
+                                                          icon:
+                                                              SvgPicture.asset(
+                                                            'assets/icons/play_arrow-24px_3.svg',
+                                                            width:
+                                                                width * 0.087,
+                                                          ),
+                                                          iconSize:
+                                                              width * 0.087,
+                                                          onPressed: () {
+                                                            setupFile(index);
+                                                            player.play().obs;
+                                                          },
+                                                        );
+                                                      case ButtonState.playing:
+                                                        return IconButton(
+                                                          icon: const Icon(
+                                                              Icons.pause),
+                                                          iconSize:
+                                                              width * 0.087,
+                                                          onPressed: () {
+                                                            player.pause().obs;
+                                                          },
+                                                        );
+                                                    }
+                                                  },
+                                                ),
+                                                Container(
+                                                  //width: width * 0.243,
+                                                  child: Text(
+                                                    recordList[index]["name"],
+                                                    style: TextStyle(
+                                                        fontSize: width * 0.028,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                                //onTap: () {},
+                                              ]),
+                                            ),
+                                          ],
+                                        )),
 
-                              /*
+                                /*
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -415,111 +419,77 @@ void bottomSheet(
                                               width: width * 0.087,
                                             ),
                                           ),
-                                          Column(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/play_arrow-24px_3.svg',
-                                                width: width * 0.087,
-                                              ),
-                                              Container(
-                                                width: width * 0.243,
-                                                child: Text(
-                                                  '열자를 넘게하면 이렇게 됨!',
-                                                  style: TextStyle(
-                                                      fontSize: width * 0.024),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/play_arrow-24px_3.svg',
-                                                width: width * 0.087,
-                                              ),
-                                              Container(
-                                                width: width * 0.243,
-                                                child: Text(
-                                                  '열자를 넘게하면 이렇게 됨!',
-                                                  style: TextStyle(
-                                                      fontSize: width * 0.024),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                         
+                                  
                                         ],
                                       ),
 
                                     ],
                                   ),
                                   */
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: width * 0.024),
-                        child: Column(children: [
-                          Row(
-                            children: [
-                              Text(
-                                '메모',
-                                style: TextStyle(
-                                    fontSize: width * 0.036,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                width: 5.0,
-                              ),
-                              Container(
-                                width: width * 0.8,
-                                //height: 5.0,
-                                child: DottedLine(
-                                  dashColor: Color(0XFFF2F2F2),
-                                  dashLength: 7.0,
-                                  lineThickness: 3.0,
-                                ),
-                              ),
+                              )
                             ],
                           ),
-                          SizedBox(
-                            height: height * 0.018,
-                          ),
-                          Container(
-                              //color: Color(0xFFE5E5E5),
-                              //height: height * 0.003,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFE5E5E5),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0.h),
-                                child: Text(
-                                  diaryText,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: width * 0.024),
+                          child: Column(children: [
+                            Row(
+                              children: [
+                                Text(
+                                  '메모',
+                                  style: TextStyle(
+                                      fontSize: width * 0.036,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              )),
-                        ]),
-                      )
-                    ],
-                  ),
-                )
-              ])
-            ]),
-          )
-        ]);
-      }),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                Container(
+                                  width: width * 0.8,
+                                  //height: 5.0,
+                                  child: DottedLine(
+                                    dashColor: Color(0XFFF2F2F2),
+                                    dashLength: 7.0,
+                                    lineThickness: 3.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: height * 0.018,
+                            ),
+                            Container(
+                                //color: Color(0xFFE5E5E5),
+                                //height: height * 0.003,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFE5E5E5),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0.h),
+                                  child: Text(
+                                    diaryText,
+                                  ),
+                                )),
+                          ]),
+                        )
+                      ],
+                    ),
+                  )
+                ])
+              ]),
+            )
+          ]);
+        },
+      ),
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
     );
   } //bottom sheet
-
-  // print(focusedDay);
-  // print(selectedDay);
 }

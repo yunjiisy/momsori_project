@@ -533,14 +533,6 @@ class DiaryEditState extends State<DiaryEdit> {
                   onPressed: () {
                     diaryController.update();
                     Get.back();
-                    print(widget.selectedDay.day.toString() + "일 수정 상태");
-                    print(diaryController.health[widget.selectedDay]);
-                    print(diaryController.events[widget.selectedDay]);
-                    print(diaryController.diarytext[widget.selectedDay]);
-
-                    // Get.to(DiaryScreen(
-
-                    // ));
                   },
                   child: Text(
                     '확인',
@@ -618,41 +610,5 @@ class DiaryEditState extends State<DiaryEdit> {
         ),
       );
     }
-  }
-
-  _myDatePicker() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 250,
-          child: CupertinoDatePicker(
-            use24hFormat: true,
-            initialDateTime: widget.selectedDay,
-            onDateTimeChanged: (DateTime date) {
-              var _date =
-                  DateFormat('yyyy-MM-dd 00:00:000').format(date).split('-');
-              var date1 = DateFormat("yyyy-MM-dd HH:mm:ss.sss'Z'").format(date);
-              print("date1은???" + date1);
-              date = DateTime.parse(date1);
-
-              //date = DateTime.parse('2020-01-02 03:04:000');
-
-              setState(() {
-                print(widget.selectedDay);
-                widget.selectedDay = date;
-                print(widget.selectedDay);
-                _year = _date[0];
-                _month = _date[1];
-                _day = _date[2];
-              });
-            },
-            minimumYear: 2000,
-            maximumYear: 2100,
-            mode: CupertinoDatePickerMode.date,
-          ),
-        );
-      },
-    );
   }
 }
