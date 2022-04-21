@@ -128,9 +128,16 @@ class RecordSoundController extends GetxController {
   void saveFile(String fileName, String category) async {
     String inputFile = '/data/user/0/com.example.momsori/cache/${_mPath.value}';
     var tempDir = await getExternalStorageDirectory();
-    var directory = category != '전체 ▼'
-        ? Directory('${tempDir!.path}/$category')
-        : Directory(tempDir!.path);
+    Directory directory;
+    if(category == '전체 ▼') {
+      directory = Directory(tempDir!.path);
+    }
+    else if(category == '모든 녹음') {
+      directory = Directory(tempDir!.path);
+    }
+    else {
+      directory = Directory('${tempDir!.path}/$category');
+    }
     directory.create(recursive: true);
     print("디렉토리 경로");
     print(directory.path);

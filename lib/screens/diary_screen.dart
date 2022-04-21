@@ -336,7 +336,7 @@ class DiaryScreenState extends State<DiaryScreen>
 
                               _selectedEvents = getEventsForDays(selectedDay);
                               bottomSheet(selectDay, focusDay, diaryController,
-                                  context, selectedDay, focusedDay, player);
+                                  context, selectedDay, focusedDay, player, playButtonNotifier);
                             });
                           }),
                     ),

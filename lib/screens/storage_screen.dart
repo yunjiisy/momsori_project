@@ -156,7 +156,6 @@ class _StorageScreenState extends State<StorageScreen> {
                     onPressed: () {
                       setState(() {
                         createCategory(textController.text);
-                        setState(() {});
                         textController.clear();
                         callCategoryList();
                       });
@@ -255,6 +254,7 @@ class _StorageScreenState extends State<StorageScreen> {
                     onPressed: () {
                       deleteCategory();
                       setState(() {});
+                      callCategoryList();
                       print('delete file ok');
                       Navigator.pop(context);
                     }),
