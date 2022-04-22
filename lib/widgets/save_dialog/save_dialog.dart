@@ -21,10 +21,10 @@ Widget saveDialog(BuildContext context) {
 
   return Dialog(
     backgroundColor: Colors.transparent,
-    insetPadding: EdgeInsets.all(1),
+    insetPadding: EdgeInsets.only(left: 15, right: 15),
     child: Container(
       width: double.infinity,
-      height: 220.h,
+      height: 200.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Colors.white,
@@ -37,7 +37,7 @@ Widget saveDialog(BuildContext context) {
             '녹음 파일 저장',
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
             ),
           ),
           TextFormField(
@@ -64,12 +64,28 @@ Widget saveDialog(BuildContext context) {
             builder: (_) => WithKeepKeyboardPopupMenu(
               childBuilder: (context, openPopup) => InkWell(
                 onTap: openPopup,
-                child: Text(
-                  '${controller.category}',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 40.w,
+                      height: 16.h,
+                      decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Color.fromARGB(255, 249, 217, 228),
+                                width: 1)),
+                      ),
+                      child: Text(
+                        '${controller.category}' + " ▼",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               backgroundBuilder: (context, child) => Material(

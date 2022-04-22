@@ -73,7 +73,7 @@ class _StorageScreenState extends State<StorageScreen> {
       rlController.categories.add(element["name"]);
     });
     rlController.categories.add('+ 카테고리 추가');
-    rlController.category = '전체 ▼';
+    rlController.category = '전체';
   }
 
   void createCategory(String category) async {
@@ -449,12 +449,24 @@ class _StorageScreenState extends State<StorageScreen> {
                                 callCategoryList();
                                 setState(() {});
                               },
-                              child: Text(
-                                '+ 카테고리 추가',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                              child: Container(
+                                height: height * 0.03,
+                                width: width * 0.3,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 249, 217, 228),
+                                          width: 1)),
+                                ),
+                                child: Text(
+                                  '+ 카테고리 추가',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),

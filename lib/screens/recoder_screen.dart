@@ -59,6 +59,8 @@ class _RecoderScreenState extends State<RecoderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -94,8 +96,10 @@ class _RecoderScreenState extends State<RecoderScreen> {
                   Text(
                     '녹음',
                     //style: kTitleStyle,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.h),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: width * 0.06,
+                        fontWeight: FontWeight.w900),
                   ),
                 ],
               ),

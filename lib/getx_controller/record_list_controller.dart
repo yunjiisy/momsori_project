@@ -8,7 +8,7 @@ class RecordListController extends GetxController {
   List<String> categories = [];
 
   int categoryIndex = 0;
-  String category = '전체 ▼';
+  String category = '전체';
 
   addList(String newCategory) async {
     var tempDir = await getExternalStorageDirectory();

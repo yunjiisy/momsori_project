@@ -27,6 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
@@ -51,7 +52,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Text(
                       '프로필 수정',
-                      style: kTitleStyle,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: width * 0.06,
+                          fontWeight: FontWeight.w900),
                     ),
                   ],
                 ),
@@ -63,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 0.35 * height,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+                  padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
                   child: TextFormField(
                     onChanged: (nextText) {
                       setState(() {
@@ -87,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: height * 0.02,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: TextFormField(
                     onChanged: (nextText) {
                       setState(() {
@@ -111,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: height * 0.02,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: TextFormField(
                     onChanged: (nextText) {
                       if (nextText.length == 4) nextText += '.';
@@ -144,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: height * 0.045,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 10, left: 10),
+                  padding: const EdgeInsets.only(right: 20, left: 20),
                   child: Container(
                     height: height * 0.06,
                     child: ElevatedButton(
