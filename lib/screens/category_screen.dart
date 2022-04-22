@@ -760,6 +760,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 child: ListView.builder(
                                 itemCount: fileDataList.length,
                                 itemBuilder: (context, index) {
+                                  print(fileDataList.length);
                                   if (fileDataList[index]["clicked"] == null) {
                                     fileDataList[index]["clicked"] = false;
                                   }

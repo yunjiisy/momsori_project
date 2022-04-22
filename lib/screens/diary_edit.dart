@@ -580,23 +580,38 @@ class DiaryEditState extends State<DiaryEdit> {
                       child: TextFormField(
                         onChanged: (text) {
                           setState(() {
+                            if (diaryController.diarytext[widget.selectedDay] ==
+                                null) {
+                              diaryController.diarytext[widget.selectedDay] = [
+                                ' '
+                              ];
+                            }
+                            if (diaryController.events[widget.selectedDay] ==
+                                null) {
+                              diaryController.events[widget.selectedDay] = [
+                                'assets/icons/No_image.svg'
+                              ];
+                              diaryController.feeling[widget.selectedDay] = [
+                                " "
+                              ];
+                            }
                             diaryController.diarytext[widget.selectedDay] = [
                               text
                             ];
                           });
                         },
                         textInputAction: TextInputAction.done,
-                        maxLength: 500,
+                        //maxLength: 500,
                         keyboardType: TextInputType.multiline,
-                        minLines: 3,
+                        minLines: 6,
                         maxLines: null,
                         cursorColor: Color(0xFFFFA9A9),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(width * 0.012),
+                          contentPadding: EdgeInsets.all(width * 0.027),
                           hintText: "메모를 입력하세요.",
                           hintStyle: TextStyle(color: Colors.grey[500]),
                           filled: true,
-                          fillColor: Color(0xFFE5E5E5),
+                          fillColor: Color.fromARGB(255, 236, 236, 236),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                         ),

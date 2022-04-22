@@ -126,7 +126,6 @@ class DiaryScreenState extends State<DiaryScreen>
     });
   }
 
-
   final user = Get.find<UserController>();
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
@@ -189,183 +188,193 @@ class DiaryScreenState extends State<DiaryScreen>
                 width * 0.05, height * 0.014, width * 0.05, 0.0),
             child: GetBuilder<DiaryController>(
               // init 부분 삭제.
-              builder: (_) => Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 56.h,
-                  ),
-                  Container(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: width * 0.042,
-                        ),
-                        Text(
-                          '다이어리',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: width * 0.06,
-                              fontWeight: FontWeight.w900),
-                        ),
-                      ],
+              builder: (_) => SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 56.h,
                     ),
-                  ),
-                  SizedBox(height: height * 0.041),
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 15.h),
-                        //child: Image.asset('assets/images/치골통통.jpeg'),
-                        child: Image.asset('assets/icons/메뉴아기.png'),
-                        //child: SvgPicture.asset('assets/images/qlqlql.svg'),
-                        height: 80.h,
-                        width: 80.h,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(height * 0.003),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.02,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${user.babyNickname}  ' +
-                                      'D-' +
-                                      '${user.babyDay()}',
-                                  style: TextStyle(
-                                      fontSize: width * 0.048,
-                                      fontWeight: FontWeight.w900),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Text('출산예정일: ' + '${user.babyBirth}'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    width: width * 0.7,
-                    //height: 5.0,
-                    child: DottedLine(
-                      dashColor: Color(0XFFF9F1F1),
-                      dashLength: 7.0,
-                      lineThickness: 3.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-                    child: Container(
-                      child: TableCalendar(
-                          //pageJumpingEnabled: true,
-                          daysOfWeekHeight: height * 0.028,
-                          //rowHeight: height * 0.0877,
-                          rowHeight: height * 0.062,
-                          //locale: 'ko-KR',
-                          focusedDay: DateTime.now(),
-                          firstDay: DateTime(2000),
-                          lastDay: DateTime(2050),
-                          headerStyle: HeaderStyle(
-                            headerMargin: EdgeInsets.only(
-                                left: width * 0.0,
-                                top: height * 0.002,
-                                right: width * 0.0,
-                                bottom: height * 0.0),
-                            titleCentered: true,
-                            formatButtonVisible: false,
-                            // leftChevronIcon: Icon(Icons.arrow_left),
-                            // rightChevronIcon: Icon(Icons.arrow_right),
-                            titleTextStyle: TextStyle(
-                                fontSize: width * 0.04,
-                                fontWeight: FontWeight.bold),
+                    Container(
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: width * 0.042,
                           ),
-                          calendarStyle: CalendarStyle(
-                            defaultTextStyle:
-                                TextStyle(fontWeight: FontWeight.bold),
-                            todayTextStyle: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white),
-                            todayDecoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(blurRadius: 3.0, color: Colors.grey)
+                          Text(
+                            '다이어리',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: width * 0.06,
+                                fontWeight: FontWeight.w900),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: height * 0.041),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(left: 15.h),
+                          //child: Image.asset('assets/images/치골통통.jpeg'),
+                          child: Image.asset('assets/icons/메뉴아기.png'),
+                          //child: SvgPicture.asset('assets/images/qlqlql.svg'),
+                          height: 80.h,
+                          width: 80.h,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(height * 0.003),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: width * 0.02,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${user.babyNickname}  ' +
+                                        'D-' +
+                                        '${user.babyDay()}',
+                                    style: TextStyle(
+                                        fontSize: width * 0.048,
+                                        fontWeight: FontWeight.w900),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text('출산예정일: ' + '${user.babyBirth}'),
                                 ],
-                                color: Color(0XFF3F3A5E),
-                                shape: BoxShape.circle),
-                            outsideDaysVisible: false,
-                            isTodayHighlighted: true,
-                            weekendTextStyle:
-                                TextStyle().copyWith(color: Colors.red),
-                            holidayTextStyle:
-                                TextStyle().copyWith(color: Colors.blue[800]),
-                            selectedTextStyle: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                            selectedDecoration: BoxDecoration(
-                              // boxShadow: [
-                              //   BoxShadow(blurRadius: 3.0, color: Colors.grey)
-                              // ],
-                              color: Color(0XFFFFD1D1),
-                              shape: BoxShape.circle,
-                            ),
-                            markersAutoAligned: false,
-                            markersMaxCount: 1,
-                            markersAlignment: Alignment.center,
-                            markerMargin: EdgeInsets.symmetric(
-                                horizontal: 1, vertical: 1),
-                          ),
-                          selectedDayPredicate: (DateTime date) {
-                            if (selectedDay == DateTime.now()) {
-                              return false;
-                            } else
-                              return isSameDay(selectedDay, date);
-                          },
-                          calendarBuilders:
-                              makeMarkerBuilder(diaryController.events),
-                          eventLoader: getEventsForDays,
-                          onDaySelected:
-                              (DateTime selectDay, DateTime focusDay) {
-                            setState(() {
-                              selectedDay = selectDay;
-                              focusedDay = focusDay;
-
-                              _selectedEvents = getEventsForDays(selectedDay);
-                              bottomSheet(selectDay, focusDay, diaryController,
-                                  context, selectedDay, focusedDay, player, playButtonNotifier);
-                            });
-                          }),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 5.h, 25.h, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Get.to(DiaryEdit(
-                              //events = events,
-                              //health = health,
-                              selectedDay = selectedDay,
-                              //feeling = feeling,
-                              //sdiarytext = diarytext,
-                            ));
-                          },
-                          child: SvgPicture.asset(
-                            "assets/icons/편집.svg",
-                            height: 55.h,
-                            width: 55.w,
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    Container(
+                      width: width * 0.7,
+                      //height: 5.0,
+                      child: DottedLine(
+                        dashColor: Color(0XFFF9F1F1),
+                        dashLength: 7.0,
+                        lineThickness: 3.0,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+                      child: Container(
+                        child: TableCalendar(
+                            //pageJumpingEnabled: true,
+                            daysOfWeekHeight: height * 0.028,
+                            //rowHeight: height * 0.0877,
+                            rowHeight: height * 0.062,
+                            //locale: 'ko-KR',
+                            focusedDay: DateTime.now(),
+                            firstDay: DateTime(2000),
+                            lastDay: DateTime(2050),
+                            headerStyle: HeaderStyle(
+                              headerMargin: EdgeInsets.only(
+                                  left: width * 0.0,
+                                  top: height * 0.002,
+                                  right: width * 0.0,
+                                  bottom: height * 0.0),
+                              titleCentered: true,
+                              formatButtonVisible: false,
+                              // leftChevronIcon: Icon(Icons.arrow_left),
+                              // rightChevronIcon: Icon(Icons.arrow_right),
+                              titleTextStyle: TextStyle(
+                                  fontSize: width * 0.04,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            calendarStyle: CalendarStyle(
+                              defaultTextStyle:
+                                  TextStyle(fontWeight: FontWeight.bold),
+                              todayTextStyle: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.white),
+                              todayDecoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 3.0, color: Colors.grey)
+                                  ],
+                                  color: Color(0XFF3F3A5E),
+                                  shape: BoxShape.circle),
+                              outsideDaysVisible: false,
+                              isTodayHighlighted: true,
+                              weekendTextStyle:
+                                  TextStyle().copyWith(color: Colors.red),
+                              holidayTextStyle:
+                                  TextStyle().copyWith(color: Colors.blue[800]),
+                              selectedTextStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                              selectedDecoration: BoxDecoration(
+                                // boxShadow: [
+                                //   BoxShadow(blurRadius: 3.0, color: Colors.grey)
+                                // ],
+                                color: Color(0XFFFFD1D1),
+                                shape: BoxShape.circle,
+                              ),
+                              markersAutoAligned: false,
+                              markersMaxCount: 1,
+                              markersAlignment: Alignment.center,
+                              markerMargin: EdgeInsets.symmetric(
+                                  horizontal: 1, vertical: 1),
+                            ),
+                            selectedDayPredicate: (DateTime date) {
+                              if (selectedDay == DateTime.now()) {
+                                return false;
+                              } else
+                                return isSameDay(selectedDay, date);
+                            },
+                            calendarBuilders:
+                                makeMarkerBuilder(diaryController.events),
+                            eventLoader: getEventsForDays,
+                            onDaySelected:
+                                (DateTime selectDay, DateTime focusDay) {
+                              setState(() {
+                                selectedDay = selectDay;
+                                focusedDay = focusDay;
+
+                                _selectedEvents = getEventsForDays(selectedDay);
+                                bottomSheet(
+                                    selectDay,
+                                    focusDay,
+                                    diaryController,
+                                    context,
+                                    selectedDay,
+                                    focusedDay,
+                                    player,
+                                    playButtonNotifier);
+                              });
+                            }),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 5.h, 25.h, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.to(DiaryEdit(
+                                //events = events,
+                                //health = health,
+                                selectedDay = selectedDay,
+                                //feeling = feeling,
+                                //sdiarytext = diarytext,
+                              ));
+                            },
+                            child: SvgPicture.asset(
+                              "assets/icons/편집.svg",
+                              height: 55.h,
+                              width: 55.w,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )),
       ),
@@ -378,7 +387,6 @@ class DiaryScreenState extends State<DiaryScreen>
       date,
       _event,
     ) {
-
       print(diaryController.health[date]);
       print('-------');
       if (diaryController.events[date] != null ||

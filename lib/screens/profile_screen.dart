@@ -55,115 +55,131 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: height * 0.05,
+                ),
                 Image.asset(
                   'assets/icons/확인용.gif',
                   height: 0.35 * height,
                 ),
-                TextFormField(
-                  onChanged: (nextText) {
-                    setState(() {
-                      _mText = nextText;
-                    });
-                  },
-                  maxLength: 6,
-                  cursorColor: Color(0xFFFFA9A9),
-                  decoration: InputDecoration(
-                    hintText: '${user.userName}',
-                    border: InputBorder.none,
-                    counterText: '',
-                    fillColor: Color(0xFFE5E5E5),
-                    filled: true,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 25, horizontal: 10),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                TextFormField(
-                  onChanged: (nextText) {
-                    setState(() {
-                      _bText = nextText;
-                    });
-                  },
-                  maxLength: 6,
-                  cursorColor: Color(0xFFFFA9A9),
-                  decoration: InputDecoration(
-                    hintText: '${user.babyNickname}',
-                    border: InputBorder.none,
-                    counterText: '',
-                    fillColor: Color(0xFFE5E5E5),
-                    filled: true,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 25, horizontal: 10),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                TextFormField(
-                  onChanged: (nextText) {
-                    if (nextText.length == 4) nextText += '.';
-                    if (nextText.length == 7) nextText += '.';
-                    setState(() {
-                      _dText = nextText;
-                      print(nextText);
-                    });
-                  },
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    // FilteringTextInputFormatter.allow(RegExp("[0-9\\.]")),
-                    TextInputMask(
-                      mask: '9999.99.99',
+                Padding(
+                  padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+                  child: TextFormField(
+                    onChanged: (nextText) {
+                      setState(() {
+                        _mText = nextText;
+                      });
+                    },
+                    maxLength: 6,
+                    cursorColor: Color(0xFFFFA9A9),
+                    decoration: InputDecoration(
+                      hintText: '${user.userName}',
+                      border: InputBorder.none,
+                      counterText: '',
+                      fillColor: Color(0xFFE5E5E5),
+                      filled: true,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 18, horizontal: 10),
                     ),
-                  ],
-                  cursorColor: Color(0xFFFFA9A9),
-                  decoration: InputDecoration(
-                    hintText: '${user.babyBirth}',
-                    border: InputBorder.none,
-                    counterText: '',
-                    fillColor: Color(0xFFE5E5E5),
-                    filled: true,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 25, horizontal: 10),
                   ),
                 ),
                 SizedBox(
-                  height: height * 0.05,
+                  height: height * 0.02,
                 ),
-                Container(
-                  height: height * 0.08,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        //shape: MaterialStateProperty.all(Border),
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith((states) {
-                      if (states.contains(MaterialState.disabled)) {
-                        return Color.fromARGB(255, 189, 189, 189);
-                      } else {
-                        return Color(0xFFFFA9A9);
-                      }
-                    })),
-                    onPressed:
-                        _mText != '' && _bText != '' && _dText.length == 10
-                            ? () {
-                                FocusScopeNode currentFocus =
-                                    FocusScope.of(context);
-                                currentFocus.unfocus();
-                                userController.updateUserName(
-                                    _mText, _bText, _dText);
-                                Get.offAll(
-                                  () => MainScreen(),
-                                  transition: Transition.fadeIn,
-                                );
-                              }
-                            : null,
-                    child: Text(
-                      '확인',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: TextFormField(
+                    onChanged: (nextText) {
+                      setState(() {
+                        _bText = nextText;
+                      });
+                    },
+                    maxLength: 6,
+                    cursorColor: Color(0xFFFFA9A9),
+                    decoration: InputDecoration(
+                      hintText: '${user.babyNickname}',
+                      border: InputBorder.none,
+                      counterText: '',
+                      fillColor: Color(0xFFE5E5E5),
+                      filled: true,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: TextFormField(
+                    onChanged: (nextText) {
+                      if (nextText.length == 4) nextText += '.';
+                      if (nextText.length == 7) nextText += '.';
+                      setState(() {
+                        _dText = nextText;
+                        print(nextText);
+                      });
+                    },
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      // FilteringTextInputFormatter.allow(RegExp("[0-9\\.]")),
+                      TextInputMask(
+                        mask: '9999.99.99',
+                      ),
+                    ],
+                    cursorColor: Color(0xFFFFA9A9),
+                    decoration: InputDecoration(
+                      hintText: '${user.babyBirth}',
+                      border: InputBorder.none,
+                      counterText: '',
+                      fillColor: Color(0xFFE5E5E5),
+                      filled: true,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.045,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10, left: 10),
+                  child: Container(
+                    height: height * 0.06,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+
+                          //shape: MaterialStateProperty.all(Border),
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith((states) {
+                        if (states.contains(MaterialState.disabled)) {
+                          return Color.fromARGB(255, 189, 189, 189);
+                        } else {
+                          return Color(0xFFFFA9A9);
+                        }
+                      })),
+                      onPressed:
+                          _mText != '' && _bText != '' && _dText.length == 10
+                              ? () {
+                                  FocusScopeNode currentFocus =
+                                      FocusScope.of(context);
+                                  currentFocus.unfocus();
+                                  userController.updateUserName(
+                                      _mText, _bText, _dText);
+                                  Get.offAll(
+                                    () => MainScreen(),
+                                    transition: Transition.fadeIn,
+                                  );
+                                }
+                              : null,
+                      child: Text(
+                        '확인',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

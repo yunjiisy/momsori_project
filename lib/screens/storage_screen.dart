@@ -22,8 +22,7 @@ class _StorageScreenState extends State<StorageScreen> {
 
   ListTile listTileWidget(int index) {
     return ListTile(
-      leading: SvgPicture.asset(
-          'assets/background/storage_folder.svg'),
+      leading: SvgPicture.asset('assets/background/storage_folder.svg'),
       title: Text(
         rlController.categoryData[index]["name"],
         style: TextStyle(
@@ -36,8 +35,7 @@ class _StorageScreenState extends State<StorageScreen> {
       //     rlController.categoryData[index]["date"]),
       onTap: () {
         Get.to(() => CategoryScreen(),
-            arguments: index,
-            transition: Transition.downToUp);
+            arguments: index, transition: Transition.downToUp);
       },
     );
   }
@@ -306,6 +304,7 @@ class _StorageScreenState extends State<StorageScreen> {
                           onPressed: () {
                             callCategoryList();
                             setState(() {});
+                            print('dfgxdsf');
                           },
                           child: Text(
                             '저장소',
