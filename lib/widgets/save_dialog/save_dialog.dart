@@ -68,7 +68,7 @@ Widget saveDialog(BuildContext context) {
                   //mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      width: 40.w,
+                      //width: 40.w,
                       height: 16.h,
                       decoration: BoxDecoration(
                         border: Border(
@@ -78,7 +78,7 @@ Widget saveDialog(BuildContext context) {
                       ),
                       child: Text(
                         '${controller.category}' + " ▼",
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
