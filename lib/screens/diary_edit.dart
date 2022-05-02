@@ -382,9 +382,8 @@ class DiaryEditState extends State<DiaryEdit> {
                           setState(() {
                             if (diaryController.diarytext[widget.selectedDay] ==
                                 null) {
-                              diaryController.diarytext[widget.selectedDay] = [
-                                ' '
-                              ];
+                              diaryController.diarytext[widget.selectedDay] =
+                                  [];
                             }
                             if (diaryController.events[widget.selectedDay] ==
                                 null) {
@@ -392,6 +391,13 @@ class DiaryEditState extends State<DiaryEdit> {
                                 'assets/icons/No_image.svg'
                               ];
                               diaryController.feeling[widget.selectedDay] = [
+                                " "
+                              ];
+                            }
+                            if (diaryController.health[widget.selectedDay] ==
+                                null) {
+                              diaryController.health[widget.selectedDay] = [
+                                'assets/icons/No_image.svg',
                                 " "
                               ];
                             }

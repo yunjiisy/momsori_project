@@ -24,73 +24,26 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
+                          image: AssetImage("assets/background/tutorial.png"),
+                          fit: BoxFit.cover)),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
                           image: AssetImage("assets/background/tutorial1.png"),
                           fit: BoxFit.cover)),
-                  // color: Colors.grey,
-                  margin: EdgeInsets.only(
-                      //top: height * 0.1,
-                      //bottom: height * 0.2,
-                      ),
-                  child: Center(
-                    child: Text(
-                      '튜토리얼1',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFA9A9),
-                      ),
-                    ),
-                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/background/tutorial2.png"),
                           fit: BoxFit.cover)),
-                  // color: Colors.grey,
-
-                  child: Center(
-                    child: Text(
-                      '튜토리얼2',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFA9A9),
-                      ),
-                    ),
-                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/background/tutorial3.png"),
                           fit: BoxFit.cover)),
-                  child: Center(
-                    child: Text(
-                      '튜토리얼3',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFA9A9),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/background/tutorial4.png"),
-                          fit: BoxFit.cover)),
-                  child: Center(
-                    child: Text(
-                      '튜토리얼4',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFA9A9),
-                      ),
-                    ),
-                  ),
                 ),
               ],
               onPageChanged: (index) {
@@ -134,11 +87,20 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
+                    margin: _index == 3
+                        ? EdgeInsets.only(left: width * 0.36, top: width * 0.05)
+                        : EdgeInsets.only(
+                            left: width * 0.36, top: width * 0.05),
+                    child: _myCircleStatus(_index),
+                  ),
+                  Container(
                     margin: EdgeInsets.only(
+                      left: width * 0.09,
+                      right: width * 0.09,
                       top: height * 0.8,
                       bottom: height * 0.02,
                     ),
-                    height: height * 0.08,
+                    height: height * 0.07,
                     child: _index == 3
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -162,16 +124,16 @@ class _TutorialScreenState extends State<TutorialScreen> {
                           )
                         : Text(''),
                   ),
-                  Container(
-                    margin: _index == 3
-                        ? EdgeInsets.only(
-                            left: width * 0.36,
-                          )
-                        : EdgeInsets.only(
-                            left: width * 0.36,
-                          ),
-                    child: _myCircleStatus(_index),
-                  ),
+                  // Container(
+                  //   margin: _index == 3
+                  //       ? EdgeInsets.only(
+                  //           left: width * 0.36,
+                  //         )
+                  //       : EdgeInsets.only(
+                  //           left: width * 0.36,
+                  //         ),
+                  //   child: _myCircleStatus(_index),
+                  // ),
                 ],
               ),
             ),
@@ -190,7 +152,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xFFFFA9A9),
+              color: Color.fromARGB(255, 255, 234, 234),
             ),
           ),
           SizedBox(
@@ -247,7 +209,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xFFFFA9A9),
+              color: Color.fromARGB(255, 255, 234, 234),
             ),
           ),
           SizedBox(
@@ -304,7 +266,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xFFFFA9A9),
+              color: Color.fromARGB(255, 255, 234, 234),
             ),
           ),
           SizedBox(
@@ -321,50 +283,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
         ],
       );
     else
-      return Row(
-        children: [
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey,
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey,
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey,
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color(0xFFFFA9A9),
-            ),
-          ),
-        ],
-      );
+      return Container();
   }
 }
