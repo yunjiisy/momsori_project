@@ -25,7 +25,7 @@ void bottomSheet(
   final diaryController = Get.put(DiaryController());
   late ConcatenatingAudioSource _playlist =
       ConcatenatingAudioSource(children: []);
-
+  int a = 10;
   Future<List<Map>> tmpList = callDiaryRecordListWidget(selectDay);
   List<Map> recordList = await tmpList;
   recordList.forEach((element) {
@@ -33,11 +33,21 @@ void bottomSheet(
   });
 
   void setupFile(int index) async {
+    a = index;
+    print("a -------------------------------- $a");
     _playlist.add(ConcatenatingAudioSource(children: [
       AudioSource.uri(Uri.file(recordList[index]["path"]),
           tag: recordList[index]["name"]),
     ]));
     await player.setAudioSource(_playlist);
+  }
+
+  bool isPlaying(int index) {
+    if (index == a) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   double height = MediaQuery.of(context).size.height;
@@ -340,15 +350,41 @@ void bottomSheet(
                                                           },
                                                         );
                                                       case ButtonState.playing:
-                                                        return IconButton(
-                                                          icon: const Icon(
-                                                              Icons.pause),
-                                                          iconSize:
-                                                              width * 0.087,
-                                                          onPressed: () {
-                                                            player.pause().obs;
-                                                          },
-                                                        );
+                                                        return isPlaying(index)
+                                                            ? IconButton(
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .pause),
+                                                                iconSize:
+                                                                    width *
+                                                                        0.087,
+                                                                onPressed: () {
+                                                                  player
+                                                                      .pause()
+                                                                      .obs;
+                                                                },
+                                                              )
+                                                            : IconButton(
+                                                                icon: SvgPicture
+                                                                    .asset(
+                                                                  'assets/icons/play_arrow-24px_3.svg',
+                                                                  width: width *
+                                                                      0.087,
+                                                                ),
+                                                                iconSize:
+                                                                    width *
+                                                                        0.087,
+                                                                onPressed: () {
+                                                                  //print(recordList);
+                                                                  _playlist
+                                                                      .clear();
+                                                                  setupFile(
+                                                                      index);
+                                                                  player
+                                                                      .play()
+                                                                      .obs;
+                                                                },
+                                                              );
                                                     }
                                                   },
                                                 ),
