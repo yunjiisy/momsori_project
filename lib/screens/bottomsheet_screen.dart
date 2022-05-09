@@ -20,7 +20,8 @@ void bottomSheet(
     BuildContext context,
     DateTime selectedDay,
     DateTime focusedDay,
-    AudioPlayer player, playButtonNotifier) async {
+    AudioPlayer player,
+    playButtonNotifier) async {
   final diaryController = Get.put(DiaryController());
   late ConcatenatingAudioSource _playlist =
       ConcatenatingAudioSource(children: []);
@@ -332,6 +333,8 @@ void bottomSheet(
                                                           iconSize:
                                                               width * 0.087,
                                                           onPressed: () {
+                                                            //print(recordList);
+                                                            _playlist.clear();
                                                             setupFile(index);
                                                             player.play().obs;
                                                           },

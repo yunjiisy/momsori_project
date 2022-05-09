@@ -24,12 +24,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("assets/background/tutorial.png"),
-                          fit: BoxFit.cover)),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
                           image: AssetImage("assets/background/tutorial1.png"),
                           fit: BoxFit.cover)),
                 ),
@@ -43,6 +37,12 @@ class _TutorialScreenState extends State<TutorialScreen> {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/background/tutorial3.png"),
+                          fit: BoxFit.cover)),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/background/tutorial4.png"),
                           fit: BoxFit.cover)),
                 ),
               ],
@@ -82,7 +82,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             else
               Text(''),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(right: 13, left: 13),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -97,10 +97,10 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     margin: EdgeInsets.only(
                       left: width * 0.09,
                       right: width * 0.09,
-                      top: height * 0.8,
+                      top: height * 0.825,
                       bottom: height * 0.02,
                     ),
-                    height: height * 0.07,
+                    height: height * 0.06,
                     child: _index == 3
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(

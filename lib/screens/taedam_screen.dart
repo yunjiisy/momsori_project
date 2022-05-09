@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momsori/widgets/taedam_story.dart';
 import 'package:get/get.dart';
+import 'package:vibration/vibration.dart';
 
 import '../widgets/contants.dart';
 
@@ -116,6 +117,7 @@ class _TaedamScreenState extends State<TaedamScreen>
                 onChanged: (double newValue) {
                   setState(() {
                     _month = newValue.round();
+                    Vibration.vibrate(duration: 70);
                   });
                 },
               ),
