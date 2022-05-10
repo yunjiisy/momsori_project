@@ -329,11 +329,11 @@ class DiaryEditState extends State<DiaryEdit> {
                         widget.selectedDay = widget.selectedDay,
                         'assets/images/치골통.svg',
                         healthText = '치골통'),
-                    new HealthButton(
-                        diaryController.health = diaryController.health,
-                        widget.selectedDay = widget.selectedDay,
-                        'assets/images/요통.svg',
-                        healthText = '요통'),
+                    // new HealthButton(
+                    //     diaryController.health = diaryController.health,
+                    //     widget.selectedDay = widget.selectedDay,
+                    //     'assets/images/요통.svg',
+                    //     healthText = '요통'),
                     new HealthButton(
                         diaryController.health = diaryController.health,
                         widget.selectedDay = widget.selectedDay,

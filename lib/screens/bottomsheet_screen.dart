@@ -34,7 +34,6 @@ void bottomSheet(
 
   void setupFile(int index) async {
     a = index;
-    print("a -------------------------------- $a");
     _playlist.add(ConcatenatingAudioSource(children: [
       AudioSource.uri(Uri.file(recordList[index]["path"]),
           tag: recordList[index]["name"]),
@@ -330,7 +329,10 @@ void bottomSheet(
                                                           width: width * 0.087,
                                                           height: width * 0.087,
                                                           child:
-                                                              const CircularProgressIndicator(),
+                                                              const CircularProgressIndicator(
+                                                            color: Color(
+                                                                0xffffa9a9),
+                                                          ),
                                                         );
                                                       case ButtonState.paused:
                                                         return IconButton(
@@ -352,9 +354,12 @@ void bottomSheet(
                                                       case ButtonState.playing:
                                                         return isPlaying(index)
                                                             ? IconButton(
-                                                                icon: const Icon(
-                                                                    Icons
-                                                                        .pause),
+                                                                icon:
+                                                                    const Icon(
+                                                                  Icons.pause,
+                                                                  color: Color(
+                                                                      0xffffa9a9),
+                                                                ),
                                                                 iconSize:
                                                                     width *
                                                                         0.087,

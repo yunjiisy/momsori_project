@@ -405,9 +405,8 @@ class DiaryScreenState extends State<DiaryScreen>
             width: 8.w,
             height: 8.h,
             decoration: BoxDecoration(
-                // border: Border.all(
-                //     width: 1, color: Color.fromARGB(255, 204, 187, 187)
-                //     ),
+                border: Border.all(
+                    width: 1, color: Color.fromARGB(255, 219, 184, 184)),
 
                 //backgroundBlendMode: BlendMode. ,
                 color: Color(0XFFFFD1D1),

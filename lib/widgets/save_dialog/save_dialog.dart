@@ -121,9 +121,9 @@ Widget saveDialog(BuildContext context) {
                               '${controller.category}' + " ▼",
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
+                                  fontSize: 13.5.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromARGB(255, 66, 66, 66)),
                             ),
                           ),
                         ],
