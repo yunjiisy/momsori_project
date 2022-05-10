@@ -82,6 +82,7 @@ class _RecoderScreenState extends State<RecoderScreen> {
                     alignment: Alignment.topLeft,
                     child: InkWell(
                       onTap: () {
+                        rlController.changeCategory(rlController.category);
                         Get.back();
                       },
                       child: Container(
