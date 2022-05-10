@@ -151,7 +151,7 @@ class _StorageScreenState extends State<StorageScreen> {
                       "확인",
                       style: TextStyle(color: Colors.black),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         createCategory(textController.text);
                         textController.clear();
@@ -229,7 +229,7 @@ class _StorageScreenState extends State<StorageScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("해당 파일드을 삭제하시겠습니까?"),
+                  Text("해당 파일들을 삭제하시겠습니까?"),
                   Text("해당 녹음들은 영구 삭제됩니다."),
                 ],
               ),
@@ -279,7 +279,7 @@ class _StorageScreenState extends State<StorageScreen> {
   @override
   Widget build(BuildContext context) {
     final rlController = Get.put<RecordListController>(RecordListController());
-
+    callCategoryList();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
