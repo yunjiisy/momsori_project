@@ -54,6 +54,12 @@ class RecordListController extends GetxController {
         "checked": false,
       });
     });
+    categories.clear();
+    categoryData.forEach((element) {
+      categories.add(element["name"]);
+    });
+    categories.add('+ 카테고리 추가');
+    update();
   }
 
   callCategories() {

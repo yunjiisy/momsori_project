@@ -10,7 +10,7 @@ import 'package:momsori/my_keep_keyboard_popup_munu/src/keep_keyboard_popup_menu
 import 'package:momsori/my_keep_keyboard_popup_munu/src/with_keep_keyboard_popup_menu.dart';
 import 'package:momsori/screens/main_screen.dart';
 
-Widget saveDialog(BuildContext context) {
+Widget saveDialog(BuildContext saveContext) {
   final controller = Get.put<RecordListController>(RecordListController());
   final fileNameController = Get.put<FileNameController>(FileNameController());
   final rs = Get.put<RecordSoundController>(RecordSoundController());
@@ -18,6 +18,9 @@ Widget saveDialog(BuildContext context) {
   if (Get.arguments != null) {
     controller.changeCategory(Get.arguments);
   }
+  controller.callCategoryList();
+  controller.update();
+
 
   return Dialog(
     backgroundColor: Colors.transparent,
@@ -159,12 +162,13 @@ Widget saveDialog(BuildContext context) {
                             height: 30.h,
                             child: index == _.categories.length - 1
                                 ? InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       closePopup();
                                       Get.appUpdate();
+                                      Get.back();
                                       Get.dialog(
                                         addCategory(context),
-                                      );
+                                      ).then((value) => _.update()).then((value) => Get.dialog(saveDialog(saveContext)));
                                     },
                                     child: Center(
                                       child: Text(
@@ -224,6 +228,7 @@ Widget saveDialog(BuildContext context) {
                   children: [
                     InkWell(
                       onTap: () {
+                        controller.changeCategory(controller.category);
                         Get.back();
                       },
                       child: Text(
@@ -250,6 +255,7 @@ Widget saveDialog(BuildContext context) {
                         print("파일: " +
                             (fileNameController.fileName.value).toString());
                         Get.back();
+                        controller.changeCategory(controller.category);
                         Get.snackbar(
                           '저장되었습니다!',
                           '탭하면 보관함으로 이동',

@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:momsori/screens/category_screen.dart';
 import 'package:momsori/screens/diary_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +19,10 @@ void bottomSheet(
     BuildContext context,
     DateTime selectedDay,
     DateTime focusedDay,
-    AudioPlayer player, playButtonNotifier) async {
+    AudioPlayer player,
+    playButtonNotifier) async {
+
+  List playButtonNotifiers = [];
   final diaryController = Get.put(DiaryController());
   late ConcatenatingAudioSource _playlist =
       ConcatenatingAudioSource(children: []);
@@ -418,8 +420,8 @@ void bottomSheet(
                                               width: width * 0.087,
                                             ),
                                           ),
-                                         
-                                  
+
+
                                         ],
                                       ),
 
