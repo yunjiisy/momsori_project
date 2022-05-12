@@ -58,7 +58,7 @@ class RecordListController extends GetxController {
     categoryData.forEach((element) {
       categories.add(element["name"]);
     });
-    categories.add('+ 카테고리 추가');
+    categories.add('+ 폴더 추가');
     update();
   }
 
@@ -67,7 +67,7 @@ class RecordListController extends GetxController {
     categoryData.forEach((element) {
       categories.add(element["name"]);
     });
-    categories.add('+ 카테고리 추가');
+    categories.add('+ 폴더 추가');
     update();
   }
 }

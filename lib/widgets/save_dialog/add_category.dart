@@ -26,7 +26,7 @@ addCategory(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '카테고리 추가',
+              '폴더 추가',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 14.sp,

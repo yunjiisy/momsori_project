@@ -106,7 +106,7 @@ class _StorageScreenState extends State<StorageScreen> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
             titlePadding: EdgeInsets.fromLTRB(30, 30, 20, 10),
             title: Text(
-              '카테고리를 선택해 주세요.',
+              '폴더 선택해 주세요.',
               style: TextStyle(fontSize: 18),
             ),
             actions: <Widget>[
@@ -170,7 +170,7 @@ class _StorageScreenState extends State<StorageScreen> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
             titlePadding: EdgeInsets.fromLTRB(30, 30, 20, 10),
             title: Text(
-              '카테고리가 생성되었습니다!',
+              '폴더 생성되었습니다!',
               style: TextStyle(fontSize: 18),
             ),
             actions: <Widget>[
@@ -205,6 +205,7 @@ class _StorageScreenState extends State<StorageScreen> {
               builder: (BuildContext context, StateSetter setState) {
             return SafeArea(
               child: AlertDialog(
+                titlePadding: EdgeInsets.fromLTRB(24.0, 27.0, 24.0, 24.0),
                 actionsPadding: EdgeInsets.fromLTRB(12, 0, 12, 0),
                 actionsAlignment: MainAxisAlignment.spaceAround,
                 shape: RoundedRectangleBorder(
@@ -215,7 +216,11 @@ class _StorageScreenState extends State<StorageScreen> {
                   children: <Widget>[
                     Text(
                       "폴더 이름",
-                      style: TextStyle(fontSize: 20),
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
                     ),
                     TextField(
                       cursorColor: Color(0xFFFFA9A9),
@@ -296,12 +301,15 @@ class _StorageScreenState extends State<StorageScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("폴더 이름"),
+                  Text(
+                    "폴더 이름",
+                    style: TextStyle(fontSize: 17),
+                  ),
                   TextField(
                     controller: textController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Name',
+                      //labelText: 'Name',
                     ),
                   ),
                 ],
@@ -344,9 +352,11 @@ class _StorageScreenState extends State<StorageScreen> {
         builder: (BuildContext context) {
           return SafeArea(
             child: AlertDialog(
+              titlePadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 20.0),
+              actionsPadding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+              actionsAlignment: MainAxisAlignment.spaceAround,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(9)),
-              contentPadding: EdgeInsets.fromLTRB(26, 26, 26, 26),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -355,15 +365,15 @@ class _StorageScreenState extends State<StorageScreen> {
                     height: 8,
                   ),
                   Text(
-                    "해당 파일들을 삭제하시겠습니까?",
-                    style: TextStyle(fontSize: 18),
+                    "해당 폴더들을 삭제하시겠습니까?",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                    "해당 녹음들은 영구 삭제됩니다.",
-                    style: TextStyle(fontSize: 18),
+                    "폴더안의 파일들도 함께 삭제됩니다.",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -371,17 +381,32 @@ class _StorageScreenState extends State<StorageScreen> {
                 new CupertinoButton(
                     child: Text(
                       "취소",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Color(0xFFFFA9A9),
+                      ),
                     ),
                     onPressed: () {
                       setState(() {});
                       print('delete file cancel');
                       Navigator.pop(context);
                     }),
+                Text(
+                  '|',
+                  style: TextStyle(
+                    color: Color(0xffdadada),
+                    fontSize: 18,
+                  ),
+                ),
                 new CupertinoButton(
                     child: Text(
                       "확인",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Color(0xFFFFA9A9),
+                      ),
                     ),
                     onPressed: () {
                       deleteCategory();

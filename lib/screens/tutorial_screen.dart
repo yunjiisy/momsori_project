@@ -24,7 +24,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("assets/background/tutorial1.png"),
+                          image: AssetImage("assets/background/tutorial.png"),
                           fit: BoxFit.cover)),
                 ),
                 Container(

@@ -252,7 +252,7 @@ Widget saveDialog(BuildContext saveContext) {
                       onTap: () {
                         rs.saveFile(fileNameController.fileName.value,
                             controller.category);
-                        print("카테고리" + (controller.category).toString());
+                        print("폴더" + (controller.category).toString());
                         print("파일: " +
                             (fileNameController.fileName.value).toString());
                         Get.back();

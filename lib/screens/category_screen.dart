@@ -95,16 +95,26 @@ class _CategoryScreenState extends State<CategoryScreen> {
         builder: (BuildContext context) {
           return SafeArea(
             child: AlertDialog(
+              titlePadding: EdgeInsets.fromLTRB(24.0, 27.0, 24.0, 24.0),
+              actionsPadding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+              actionsAlignment: MainAxisAlignment.spaceAround,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(9)),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("파일 이름"),
+                  Text(
+                    "파일 이름",
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
                   TextField(
                     controller: textController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Name',
                     ),
                   ),
                 ],
@@ -113,7 +123,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 new CupertinoButton(
                     child: Text(
                       "취소",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Color(0xFFFFA9A9),
+                      ),
                     ),
                     onPressed: () {
                       setState(() {
@@ -122,11 +136,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       print('rename file cancel');
                       Navigator.pop(context);
                     }),
+                Text(
+                  '|',
+                  style: TextStyle(
+                    color: Color(0xffdadada),
+                    fontSize: 18,
+                  ),
+                ),
                 new CupertinoButton(
-                    child: Text(
-                      "확인",
-                      style: TextStyle(color: Colors.black),
-                    ),
+                    child: Text("확인",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Color(0xFFFFA9A9),
+                        )),
                     onPressed: () {
                       renameFile("/" + textController.text + ".mp3");
                       textController.clear();
@@ -221,41 +244,60 @@ class _CategoryScreenState extends State<CategoryScreen> {
         builder: (BuildContext context) {
           return SafeArea(
             child: AlertDialog(
+              titlePadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 20.0),
+              actionsPadding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+              actionsAlignment: MainAxisAlignment.spaceAround,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(9)),
-              contentPadding: EdgeInsets.fromLTRB(26, 26, 26, 26),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
                     height: 8,
                   ),
                   Text(
                     "해당 파일들을 삭제하시겠습니까?",
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 8,
                   ),
-                  Text("해당 녹음들은 영구 삭제됩니다.", style: TextStyle(fontSize: 18)),
+                  Text("해당 녹음들은 영구 삭제됩니다.",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ],
               ),
               actions: <Widget>[
                 new CupertinoButton(
                     child: Text(
                       "취소",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Color(0xFFFFA9A9),
+                      ),
                     ),
                     onPressed: () {
                       setState(() {});
                       print('delete file cancel');
                       Navigator.pop(context);
                     }),
+                Text(
+                  '|',
+                  style: TextStyle(
+                    color: Color(0xffdadada),
+                    fontSize: 18,
+                  ),
+                ),
                 new CupertinoButton(
                     child: Text(
                       "확인",
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Color(0xFFFFA9A9),
+                      ),
                     ),
                     onPressed: () {
                       deleteFile();
@@ -370,7 +412,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("카테고리 이동"),
+                  Text("폴더 이동"),
                   GetBuilder<RecordListController>(
                     init: rlController,
                     builder: (_) => WithKeepKeyboardPopupMenu(
@@ -797,7 +839,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
                 fileDataList.isEmpty
                     ? Container(
-                        margin: EdgeInsets.fromLTRB(14, 100, 0, 0),
+                        margin: EdgeInsets.fromLTRB(14, 50, 0, 0),
                         child: Column(
                           //mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -805,7 +847,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             Text(
                               '폴더가 비어있어요.',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   color: Color.fromARGB(255, 122, 112, 112)),
                             ),
@@ -815,7 +857,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             Text(
                               '엄마,아빠의 목소리를 녹음해 주세요!',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   color: Color.fromARGB(255, 122, 112, 112)),
                             ),
