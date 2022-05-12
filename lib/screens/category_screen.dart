@@ -140,6 +140,51 @@ class _CategoryScreenState extends State<CategoryScreen> {
         });
   }
 
+  void noFileChecked() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+              child: AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+            titlePadding: EdgeInsets.fromLTRB(30, 30, 20, 10),
+            title: Text(
+              '파일을 선택해 주세요.',
+              style: TextStyle(fontSize: 18),
+            ),
+            actions: <Widget>[
+              new CupertinoButton(
+                  child: Text(
+                    "확인",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Color(0xFFFFA9A9),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pop(context);
+                    });
+                  }),
+            ],
+          ));
+        });
+  }
+
+  bool isChecked = true;
+  bool isFileChecked() {
+    fileDataList.forEach((element) {
+      setState(() {
+        if (element["checked"] == true) {
+          isChecked = false;
+        }
+      });
+    });
+    return isChecked;
+  }
+
   renameFile(String newFile) {
     setState(() {
       fileDataList.forEach((element) {
@@ -1031,7 +1076,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     IconButton(
                                       onPressed: () {
                                         print("move to others");
-                                        moveFileDialog();
+                                        isFileChecked()
+                                            ? noFileChecked()
+                                            : moveFileDialog();
                                       },
                                       icon: Icon(Icons.arrow_right_alt),
                                       iconSize: 23,
@@ -1059,7 +1106,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     IconButton(
                                       onPressed: () {
                                         print("delete");
-                                        deleteFileDialog();
+                                        isFileChecked()
+                                            ? noFileChecked()
+                                            : deleteFileDialog();
                                       },
                                       icon: Icon(
                                         Icons.delete,
@@ -1088,7 +1137,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        renameFileDialog();
+                                        isFileChecked()
+                                            ? noFileChecked()
+                                            : renameFileDialog();
                                         print("rename");
                                       },
                                       icon: Icon(Icons.edit),

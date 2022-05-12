@@ -85,6 +85,51 @@ class _StorageScreenState extends State<StorageScreen> {
     setState(() {});
   }
 
+  bool isFileChecked() {
+    Directory dir;
+    List toDelete = [];
+    rlController.categoryData.forEach((element) {
+      if (element["checked"] == true) {
+        toDelete.add(element);
+      }
+    });
+    return toDelete.isEmpty;
+  }
+
+  void noFileChecked() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+              child: AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+            titlePadding: EdgeInsets.fromLTRB(30, 30, 20, 10),
+            title: Text(
+              '카테고리를 선택해 주세요.',
+              style: TextStyle(fontSize: 18),
+            ),
+            actions: <Widget>[
+              new CupertinoButton(
+                  child: Text(
+                    "확인",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Color(0xFFFFA9A9),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pop(context);
+                    });
+                    callCategoryList();
+                  }),
+            ],
+          ));
+        });
+  }
+
   void deleteCategory() {
     Directory dir;
     List toDelete = [];
@@ -507,7 +552,9 @@ class _StorageScreenState extends State<StorageScreen> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              deleteCategoryDialog();
+                              isFileChecked()
+                                  ? noFileChecked()
+                                  : deleteCategoryDialog();
                               //_editMode = !_editMode;
                               setState(() {});
                             },
@@ -517,8 +564,10 @@ class _StorageScreenState extends State<StorageScreen> {
                           ),
                           IconButton(
                             onPressed: () {
-                              renameCategoryDialog();
-                              _editMode = !_editMode;
+                              isFileChecked()
+                                  ? noFileChecked()
+                                  : renameCategoryDialog();
+                              //_editMode = !_editMode;
                             },
                             icon: Icon(Icons.edit),
                             iconSize: 40,
