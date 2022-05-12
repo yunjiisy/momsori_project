@@ -673,7 +673,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             setState(() {});
                           },
                           child: Text(
-                            '편집',
+                            _editMode ? '확인' : '편집',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -1034,17 +1034,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         moveFileDialog();
                                       },
                                       icon: Icon(Icons.arrow_right_alt),
-                                      iconSize: 30,
+                                      iconSize: 23,
                                     ),
                                     Text(
                                       "이동",
                                       style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700,
                                         color: Colors.black,
                                       ),
                                     )
                                   ],
+                                ),
+                                Text(
+                                  '|',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffdadada),
+                                    fontSize: 23,
+                                  ),
                                 ),
                                 Column(
                                   children: [
@@ -1053,18 +1061,28 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         print("delete");
                                         deleteFileDialog();
                                       },
-                                      icon: Icon(Icons.delete),
-                                      iconSize: 30,
+                                      icon: Icon(
+                                        Icons.delete,
+                                      ),
+                                      iconSize: 23,
                                     ),
                                     Text(
                                       "삭제",
                                       style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700,
                                         color: Colors.black,
                                       ),
                                     )
                                   ],
+                                ),
+                                Text(
+                                  '|',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffdadada),
+                                    fontSize: 23,
+                                  ),
                                 ),
                                 Column(
                                   children: [
@@ -1074,40 +1092,40 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         print("rename");
                                       },
                                       icon: Icon(Icons.edit),
-                                      iconSize: 30,
+                                      iconSize: 23,
                                     ),
                                     Text(
                                       "이름 변경",
                                       style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700,
                                         color: Colors.black,
                                       ),
                                     )
                                   ],
                                 ),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        _clicked = true;
-                                        _editMode = false;
-                                        setState(() {});
-                                        setupList();
-                                      },
-                                      icon: Icon(Icons.play_arrow),
-                                      iconSize: 30,
-                                    ),
-                                    Text(
-                                      "재생",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                // Column(
+                                //   children: [
+                                //     IconButton(
+                                //       onPressed: () {
+                                //         _clicked = true;
+                                //         _editMode = false;
+                                //         setState(() {});
+                                //         setupList();
+                                //       },
+                                //       icon: Icon(Icons.play_arrow),
+                                //       iconSize: 30,
+                                //     ),
+                                //     Text(
+                                //       "재생",
+                                //       style: TextStyle(
+                                //         fontSize: 16,
+                                //         fontWeight: FontWeight.w500,
+                                //         color: Colors.black,
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             )),
                       )

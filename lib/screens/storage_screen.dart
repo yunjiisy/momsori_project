@@ -417,7 +417,7 @@ class _StorageScreenState extends State<StorageScreen> {
                               setState(() {});
                             },
                             child: Text(
-                              '편집',
+                              _editMode ? '확인' : '편집',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -508,7 +508,7 @@ class _StorageScreenState extends State<StorageScreen> {
                           IconButton(
                             onPressed: () {
                               deleteCategoryDialog();
-                              _editMode = !_editMode;
+                              //_editMode = !_editMode;
                               setState(() {});
                             },
                             icon: Icon(Icons.delete_forever_sharp),
