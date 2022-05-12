@@ -8,6 +8,8 @@ import 'package:momsori/screens/category_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:momsori/getx_controller/record_list_controller.dart';
 
+import 'main_screen.dart';
+
 List<Map> fileDataList = [];
 
 class StorageScreen extends StatefulWidget {
@@ -113,56 +115,128 @@ class _StorageScreenState extends State<StorageScreen> {
     });
   }
 
+  void confirmdialog(String category) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+              child: AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+            titlePadding: EdgeInsets.fromLTRB(30, 30, 20, 10),
+            title: Text(
+              '카테고리가 생성되었습니다!',
+              style: TextStyle(fontSize: 18),
+            ),
+            actions: <Widget>[
+              new CupertinoButton(
+                  child: Text(
+                    "확인",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Color(0xFFFFA9A9),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      createCategory(textController.text);
+                      callCategoryList();
+                      Navigator.pop(context);
+                    });
+                    callCategoryList();
+                  }),
+            ],
+          ));
+        });
+  }
+
   void createCategoryDialog() {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return SafeArea(
-            child: AlertDialog(
-              title: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text("폴더 이름"),
-                  TextField(
-                    controller: textController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Name',
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return SafeArea(
+              child: AlertDialog(
+                actionsPadding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                actionsAlignment: MainAxisAlignment.spaceAround,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(9)),
+                title: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "폴더 이름",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    TextField(
+                      cursorColor: Color(0xFFFFA9A9),
+                      controller: textController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  new CupertinoButton(
+                      child: Text(
+                        "취소",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Color(0xFFFFA9A9),
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          textController.clear();
+                        });
+                        Navigator.pop(context);
+                      }),
+                  Text(
+                    '|',
+                    style: TextStyle(
+                      color: Color(0xffdadada),
+                      fontSize: 18,
                     ),
                   ),
+                  new CupertinoButton(
+                      child: Text(
+                        "확인",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Color(0xFFFFA9A9),
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          createCategory(textController.text);
+
+                          callCategoryList();
+                          Navigator.pop(context);
+                          print("전다아아아아ㅏㄹ" + textController.text);
+                          confirmdialog(textController.text);
+                          textController.clear();
+                        });
+
+                        //callCategoryList();
+
+                        //Get.back();
+                        // Navigator.pop(context);
+                        // Get.off(
+                        //   () => MainScreen(),
+                        //   arguments: 2,
+                        // );
+                      }),
                 ],
               ),
-              actions: <Widget>[
-                new CupertinoButton(
-                    child: Text(
-                      "취소",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        textController.clear();
-                      });
-                      Navigator.pop(context);
-                    }),
-                new CupertinoButton(
-                    child: Text(
-                      "확인",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    onPressed: () async {
-                      setState(() {
-                        createCategory(textController.text);
-                        textController.clear();
-                        callCategoryList();
-                      });
-                      setState(() {});
-                      Navigator.pop(context);
-                    }),
-              ],
-            ),
-          );
+            );
+          });
         });
   }
 
@@ -225,12 +299,27 @@ class _StorageScreenState extends State<StorageScreen> {
         builder: (BuildContext context) {
           return SafeArea(
             child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(9)),
+              contentPadding: EdgeInsets.fromLTRB(26, 26, 26, 26),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("해당 파일들을 삭제하시겠습니까?"),
-                  Text("해당 녹음들은 영구 삭제됩니다."),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "해당 파일들을 삭제하시겠습니까?",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "해당 녹음들은 영구 삭제됩니다.",
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ],
               ),
               actions: <Widget>[
@@ -279,7 +368,7 @@ class _StorageScreenState extends State<StorageScreen> {
   @override
   Widget build(BuildContext context) {
     final rlController = Get.put<RecordListController>(RecordListController());
-    callCategoryList();
+    //callCategoryList();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
@@ -438,11 +527,11 @@ class _StorageScreenState extends State<StorageScreen> {
                         ],
                       )
                     : Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 20, bottom: 10),
+                                const EdgeInsets.only(right: 20, bottom: 20),
                             child: TextButton(
                               onPressed: () {
                                 createCategoryDialog();
@@ -450,23 +539,10 @@ class _StorageScreenState extends State<StorageScreen> {
                                 setState(() {});
                               },
                               child: Container(
-                                height: height * 0.03,
-                                width: width * 0.3,
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 249, 217, 228),
-                                          width: 1)),
-                                ),
-                                child: Text(
-                                  '+ 카테고리 추가',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                child: SvgPicture.asset(
+                                  "assets/icons/편집.svg",
+                                  height: 55,
+                                  width: 55,
                                 ),
                               ),
                             ),

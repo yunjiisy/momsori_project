@@ -176,12 +176,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
         builder: (BuildContext context) {
           return SafeArea(
             child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(9)),
+              contentPadding: EdgeInsets.fromLTRB(26, 26, 26, 26),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("해당 파일드을 삭제하시겠습니까?"),
-                  Text("해당 녹음들은 영구 삭제됩니다."),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "해당 파일들을 삭제하시겠습니까?",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text("해당 녹음들은 영구 삭제됩니다.", style: TextStyle(fontSize: 18)),
                 ],
               ),
               actions: <Widget>[
@@ -739,21 +751,31 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ],
                 ),
                 fileDataList.isEmpty
-                    ? Expanded(
+                    ? Container(
+                        margin: EdgeInsets.fromLTRB(14, 100, 0, 0),
                         child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                              child: Text(
-                            'is Empty',
-                            style: TextStyle(
-                                fontSize: 45,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                          )),
-                        ],
-                      ))
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '폴더가 비어있어요.',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromARGB(255, 122, 112, 112)),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              '엄마,아빠의 목소리를 녹음해 주세요!',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromARGB(255, 122, 112, 112)),
+                            ),
+                          ],
+                        ))
                     : Expanded(
                         child: _editMode == false
                             ? Container(

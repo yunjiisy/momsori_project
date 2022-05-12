@@ -21,7 +21,6 @@ Widget saveDialog(BuildContext saveContext) {
   controller.callCategoryList();
   controller.update();
 
-
   return Dialog(
     backgroundColor: Colors.transparent,
     insetPadding: EdgeInsets.only(left: 15, right: 15),
@@ -168,7 +167,9 @@ Widget saveDialog(BuildContext saveContext) {
                                       Get.back();
                                       Get.dialog(
                                         addCategory(context),
-                                      ).then((value) => _.update()).then((value) => Get.dialog(saveDialog(saveContext)));
+                                      ).then((value) => _.update()).then(
+                                          (value) => Get.dialog(
+                                              saveDialog(saveContext)));
                                     },
                                     child: Center(
                                       child: Text(

@@ -1,6 +1,3 @@
-// ignore: unnecessary_import
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:momsori/screens/diary_edit.dart';
@@ -21,7 +18,6 @@ void bottomSheet(
     DateTime focusedDay,
     AudioPlayer player,
     playButtonNotifier) async {
-
   final diaryController = Get.put(DiaryController());
   late ConcatenatingAudioSource _playlist =
       ConcatenatingAudioSource(children: []);

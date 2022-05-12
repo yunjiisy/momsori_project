@@ -537,7 +537,13 @@ class DiaryEditState extends State<DiaryEdit> {
             actions: [
               TextButton(
                   onPressed: () {
+                    if (diaryController.events[widget.selectedDay]!.isEmpty ==
+                        true) {
+                      diaryController.events[widget.selectedDay]![0] =
+                          "assets/icons/No_image.svg";
+                    }
                     diaryController.update();
+
                     Get.back();
                   },
                   child: Text(
