@@ -335,6 +335,7 @@ class _StorageScreenState extends State<StorageScreen> {
                       renameCategory(textController.text);
                       textController.clear();
                       callCategoryList();
+                      _editMode = !_editMode;
                       setState(() {});
                       print('OK');
                       Navigator.pop(context);
@@ -412,6 +413,7 @@ class _StorageScreenState extends State<StorageScreen> {
                       deleteCategory();
                       setState(() {});
                       callCategoryList();
+                      _editMode = !_editMode;
                       print('delete file ok');
                       Navigator.pop(context);
                     }),

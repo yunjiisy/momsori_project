@@ -154,6 +154,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       renameFile("/" + textController.text + ".mp3");
                       textController.clear();
                       setState(() {});
+                      //\_editMode = !_editMode;
                       print('rename file ok');
                       Navigator.pop(context);
                     }),
@@ -202,6 +203,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       setState(() {
         if (element["checked"] == true) {
           isChecked = false;
+          print(isChecked);
         }
       });
     });
@@ -223,6 +225,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
         }
       });
     });
+  }
+
+  deleteFile2() {
+    Directory dir;
+    File tmpFile;
+    List toDelete = [];
+    fileDataList.forEach((element) {
+      if (element["checked"] == true) {
+        toDelete.add(element);
+        tmpFile = File(element["path"]);
+        tmpFile.delete(recursive: true);
+      }
+    });
+    fileDataList.removeWhere((element) => toDelete.contains(element));
+    setState(() {});
   }
 
   deleteFile() {
@@ -300,9 +317,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                     ),
                     onPressed: () {
-                      deleteFile();
+                      deleteFile2();
                       setState(() {});
                       print('delete file ok');
+                      _editMode = !_editMode;
                       Navigator.pop(context);
                     }),
               ],
@@ -529,6 +547,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       textController.clear();
                       setState(() {});
                       print('OK');
+                      _editMode = !_editMode;
                       Navigator.pop(context);
                     }),
               ],
@@ -1117,36 +1136,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        print("move to others");
-                                        isFileChecked()
-                                            ? noFileChecked()
-                                            : moveFileDialog();
-                                      },
-                                      icon: Icon(Icons.arrow_right_alt),
-                                      iconSize: 23,
-                                    ),
-                                    Text(
-                                      "이동",
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Text(
-                                  '|',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffdadada),
-                                    fontSize: 23,
-                                  ),
-                                ),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
+                                        print('isFileChecked()');
                                         print("delete");
                                         isFileChecked()
                                             ? noFileChecked()

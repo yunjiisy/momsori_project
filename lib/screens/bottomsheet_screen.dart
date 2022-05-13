@@ -325,9 +325,10 @@ void bottomSheet(
                                                           width: width * 0.087,
                                                           height: width * 0.087,
                                                           child:
-                                                              const CircularProgressIndicator(
-                                                            color: Color(
-                                                                0xffffa9a9),
+                                                              SvgPicture.asset(
+                                                            'assets/icons/play_arrow-24px_3.svg',
+                                                            width:
+                                                                width * 0.087,
                                                           ),
                                                         );
                                                       case ButtonState.paused:

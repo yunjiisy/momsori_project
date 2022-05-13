@@ -119,7 +119,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   //   ),
                   // ),
                   Container(
-                    padding: EdgeInsets.only(top: 22.h, left: 50.w),
+                    padding: EdgeInsets.only(top: 22.h, left: 20.w),
                     child: InkWell(
                       onTap: () {
                         Get.to(
